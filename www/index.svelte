@@ -1,1 +1,1 @@
-<h3>hello world</h3>
+<img alt="Image of acqua frizzante" src="/acqua-frizzante.webp">

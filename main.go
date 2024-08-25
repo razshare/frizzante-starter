@@ -7,38 +7,17 @@ func main() {
 	server := ServerCreate()
 	ServerWithInterface(server, "127.0.0.1")
 	ServerWithPort(server, 8080)
+	ServerWithTemporaryDirectory(server, ".temp")
+	ServerWithNodeModulesDirectory(server, "node_modules")
+	ServerWithFileServer(server, "GET /", "www")
 
 	// Logging.
 	ServerOnError(server, func(err error) {
-		println("Error -", err.Error())
+		ServerLogError(server, err)
 	})
 	ServerOnInformation(server, func(information string) {
-		println("Information -", information)
+		ServerLogInformation(server, information)
 	})
-
-	// Workspace.
-	workspace := WorkspaceCreate()
-	WorkspaceWithTemporaryDirectory(workspace, ".temp")
-	WorkspaceWithNodeModulesDirectory(workspace, "node_modules")
-	render, compileError := WorkspaceCompileSvelte(workspace, "index.svelte")
-	if compileError != nil {
-		println(compileError.Error())
-		return
-	}
-
-	// Route.
-	ServerOnRequest(
-		server, "GET", "/", func(server *Server, request *Request, response *Response) {
-			html, renderError := render(map[string]any{
-				"name": "world",
-			})
-			if nil != renderError {
-				ServerNotifyError(server, renderError)
-				return
-			}
-			Echo(response, html)
-		},
-	)
 
 	// Start.
 	startError := ServerStart(server)

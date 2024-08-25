@@ -30,7 +30,9 @@ func main() {
 
 	// Route.
 	ServerOnRequest(server, "GET", "/", func(request *Request, response *Response) {
-		html, renderError := render(map[string]any{})
+		html, renderError := render(map[string]any{
+			"name": "world",
+		})
 		if renderError != nil {
 			ServerNotifyResponseError(server, request, response, renderError)
 			return

@@ -20,7 +20,7 @@ func main() {
 
 	// Workspace.
 	workspace := WorkspaceCreate()
-	WorkspaceWithTemporaryDirectory(workspace, "temp")
+	WorkspaceWithTemporaryDirectory(workspace, ".temp")
 	WorkspaceWithNodeModulesDirectory(workspace, "node_modules")
 	render, compileError := WorkspaceCompileSvelte(workspace, "index.svelte")
 	if compileError != nil {

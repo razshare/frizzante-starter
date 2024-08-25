@@ -5,12 +5,10 @@ import . "github.com/razshare/frizzante"
 func main() {
 	// Setup.
 	server := ServerCreate()
+	ServerWithInterface(server, "127.0.0.1")
 	ServerWithPort(server, 8080)
 
 	// Logging.
-	ServerOnResponseError(server, func(request *Request, response *Response, err error) {
-		println("Response Error -", err.Error())
-	})
 	ServerOnError(server, func(err error) {
 		println("Error -", err.Error())
 	})
@@ -29,16 +27,18 @@ func main() {
 	}
 
 	// Route.
-	ServerOnRequest(server, "GET", "/", func(request *Request, response *Response) {
-		html, renderError := render(map[string]any{
-			"name": "world",
-		})
-		if renderError != nil {
-			ServerNotifyResponseError(server, request, response, renderError)
-			return
-		}
-		Echo(response, html)
-	})
+	ServerOnRequest(
+		server, "GET", "/about", func(server *Server, request *Request, response *Response) {
+			html, renderError := render(map[string]any{
+				"name": "world",
+			})
+			if nil != renderError {
+				ServerNotifyError(server, renderError)
+				return
+			}
+			Echo(response, html)
+		},
+	)
 
 	// Start.
 	startError := ServerStart(server)

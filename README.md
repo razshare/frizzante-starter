@@ -1,6 +1,6 @@
 # Frizzante Example
 
-This is an example of how to use frizzante to render [Svelte](https://svelte.dev/) components using V8 bindings.
+This is an example of how to use [frizzante](https://github.com/razshare/frizzante) to render [Svelte](https://svelte.dev/) components using V8 bindings.
 
 1. Install your dependencies.
    ```sh

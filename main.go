@@ -28,7 +28,7 @@ func main() {
 
 	// Route.
 	ServerOnRequest(
-		server, "GET", "/about", func(server *Server, request *Request, response *Response) {
+		server, "GET", "/", func(server *Server, request *Request, response *Response) {
 			html, renderError := render(map[string]any{
 				"name": "world",
 			})

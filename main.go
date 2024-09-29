@@ -24,12 +24,11 @@ func main() {
 
 	// Setup.
 	server := ServerCreate()
-	ServerWithInterface(server, "127.0.0.1")
+	ServerWithHostname(server, "127.0.0.1")
 	ServerWithPort(server, 8080)
 	ServerWithTemporaryDirectory(server, temp)
 	ServerWithNodeModulesDirectory(server, nodeModules)
-
-	ServerWithFileServer(server, "GET /", www)
+	ServerWithSvelteDirectory(server, "GET /", www)
 
 	// Logging.
 	ServerOnError(server, func(err error) {

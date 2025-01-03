@@ -1,34 +1,21 @@
 package main
 
-import . "github.com/razshare/frizzante"
-import "path/filepath"
-
-var temp, tempError = filepath.Abs(".temp")
-var www, wwwError = filepath.Abs("www")
-var nodeModules, nodeModulesError = filepath.Abs("node_modules")
+import (
+	. "github.com/razshare/frizzante"
+)
 
 func main() {
-	// Check for errors.
-	if nil != tempError {
-		println(tempError.Error())
-		return
-	}
-	if nil != wwwError {
-		println(wwwError.Error())
-		return
-	}
-	if nil != nodeModulesError {
-		println(nodeModulesError.Error())
-		return
-	}
-
 	// Setup.
 	server := ServerCreate()
 	ServerWithHostname(server, "127.0.0.1")
 	ServerWithPort(server, 8080)
-	ServerWithTemporaryDirectory(server, temp)
-	ServerWithNodeModulesDirectory(server, nodeModules)
-	ServerWithSvelteDirectory(server, "GET /", www)
+	ServerWithTemporaryDirectory(server, ".temp")
+	ServerClearTemporaryDirectory(server)
+
+	// Routes.
+	ServerOnRequest(server, "GET /", func(server *Server, request *Request, response *Response) {
+		Svelte(response, "/index", "<h3>hello</h3>")
+	})
 
 	// Logging.
 	ServerOnError(server, func(err error) {

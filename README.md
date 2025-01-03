@@ -9,7 +9,7 @@ This is an example of how to use [frizzante](https://github.com/razshare/frizzan
 
 2. Install your dependencies.
    ```sh
-   npm i && \\
+   bun i && \\
    go mod tidy
    ```
 3. Run the server.

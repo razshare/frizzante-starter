@@ -19,6 +19,7 @@
     "paths": {
       "$components/*": ["./$components/*"],
       "$scripts/*": ["./$scripts/*"]
-    }
+    },
+    "exclude": ["./node_modules"]
   }
 }

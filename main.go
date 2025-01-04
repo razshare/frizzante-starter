@@ -13,15 +13,14 @@ func main() {
 	frz.ServerWithTemporaryDirectory(server, "ui/.temp")
 	frz.ServerClearTemporaryDirectory(server)
 
-	frz.ServerOnRequest(server, "GET /hello", func(Server *frz.Server, request *frz.Request, response *frz.Response) {
-		frz.Echo(response, "hello")
-	})
-
 	// Route.
 	frz.ServerOnRequest(server, "GET /", func(server *frz.Server, request *frz.Request, response *frz.Response) {
 		frz.SvelteComponent(response, "$pages/home", map[string]interface{}{
 			"name": "world",
 		})
+	})
+	frz.ServerOnRequest(server, "GET /hello", func(Server *frz.Server, request *frz.Request, response *frz.Response) {
+		frz.Echo(response, "hello")
 	})
 
 	// Log.

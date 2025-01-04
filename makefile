@@ -1,5 +1,5 @@
 configure:
-	curl -fsSL https://bun.sh/install | bash
+	which bun || (curl -fsSL https://bun.sh/install | bash)
 
 load: ui/package.json go.mod
 	cd ui && bun update

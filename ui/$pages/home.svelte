@@ -16,8 +16,8 @@
 
 <script>
     import Greeting from '$components/greeting.svelte'
-    import {data} from "$scripts/data.js";
-    const d = data()
+    import {moreData} from "$scripts/moreData.js";
+    const d = moreData()
 </script>
 
 <svelte:head>
@@ -29,6 +29,5 @@
 </svelte:head>
 
 <div class="content">
-    <p>data:{d.name}</p>
-    <Greeting />
+    <Greeting {...d} />
 </div>

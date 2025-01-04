@@ -1,1 +1,5 @@
-<h1>Hello.</h1>
+<script>
+    let {name} = $props()
+</script>
+
+<h1>Hello {name}.</h1>

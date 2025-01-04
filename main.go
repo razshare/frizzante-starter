@@ -1,35 +1,37 @@
 package main
 
-import (
-	. "github.com/razshare/frizzante"
-)
+import frz "github.com/razshare/frizzante"
 
 func main() {
 	// Create server.
-	server := ServerCreate()
+	server := frz.ServerCreate()
 
 	// Configure.
-	ServerWithHostname(server, "127.0.0.1")
-	ServerWithPort(server, 8080)
-	ServerWithUiDirectory(server, "ui")
-	ServerWithTemporaryDirectory(server, "ui/.temp")
-	ServerClearTemporaryDirectory(server)
+	frz.ServerWithHostname(server, "127.0.0.1")
+	frz.ServerWithPort(server, 8080)
+	frz.ServerWithUiDirectory(server, "ui")
+	frz.ServerWithTemporaryDirectory(server, "ui/.temp")
+	frz.ServerClearTemporaryDirectory(server)
+
+	frz.ServerOnRequest(server, "GET /hello", func(Server *frz.Server, request *frz.Request, response *frz.Response) {
+		frz.Echo(response, "hello")
+	})
 
 	// Route.
-	ServerOnRequest(server, "GET /", func(server *Server, request *Request, response *Response) {
-		SvelteComponent(response, "$pages/home", map[string]interface{}{
+	frz.ServerOnRequest(server, "GET /", func(server *frz.Server, request *frz.Request, response *frz.Response) {
+		frz.SvelteComponent(response, "$pages/home", map[string]interface{}{
 			"name": "world",
 		})
 	})
 
 	// Log.
-	ServerOnError(server, func(err error) {
-		ServerLogError(server, err)
+	frz.ServerOnError(server, func(err error) {
+		frz.ServerLogError(server, err)
 	})
-	ServerOnInformation(server, func(information string) {
-		ServerLogInformation(server, information)
+	frz.ServerOnInformation(server, func(information string) {
+		frz.ServerLogInformation(server, information)
 	})
 
 	// Start.
-	ServerStart(server)
+	frz.ServerStart(server)
 }

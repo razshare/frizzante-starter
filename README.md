@@ -1,19 +1,29 @@
-# Frizzante Example
+# Get started
 
-This is an example of how to use [frizzante](https://github.com/razshare/frizzante) to render [Svelte](https://svelte.dev/) components using V8 bindings.
+Configure the project
+```bash
+make configure
+```
 
-1. Enable CGO
-   ```sh
-   go env -w CGO_ENABLED='1'
-   ```
+> [!NOTE]
+> This will install [Bun](https://bun.sh).\
+> If you'd rather use a different runtime see [makefile](./makefile), section `configure`.
 
-2. Install your dependencies.
-   ```sh
-   bun i && \\
-   go mod tidy
-   ```
-3. Run the server.
-   ```sh
-   go run main.go
-   ```
-4. Visit http://127.0.0.1:8080
+Load dependencies
+
+```bash
+make load
+```
+
+And finally, either start or build your project
+
+```bash
+make start
+```
+
+```bash
+make build
+```
+
+> [!NOTE]
+> The `ui` directory is not embedded into the final executable.

@@ -11,8 +11,8 @@ clean:
 	rm ui/.temp -fr
 	rm ui/node_modules -fr
 
-start: main.go
+start: load main.go
 	CGO_ENABLED=1 go run main.go
 
-build: main.go
+build: load main.go
 		CGO_ENABLED=1 go build main.go && mkdir out -p && mv main out/frizzante

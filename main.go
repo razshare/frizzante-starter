@@ -5,19 +5,22 @@ import (
 )
 
 func main() {
-	// Setup.
+	// Create server.
 	server := ServerCreate()
+
+	// Configure.
 	ServerWithHostname(server, "127.0.0.1")
 	ServerWithPort(server, 8080)
-	ServerWithTemporaryDirectory(server, ".temp")
+	ServerWithUiDirectory(server, "ui")
+	ServerWithTemporaryDirectory(server, "ui/.temp")
 	ServerClearTemporaryDirectory(server)
 
-	// Routes.
+	// Route.
 	ServerOnRequest(server, "GET /", func(server *Server, request *Request, response *Response) {
-		Svelte(response, "/index", "<h3>hello</h3>")
+		SvelteComponent(response, "pages/home")
 	})
 
-	// Logging.
+	// Log.
 	ServerOnError(server, func(err error) {
 		ServerLogError(server, err)
 	})
@@ -26,9 +29,5 @@ func main() {
 	})
 
 	// Start.
-	startError := ServerStart(server)
-	if startError != nil {
-		println(startError.Error())
-		return
-	}
+	ServerStart(server)
 }

@@ -16,8 +16,8 @@
 
 <script>
     import Greeting from '$components/greeting.svelte'
-    import {moreData} from "$scripts/moreData.js";
-    const d = moreData()
+    import { data } from "$scripts/data.js";
+    const d = data()
 </script>
 
 <svelte:head>

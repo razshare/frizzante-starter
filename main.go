@@ -17,7 +17,9 @@ func main() {
 
 	// Route.
 	ServerOnRequest(server, "GET /", func(server *Server, request *Request, response *Response) {
-		SvelteComponent(response, "pages/home")
+		SvelteComponent(response, "pages/home", map[string]interface{}{
+			"name": "world",
+		})
 	})
 
 	// Log.

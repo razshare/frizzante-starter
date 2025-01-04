@@ -15,7 +15,9 @@
 </style>
 
 <script>
-    import Greeting from './components/greeting.svelte'
+    import Greeting from '$components/greeting.svelte'
+    import {data} from "$scripts/data.js";
+    const d = data()
 </script>
 
 <svelte:head>
@@ -27,5 +29,6 @@
 </svelte:head>
 
 <div class="content">
+    <p>data:{d.name}</p>
     <Greeting />
 </div>

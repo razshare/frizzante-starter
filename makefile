@@ -17,4 +17,4 @@ start: update main.go
 	CGO_ENABLED=1 go run main.go
 
 build: update main.go
-		CGO_ENABLED=1 go build main.go && mkdir out -p && mv main out/frizzante
+		CGO_ENABLED=1 go build main.go && mkdir out -p && mv main out/app

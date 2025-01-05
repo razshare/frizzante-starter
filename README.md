@@ -27,7 +27,7 @@ make build
 > The `www/dist` directory is embedded, which makes the final executable completely portable.
 >
 > That being said, you can still create a "www/dist" directory near your executable.\
-> Whenever a request is trying to access a file missing from the embedded file system, the server will fall
+> Whenever the server will try to access a file missing from the embedded file system, the server will fall
 > back to the nearby "www/dist" directory instead.
 
 > [!NOTE]

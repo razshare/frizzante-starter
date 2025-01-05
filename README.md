@@ -1,8 +1,16 @@
 # Get started
 
 > [!NOTE]
-> This project uses the [Bun](https://bun.sh) runtime for updating dependencies.\
+> Make sure you have [Go installed and visible in your path](https://go.dev/doc/install).
+
+> [!NOTE]
+> This project uses the [Bun](https://bun.sh) runtime for updating javascript dependencies,
+> so make sure Bun is also installed.\
 > If you'd rather use a different runtime see [makefile, section "update"](./makefile#L1-L6).
+
+> [!NOTE]
+> Bun itself is not required for your application to run,
+> it's only required when building your application with Vite.\
 
 Update dependencies
 

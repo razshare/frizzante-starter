@@ -1,26 +1,32 @@
 package main
 
-import frz "github.com/razshare/frizzante"
+import (
+	"embed"
+	frz "github.com/razshare/frizzante"
+)
+
+//go:embed www/dist/*
+var embeddedFileSystem embed.FS
 
 func main() {
-	// Create server.
+	// Create.
 	server := frz.ServerCreate()
 
 	// Configure.
-	frz.ServerWithHostname(server, "127.0.0.1")
 	frz.ServerWithPort(server, 8080)
-	frz.ServerWithUiDirectory(server, "ui")
-	frz.ServerWithTemporaryDirectory(server, "ui/.temp")
+	frz.ServerWithHostname(server, "127.0.0.1")
+	frz.ServerWithEmbeddedFileSystem(server, embeddedFileSystem)
+	frz.ServerWithTemporaryDirectory(server, ".temp")
 	frz.ServerClearTemporaryDirectory(server)
-
 	// Route.
-	frz.ServerOnRequest(server, "GET /", func(server *frz.Server, request *frz.Request, response *frz.Response) {
-		frz.SvelteComponent(response, "$pages/home", map[string]interface{}{
-			"name": "world",
+	frz.ServerOnRequest(server, "GET /", func(Server *frz.Server, request *frz.Request, response *frz.Response) {
+		frz.EmbeddedFileOrElse(request, response, func() {
+			frz.FileOrElse(request, response, func() {
+				frz.EchoSvelte(response, map[string]interface{}{
+					"name": "world",
+				})
+			})
 		})
-	})
-	frz.ServerOnRequest(server, "GET /hello", func(Server *frz.Server, request *frz.Request, response *frz.Response) {
-		frz.Echo(response, "hello")
 	})
 
 	// Log.

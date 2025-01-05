@@ -1,25 +1,22 @@
 # Get started
 
-Configure the project
-```bash
-make configure
-```
-
 > [!NOTE]
-> This will install [Bun](https://bun.sh).\
-> If you'd rather use a different runtime see [makefile](./makefile), section `configure`.
+> This project uses the [Bun](https://bun.sh) runtime.\
+> If you'd rather use a different runtime see [makefile](./makefile), section `update`.
 
-Load dependencies
+Update dependencies
 
 ```bash
-make load
+make update
 ```
 
-And finally, either start or build your project
+Then start the server
 
 ```bash
 make start
 ```
+
+or build it
 
 ```bash
 make build

@@ -1,16 +1,9 @@
 # Get started
 
 > [!NOTE]
-> Make sure you have [Go installed and visible in your path](https://go.dev/doc/install).
-
-> [!NOTE]
-> This project uses the [Bun](https://bun.sh) runtime for updating javascript dependencies,
-> so make sure Bun is also installed.\
-> If you'd rather use a different runtime see [makefile, section "update"](https://github.com/razshare/frizzante-starter/blob/master/makefile#L1-L6).
-
-> [!NOTE]
-> Bun itself is not required for your application to run,
-> it's only required when building your application with Vite.\
+> Make sure you have [Go](https://go.dev/doc/install) and [Bun](https://bun.sh) installed.\
+> If you'd rather use a different runtime then Bun to update your dependencies,
+> see [makefile, section "update"](https://github.com/razshare/frizzante-starter/blob/master/makefile#L1-L6).
 
 Update dependencies
 

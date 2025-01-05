@@ -23,7 +23,7 @@ make build
 ```
 
 > [!NOTE]
-> The `www/dist` directory is embedded, which makes the final executable completely standalone.\
+> The `www/dist` directory is embedded, which makes the final executable completely portable.
 >
 > That being said, you can still create a "www/dist" directory near your executable.\
 > Whenever a request is trying to access a file missing from the embedded file system, the server will fall

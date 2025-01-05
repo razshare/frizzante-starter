@@ -9,6 +9,8 @@ clean:
 	go clean
 	rm out -fr
 	rm www/.temp -fr
+	rm www/dist/server -fr
+	rm www/dist/client -fr
 	rm www/node_modules -fr
 
 start: update main.go

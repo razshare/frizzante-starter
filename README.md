@@ -29,3 +29,7 @@ make build
 > That being said, you can still create a "www/dist" directory near your executable.\
 > Whenever a request is trying to access a file missing from the embedded file system, the server will fall
 > back to the nearby "www/dist" directory instead.
+
+> [!NOTE]
+> This project is aimed mainly at linux distributions.\
+> Feel free to contribute any fixes for other platforms.

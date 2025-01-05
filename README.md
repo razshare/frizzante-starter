@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > Make sure you have [Go](https://go.dev/doc/install) and [Bun](https://bun.sh) installed.\
-> If you'd rather use a different runtime then Bun to update your dependencies,
+> If you'd rather use a different runtime than Bun to update your javascript dependencies,
 > see [makefile, section "update"](https://github.com/razshare/frizzante-starter/blob/master/makefile#L1-L6).
 
 Update dependencies

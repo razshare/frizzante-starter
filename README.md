@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > This project uses the [Bun](https://bun.sh) runtime for updating dependencies.\
-> If you'd rather use a different runtime see [makefile](./makefile), section `update`.
+> If you'd rather use a different runtime see [makefile, section "update"](./makefile#L1-L6).
 
 Update dependencies
 

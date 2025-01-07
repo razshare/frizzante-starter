@@ -14,7 +14,7 @@ func main() {
 
 	// Configure.
 	frz.ServerWithPort(server, 8080)
-	frz.ServerWithHostname(server, "127.0.0.1")
+	frz.ServerWithHostName(server, "127.0.0.1")
 	frz.ServerWithEmbeddedFileSystem(server, embeddedFileSystem)
 	frz.ServerWithTemporaryDirectory(server, ".temp")
 	frz.ServerClearTemporaryDirectory(server)

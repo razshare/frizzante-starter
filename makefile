@@ -22,10 +22,12 @@ build: update main.go
 test:
 	go test
 
+certificate-interactive:
+	openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out certificate.pem
+
 certificate:
-	openssl genrsa -out server.key 2048
-	openssl ecparam -genkey -name secp384r1 -out server.key
-	openssl req -new -x509 -sha256 -key server.key -out server.crt -days 3650
+	openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out certificate.pem -nodes -subj \
+	"/C=XX/ST=Test/L=Test/O=Test/OU=Test/CN=Test"
 
 hooks:
 	printf "#!/usr/bin/env bash\n" > .git/hooks/pre-commit

@@ -14,13 +14,19 @@ func main() {
 
 	// Configure.
 	frz.ServerWithPort(server, 8080)
+	frz.ServerWithSecurePort(server, 8383)
 	frz.ServerWithHostName(server, "127.0.0.1")
 	frz.ServerWithEmbeddedFileSystem(server, embeddedFileSystem)
 	frz.ServerWithTemporaryDirectory(server, ".temp")
 	frz.ServerClearTemporaryDirectory(server)
+	//frz.ServerWithCertificateAndKey(server, "cert.pem", "key.pem")
 
 	// Route.
 	frz.ServerOnRequest(server, "GET /", func(Server *frz.Server, request *frz.Request, response *frz.Response) {
+		if frz.RedirectToSecure(request, response) {
+			return
+		}
+
 		frz.EmbeddedFileOrElse(request, response, func() {
 			frz.FileOrElse(request, response, func() {
 				frz.EchoSvelte(response, map[string]interface{}{

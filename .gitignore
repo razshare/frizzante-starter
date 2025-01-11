@@ -176,5 +176,10 @@ out
 # Bun
 bun.lockb
 
+# Certificates
+*.pem
+*.crt
+*.key
+
 # Frizzante
 /out

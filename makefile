@@ -1,5 +1,6 @@
 update: www/package.json go.mod
 	mkdir www/dist -p
+	touch www/dist/.gitkeep
 	go mod tidy
 	go run prepare/main.go
 	cd www && bun update
@@ -18,6 +19,8 @@ clean:
 	rm www/dist/server -fr
 	rm www/dist/client -fr
 	rm www/node_modules -fr
+	mkdir www/dist -p
+	touch www/dist/.gitkeep
 
 start: main.go
 	CGO_ENABLED=1 go run main.go

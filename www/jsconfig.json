@@ -11,17 +11,13 @@
     "skipLibCheck": true,
     "checkJs": true,
     "paths": {
-      "$lib/*": ["./lib/*"],
-      "$pages/*": ["./pages/*"]
+      "$lib/*": ["./lib/*"]
     }
   },
   "include": [
     "lib/**/*.d.ts",
     "lib/**/*.d.ts",
     "lib/**/*.js",
-    "pages/**/*.js",
-    "pages/**/*.svelte",
-    "pages/**/*.svelte",
     "index.svelte",
     "render.server.js",
     "render.client.js"

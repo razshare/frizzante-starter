@@ -1,7 +1,7 @@
 update: www/package.json go.mod
 	mkdir www/dist -p
 	go mod tidy
-	go run main.prepare.go
+	go run prepare/main.go
 	cd www && bun update
 	cd www && bunx vite build --ssr frizzante/vite-project/render.server.js --outDir dist/server --emptyOutDir
 	cd www && ./node_modules/.bin/esbuild dist/server/render.server.js --bundle --outfile=dist/server/render.server.js --format=esm --allow-overwrite

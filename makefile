@@ -23,10 +23,10 @@ test:
 	go test
 
 certificate-interactive:
-	openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out certificate.pem
+	openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
 
 certificate:
-	openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out certificate.pem -nodes -subj \
+	openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem -nodes -subj \
 	"/C=XX/ST=Test/L=Test/O=Test/OU=Test/CN=Test"
 
 hooks:

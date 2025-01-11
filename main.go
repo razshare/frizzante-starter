@@ -19,7 +19,7 @@ func main() {
 	frz.ServerWithEmbeddedFileSystem(server, embeddedFileSystem)
 	frz.ServerWithTemporaryDirectory(server, ".temp")
 	frz.ServerClearTemporaryDirectory(server)
-	//frz.ServerWithCertificateAndKey(server, "cert.pem", "key.pem")
+	frz.ServerWithCertificateAndKey(server, "cert.pem", "key.pem")
 
 	// Route.
 	frz.ServerOnRequest(server, "GET /", func(Server *frz.Server, request *frz.Request, response *frz.Response) {
@@ -29,8 +29,11 @@ func main() {
 
 		frz.EmbeddedFileOrElse(request, response, func() {
 			frz.FileOrElse(request, response, func() {
-				frz.EchoSvelte(response, map[string]interface{}{
-					"name": "world",
+				frz.Svelte(response, frz.SvelteOptions{
+					Ssr: true,
+					Props: map[string]interface{}{
+						"name": "world",
+					},
 				})
 			})
 		})

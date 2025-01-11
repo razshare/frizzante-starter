@@ -25,8 +25,8 @@ clean:
 start: main.go
 	CGO_ENABLED=1 go run main.go
 
-build: main.go
-	CGO_ENABLED=1 go build main.go && mkdir out -p && mv server out/app
+build: clean update main.go
+	CGO_ENABLED=1 go build main.go && mkdir out -p && mv main out/app
 
 test:
 	go test

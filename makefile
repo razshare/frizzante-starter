@@ -1,23 +1,27 @@
 update: www/package.json go.mod
-	cd www && bun update
-	cd www && bunx vite build --ssr render.server.js --outDir dist/server
-	cd www && ./node_modules/.bin/esbuild dist/server/render.server.js --bundle --outfile=dist/server/render.server.js --format=esm --allow-overwrite
-	cd www && bunx vite build --outDir dist/client
+	mkdir www/dist -p
 	go mod tidy
+	cd www && bun update
+	cd www && bunx vite build --ssr render.server.js --outDir dist/server --emptyOutDir
+	cd www && ./node_modules/.bin/esbuild dist/server/render.server.js --bundle --outfile=dist/server/render.server.js --format=esm --allow-overwrite
+	cd www && bunx vite build --outDir dist/client --emptyOutDir
 
 clean:
 	go clean
+	rm cert.pem -f
+	rm key.pem -f
 	rm out -fr
 	rm www/.temp -fr
 	rm www/dist/server -fr
 	rm www/dist/client -fr
 	rm www/node_modules -fr
+	rm www/vite.config.input.json -f
 
 start: update main.go
 	CGO_ENABLED=1 go run main.go
 
-build: update main.go
-		CGO_ENABLED=1 go build main.go && mkdir out -p && mv main out/app
+build: clean update main.go
+		CGO_ENABLED=1 go build main.go && mkdir out -p && mv server out/app
 
 test:
 	go test

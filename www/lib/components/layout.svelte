@@ -15,8 +15,7 @@
 </style>
 
 <script>
-    import Greeting from '$lib/components/greeting.svelte'
-    const { name } = $props()
+    const { name, children } = $props()
 </script>
 
 <svelte:head>
@@ -26,5 +25,5 @@
 </svelte:head>
 
 <div class="content">
-    <Greeting {name} />
+    {@render children()}
 </div>

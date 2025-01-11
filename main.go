@@ -23,9 +23,10 @@ func main() {
 	frz.ServerOnRequest(server, "GET /", func(Server *frz.Server, request *frz.Request, response *frz.Response) {
 		frz.EmbeddedFileOrElse(request, response, func() {
 			frz.FileOrElse(request, response, func() {
-				frz.Svelte(response, frz.SvelteOptions{
+				frz.SveltePage(response, &frz.SveltePageOptions{
 					Ssr: true,
 					Props: map[string]interface{}{
+						"page": "counter",
 						"name": "world",
 					},
 				})

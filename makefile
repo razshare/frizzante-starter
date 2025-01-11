@@ -12,11 +12,11 @@ clean:
 	rm cert.pem -f
 	rm key.pem -f
 	rm out -fr
+	rm www/frizzante -fr
 	rm www/.temp -fr
 	rm www/dist/server -fr
 	rm www/dist/client -fr
 	rm www/node_modules -fr
-	rm www/vite.config.input.json -f
 
 start: update main.go
 	CGO_ENABLED=1 go run main.go

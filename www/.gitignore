@@ -23,5 +23,6 @@ dist-ssr
 *.sw?
 
 # Build
+/frizzante/*
 /dist/*
 /!dist/.gitkeep

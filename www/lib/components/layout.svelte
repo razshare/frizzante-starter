@@ -15,7 +15,7 @@
 </style>
 
 <script>
-    const { name, children } = $props()
+    const { children } = $props()
 </script>
 
 <svelte:head>

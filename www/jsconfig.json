@@ -18,8 +18,9 @@
     "lib/**/*.d.ts",
     "lib/**/*.d.ts",
     "lib/**/*.js",
-    "index.svelte",
-    "render.server.js",
-    "render.client.js"
+    "lib/.internal/render.client.svelte",
+    "lib/.internal/render.server.svelte",
+    "lib/.internal/render.server.js",
+    "lib/.internal/render.client.spa.js"
   ]
 }

@@ -5,4 +5,5 @@
 </script>
 <Layout>
     <Greeting {name} />
+    <a href="/about">Go to about</a>
 </Layout>

@@ -20,13 +20,23 @@ func main() {
 	frz.ServerClearTemporaryDirectory(server)
 
 	// Route.
+	frz.ServerOnRequest(server, "GET /about", func(Server *frz.Server, request *frz.Request, response *frz.Response) {
+		frz.SveltePage(response, &frz.SveltePageOptions{
+			Ssr: true,
+			Props: map[string]interface{}{
+				"page": "about",
+				"name": "world",
+			},
+		})
+	})
+
 	frz.ServerOnRequest(server, "GET /", func(Server *frz.Server, request *frz.Request, response *frz.Response) {
 		frz.EmbeddedFileOrElse(request, response, func() {
 			frz.FileOrElse(request, response, func() {
 				frz.SveltePage(response, &frz.SveltePageOptions{
 					Ssr: true,
 					Props: map[string]interface{}{
-						"page": "counter",
+						"page": "welcome",
 						"name": "world",
 					},
 				})

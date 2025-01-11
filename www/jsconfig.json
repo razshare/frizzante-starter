@@ -17,10 +17,6 @@
   "include": [
     "lib/**/*.d.ts",
     "lib/**/*.d.ts",
-    "lib/**/*.js",
-    "lib/.internal/render.client.svelte",
-    "lib/.internal/render.server.svelte",
-    "lib/.internal/render.server.js",
-    "lib/.internal/render.client.spa.js"
+    "lib/**/*.js"
   ]
 }

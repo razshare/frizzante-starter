@@ -6,6 +6,7 @@ update: www/package.json go.mod
 	cd www && bunx vite build --ssr frizzante/vite-project/render.server.js --outDir dist/server --emptyOutDir
 	cd www && ./node_modules/.bin/esbuild dist/server/render.server.js --bundle --outfile=dist/server/render.server.js --format=esm --allow-overwrite
 	cd www && bunx vite build --outDir dist/client --emptyOutDir
+	rm www/frizzante -fr
 
 clean:
 	go clean
@@ -18,11 +19,11 @@ clean:
 	rm www/dist/client -fr
 	rm www/node_modules -fr
 
-start: update main.go
+start: main.go
 	CGO_ENABLED=1 go run main.go
 
-build: clean update main.go
-		CGO_ENABLED=1 go build main.go && mkdir out -p && mv server out/app
+build: main.go
+	CGO_ENABLED=1 go build main.go && mkdir out -p && mv server out/app
 
 test:
 	go test

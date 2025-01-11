@@ -173,9 +173,6 @@ out
 # Finder (MacOS) folder config
 .DS_Store
 
-# Bun
-bun.lockb
-
 # Certificates
 *.pem
 *.crt

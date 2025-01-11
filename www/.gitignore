@@ -22,7 +22,10 @@ dist-ssr
 *.sln
 *.sw?
 
+# Bun
+bun.lockb
+
 # Build
 /frizzante/*
 /dist/*
-/!dist/.gitkeep
+!/dist/.gitkeep

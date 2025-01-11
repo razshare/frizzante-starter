@@ -19,14 +19,9 @@ func main() {
 	frz.ServerWithEmbeddedFileSystem(server, embeddedFileSystem)
 	frz.ServerWithTemporaryDirectory(server, ".temp")
 	frz.ServerClearTemporaryDirectory(server)
-	frz.ServerWithCertificateAndKey(server, "cert.pem", "key.pem")
 
 	// Route.
 	frz.ServerOnRequest(server, "GET /", func(Server *frz.Server, request *frz.Request, response *frz.Response) {
-		if frz.RedirectToSecure(request, response) {
-			return
-		}
-
 		frz.EmbeddedFileOrElse(request, response, func() {
 			frz.FileOrElse(request, response, func() {
 				frz.Svelte(response, frz.SvelteOptions{

@@ -1,7 +1,7 @@
 github.com/evanw/esbuild v0.24.2 h1:PQExybVBrjHjN6/JJiShRGIXh1hWVm6NepVnhZhrt0A=
 github.com/evanw/esbuild v0.24.2/go.mod h1:D2vIQZqV/vIf/VRHtViaUtViZmG7o+kKmlBfVQuRi48=
-github.com/razshare/frizzante v0.10.0 h1:kj24F6EWVsrJFDqSl0+hEYjf68kwtG6w9IpCY5AvSoE=
-github.com/razshare/frizzante v0.10.0/go.mod h1:dxiZ15STdBKQKQ6JaHIwy3ixbbIQxi2Vtvcp4lnLngw=
+github.com/razshare/frizzante v0.10.1 h1:/EGH2u4zhUZPEEAoZiWR72DbPQhfouYgFpmQ3Zka4CE=
+github.com/razshare/frizzante v0.10.1/go.mod h1:dxiZ15STdBKQKQ6JaHIwy3ixbbIQxi2Vtvcp4lnLngw=
 golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.28.0 h1:Fksou7UEQUWlKvIdsqzJmUmCX3cZuD2+P3XyyzwMhlA=
 golang.org/x/sys v0.28.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=

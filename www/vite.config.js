@@ -1,10 +1,15 @@
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { fileURLToPath } from 'url'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [svelte()],
+  plugins: [
+    svelte({
+      compilerOptions: {
+        css: "injected",
+      },
+    }),
+  ],
   resolve: {
     alias: {
       $lib: './lib',
@@ -13,8 +18,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        frozen: fileURLToPath(new URL('./frizzante/vite-project/index.spa.html', import.meta.url)),
-        index: fileURLToPath(new URL('./frizzante/vite-project/index.html', import.meta.url)),
+        index: "./.frizzante/vite-project/index.html",
       },
     },
   },

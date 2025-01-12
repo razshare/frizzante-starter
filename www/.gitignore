@@ -26,6 +26,6 @@ dist-ssr
 bun.lockb
 
 # Build
-/frizzante/*
+/.frizzante/*
 /dist/*
 !/dist/.gitkeep

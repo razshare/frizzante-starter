@@ -5,8 +5,8 @@ import (
 	frz "github.com/razshare/frizzante"
 )
 
-//go:embed www/dist/*
-var embeddedFileSystem embed.FS
+//go:embed www/dist/*/**
+var efs embed.FS
 
 func main() {
 	// Create.
@@ -15,34 +15,12 @@ func main() {
 	// Configure.
 	frz.ServerWithPort(server, 8080)
 	frz.ServerWithHostName(server, "127.0.0.1")
-	frz.ServerWithEmbeddedFileSystem(server, embeddedFileSystem)
-	frz.ServerWithTemporaryDirectory(server, ".temp")
+	frz.ServerWithEmbeddedFileSystem(server, efs)
 	frz.ServerClearTemporaryDirectory(server)
 
 	// Route.
-	frz.ServerOnRequest(server, "GET /about", func(Server *frz.Server, request *frz.Request, response *frz.Response) {
-		frz.SveltePage(response, &frz.SveltePageOptions{
-			Ssr: true,
-			Props: map[string]interface{}{
-				"page": "about",
-				"name": "world",
-			},
-		})
-	})
-
-	frz.ServerOnRequest(server, "GET /", func(Server *frz.Server, request *frz.Request, response *frz.Response) {
-		frz.EmbeddedFileOrElse(request, response, func() {
-			frz.FileOrElse(request, response, func() {
-				frz.SveltePage(response, &frz.SveltePageOptions{
-					Ssr: true,
-					Props: map[string]interface{}{
-						"page": "welcome",
-						"name": "world",
-					},
-				})
-			})
-		})
-	})
+	frz.ServerSetSveltePage(server, true, "GET /about", "about", nil)
+	frz.ServerSetSveltePage(server, true, "GET /", "welcome", nil)
 
 	// Log.
 	frz.ServerOnError(server, func(err error) {

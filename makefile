@@ -4,17 +4,16 @@ update: www/package.json go.mod
 	go mod tidy
 	go run prepare/main.go
 	cd www && bun update
-	cd www && bunx vite build --ssr frizzante/vite-project/render.server.js --outDir dist/server --emptyOutDir
+	cd www && bunx vite build --ssr .frizzante/vite-project/render.server.js --outDir dist/server --emptyOutDir
 	cd www && ./node_modules/.bin/esbuild dist/server/render.server.js --bundle --outfile=dist/server/render.server.js --format=esm --allow-overwrite
 	cd www && bunx vite build --outDir dist/client --emptyOutDir
-	rm www/frizzante -fr
 
 clean:
 	go clean
 	rm cert.pem -f
 	rm key.pem -f
 	rm out -fr
-	rm www/frizzante -fr
+	rm www/.frizzante -fr
 	rm www/.temp -fr
 	rm www/dist/server -fr
 	rm www/dist/client -fr

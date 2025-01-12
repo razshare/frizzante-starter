@@ -34,6 +34,8 @@ go.work.sum
 
 # Frizzante
 /out
+/bin
+/tmp
 /www/.frizzante
 /www/dist/client/assets
 /www/dist/client/.frizzante/vite-project/index.html

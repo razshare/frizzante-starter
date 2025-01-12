@@ -1,8 +1,7 @@
 update: www/package.json go.mod
-	mkdir www/dist -p
-	touch www/dist/.gitkeep
 	go mod tidy
 	go run prepare/main.go
+	make redist
 	cd www && bun update
 	cd www && bunx vite build --ssr .frizzante/vite-project/render.server.js --outDir dist/server --emptyOutDir
 	cd www && ./node_modules/.bin/esbuild dist/server/render.server.js --bundle --outfile=dist/server/render.server.js --format=esm --allow-overwrite
@@ -13,13 +12,17 @@ clean:
 	rm cert.pem -f
 	rm key.pem -f
 	rm out -fr
-	rm www/.frizzante -fr
-	rm www/.temp -fr
-	rm www/dist/server -fr
-	rm www/dist/client -fr
-	rm www/node_modules -fr
+	make redist
 	mkdir www/dist -p
 	touch www/dist/.gitkeep
+
+redist:
+	rm www/dist -fr
+	mkdir www/dist/server -p
+	mkdir www/dist/client -p
+	touch www/dist/.gitkeep
+	touch www/dist/server/.gitkeep
+	touch www/dist/client/.gitkeep
 
 start: main.go
 	CGO_ENABLED=1 go run main.go

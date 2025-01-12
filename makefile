@@ -59,7 +59,7 @@ www-watch-client: www/package.json
 	cd www && \
 	bunx vite build --watch --outDir dist/client --emptyOutDir
 
-test: go.mod
+test: clean update www-build go.mod
 	go test
 
 certificate-interactive:

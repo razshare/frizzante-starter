@@ -1,8 +1,6 @@
-update: clean www/package.json prepare/main.go go.mod
+update: www/package.json prepare/main.go go.mod
 	go mod tidy
-	go run prepare/main.go
 	cd www && bun update
-	make reload
 
 clean:
 	go clean
@@ -18,45 +16,46 @@ clean:
 	touch www/dist/server/.gitkeep
 	touch www/dist/client/.gitkeep
 
-build: main.go  go.mod
+build: www-build main.go  go.mod
 	CGO_ENABLED=1 go build -o out/app .
 
-start: main.go  go.mod
-	go run main.go
+start: www-build main.go  go.mod
+	CGO_ENABLED=1 go run main.go
 
 dev: bin go.mod
-	DEV=1 ./bin/air \
-	--build.cmd "make build" \
+	DEV=1 CGO_ENABLED=1 ./bin/air \
+	--build.cmd "go build -o out/app ." \
 	--build.bin "out/app" \
 	--build.exclude_dir "out,bin,www" \
 	--build.exclude_regex "_text.go" \
 	--build.include_ext "go" \
-	--build.log "go-build-errors.log" & make reload-watch & wait
+	--build.log "go-build-errors.log" & make www-watch & wait
 
 bin:
 	curl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s
 
-reload: www/package.json
-	make reload-client & make reload-server & wait
+www-build: www/package.json
+	go run prepare/main.go
+	make www-build-server & make www-build-client & wait
 
-reload-server: www/package.json
+www-build-server: www/package.json
 	cd www && \
 	bunx vite build --ssr .frizzante/vite-project/render.server.js --outDir dist/server --emptyOutDir && \
 	./node_modules/.bin/esbuild dist/server/render.server.js --bundle --outfile=dist/server/render.server.js --format=esm --allow-overwrite
 
-reload-client: www/package.json
+www-build-client: www/package.json
 	cd www && \
 	bunx vite build --outDir dist/client --emptyOutDir
 
-reload-watch: www/package.json
-	make reload-client-watch & make reload-server-watch & wait
+www-watch: www/package.json
+	make www-watch-server & make www-watch-client & wait
 
-reload-server-watch: www/package.json
+www-watch-server: www/package.json
 	cd www && \
 	bunx vite build --watch --ssr .frizzante/vite-project/render.server.js --outDir dist/server --emptyOutDir && \
 	./node_modules/.bin/esbuild dist/server/render.server.js --bundle --outfile=dist/server/render.server.js --format=esm --allow-overwrite
 
-reload-client-watch: www/package.json
+www-watch-client: www/package.json
 	cd www && \
 	bunx vite build --watch --outDir dist/client --emptyOutDir
 

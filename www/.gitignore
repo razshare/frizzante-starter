@@ -24,10 +24,3 @@ dist-ssr
 
 # Bun
 bun.lockb
-
-# Build
-/.frizzante/*
-/dist/*
-!/dist/.gitkeep
-!/dist/client/.gitkeep
-!/dist/server/.gitkeep

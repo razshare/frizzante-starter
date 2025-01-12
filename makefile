@@ -1,4 +1,4 @@
-update: www/package.json prepare/main.go go.mod
+update: go.mod www/package.json
 	go mod tidy
 	cd www && bun update
 
@@ -34,8 +34,10 @@ dev: bin go.mod
 bin:
 	curl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s
 
-www-build: www/package.json
+www-prepare:
 	go run prepare/main.go
+
+www-build: www-prepare www/package.json
 	make www-build-server & make www-build-client & wait
 
 www-build-server: www/package.json
@@ -47,7 +49,7 @@ www-build-client: www/package.json
 	cd www && \
 	bunx vite build --outDir dist/client --emptyOutDir
 
-www-watch: www/package.json
+www-watch: www-prepare www/package.json
 	make www-watch-server & make www-watch-client & wait
 
 www-watch-server: www/package.json

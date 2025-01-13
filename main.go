@@ -42,11 +42,11 @@ func main() {
 	ServerWithSveltePage(server, "GET /todo", "todo", configure)
 	ServerWithRequestHandler(server,
 		"POST /check", func(server *Server, request *Request, response *Response) {
-			if !HasContentTypes(request, "application/json") {
-				Status(response, 400)
+			if !VerifyContentType(request, "application/json") {
+				SendStatus(response, 400)
 				return
 			}
-			GetJson(request, &items)
+			ReceiveJson(request, &items)
 		})
 
 	// Log.

@@ -3,7 +3,7 @@
     import Button from "$lib/components/button.svelte";
     import Link from "$lib/components/link.svelte";
     import {getContext} from "svelte";
-    const data = $state(getContext("data"))
+    const data = getContext("data")
     function toggle(item){
         item.checked = !item.checked
 

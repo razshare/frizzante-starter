@@ -7,7 +7,6 @@ clean:
 	rm cert.pem -f
 	rm key.pem -f
 	rm out -fr
-	rm bin -fr
 	rm tmp -fr
 	rm www/dist -fr
 	mkdir www/dist/server -p

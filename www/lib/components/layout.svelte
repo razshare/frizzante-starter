@@ -1,4 +1,4 @@
-<style>
+<style global>
     .content {
         position: fixed;
         left: 0;

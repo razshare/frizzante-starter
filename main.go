@@ -2,34 +2,61 @@ package main
 
 import (
 	"embed"
-	frz "github.com/razshare/frizzante"
+	. "github.com/razshare/frizzante"
 )
 
 //go:embed www/dist/*/**
 var efs embed.FS
 
+type Item struct {
+	Checked     bool   `json:"checked"`
+	Description string `json:"description"`
+}
+
 func main() {
 	// Create.
-	server := frz.ServerCreate()
+	server := ServerCreate()
+	var items = []Item{
+		{Checked: false, Description: "Pet the cat."},
+		{Checked: false, Description: "Do laundry"},
+		{Checked: false, Description: "Pet the cat."},
+		{Checked: false, Description: "Cook"},
+		{Checked: false, Description: "Pet the cat."},
+	}
 
 	// Configure.
-	frz.ServerWithPort(server, 8080)
-	frz.ServerWithHostName(server, "127.0.0.1")
-	frz.ServerWithEmbeddedFileSystem(server, efs)
-	frz.ServerClearTemporaryDirectory(server)
+	ServerWithPort(server, 8080)
+	ServerWithHostName(server, "127.0.0.1")
+	ServerWithEmbeddedFileSystem(server, efs)
+	var configure = func(_ *Request, _ *Response) *SveltePageConfiguration {
+		return &SveltePageConfiguration{
+			Render: ModeFull,
+			Props: map[string]interface{}{
+				"items": &items,
+			},
+		}
+	}
 
 	// Route.
-	frz.ServerSetSveltePage(server, true, "GET /about", "about", nil)
-	frz.ServerSetSveltePage(server, true, "GET /", "welcome", nil)
+	ServerWithSveltePage(server, "GET /", "welcome", configure)
+	ServerWithSveltePage(server, "GET /todo", "todo", configure)
+	ServerWithRequestHandler(server,
+		"POST /check", func(server *Server, request *Request, response *Response) {
+			if !HasContentTypes(request, "application/json") {
+				Status(response, 400)
+				return
+			}
+			GetJson(request, &items)
+		})
 
 	// Log.
-	frz.ServerOnError(server, func(err error) {
-		frz.ServerLogError(server, err)
+	ServerOnError(server, func(err error) {
+		ServerLogError(server, err)
 	})
-	frz.ServerOnInformation(server, func(information string) {
-		frz.ServerLogInformation(server, information)
+	ServerOnInformation(server, func(information string) {
+		ServerLogInformation(server, information)
 	})
 
 	// Start.
-	frz.ServerStart(server)
+	ServerStart(server)
 }

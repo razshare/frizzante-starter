@@ -1,7 +1,12 @@
+<style>
+    h1 {
+        color: cadetblue;
+    }
+</style>
+
 <script>
     import Layout from '$lib/components/layout.svelte'
-    import Greeting from '$lib/components/greeting.svelte'
-    const { name = "world" } = $props()
+    import Link from '$lib/components/link.svelte'
 </script>
 
 <svelte:head>
@@ -9,6 +14,6 @@
 </svelte:head>
 
 <Layout>
-    <Greeting {name} />
-    <a href="/about">Go to about</a>
+    <h1>Welcome to Frizzante.</h1>
+    <Link text="Next" pageId="todo"/>
 </Layout>

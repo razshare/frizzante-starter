@@ -16,6 +16,7 @@ export default defineConfig({
     },
   },
   build: {
+    sourcemap: "inline",
     rollupOptions: {
       input: {
         index: "./.frizzante/vite-project/index.html",

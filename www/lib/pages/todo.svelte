@@ -1,3 +1,9 @@
+<style>
+    .menu,.item {
+        min-width: 400px;
+    }
+</style>
+
 <script>
     import Layout from '$lib/components/layout.svelte'
     import Button from "$lib/components/button.svelte";
@@ -23,14 +29,16 @@
 
 <Layout>
     {#each data.items as item}
-        <span>
+        <div class="item">
             {#if item.checked}
-                <Button text="(x) {item.description}" onmouseup={()=>toggle(item)}/>
+                <Button start text="(x) {item.description}" onmouseup={()=>toggle(item)}/>
             {:else}
-                <Button text="( ) {item.description}" onmouseup={()=>toggle(item)}/>
+                <Button start text="(&nbsp;&nbsp;) {item.description}" onmouseup={()=>toggle(item)}/>
             {/if}
-        </span>
+        </div>
     {/each}
     <br/>
-    <Link text="Back" pageId="welcome" />
+    <div class="menu">
+        <Link start text="< Back" pageId="welcome" />
+    </div>
 </Layout>

@@ -1,5 +1,5 @@
 <style>
-    .next {
+    .btn {
         color: cadetblue;
         width: 20rem;
         text-align: start;
@@ -8,12 +8,20 @@
         background: transparent;
     }
 
-    .next:hover {
+    .btn:hover {
         text-decoration: underline;
+    }
+
+    .start {
+        text-align: start;
+    }
+
+    .end {
+        text-align: end;
     }
 </style>
 
 <script>
-    const { text, onmouseup } = $props()
+    const { text, onmouseup, start, end } = $props()
 </script>
-<button class="next" {onmouseup}>{text}</button>
+<button class="btn" class:start class:end {onmouseup}>{text}</button>

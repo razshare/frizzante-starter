@@ -2,6 +2,12 @@
     h1 {
         color: cadetblue;
     }
+    .menu {
+        text-align: end;
+    }
+    h1,.menu {
+        width: 400px;
+    }
 </style>
 
 <script>
@@ -15,5 +21,7 @@
 
 <Layout>
     <h1>Welcome to Frizzante.</h1>
-    <Link text="Next" pageId="todo"/>
+    <div class="menu">
+        <Link end text="Todo >" pageId="todo"/>
+    </div>
 </Layout>

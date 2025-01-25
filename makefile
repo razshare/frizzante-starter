@@ -25,9 +25,9 @@ dev: bin go.mod
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "go run prepare/main.go && go build -o out/app ." \
 	--build.bin "out/app" \
-	--build.exclude_dir "out,bin,www" \
+	--build.exclude_dir "out,bin,www/.frizzante,www/dist,www/node_modules,www/tmp" \
 	--build.exclude_regex "_text.go" \
-	--build.include_ext "go" \
+	--build.include_ext "go,svelte,js,json" \
 	--build.log "go-build-errors.log" & make www-watch & wait
 
 bin:

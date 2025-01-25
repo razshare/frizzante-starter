@@ -23,7 +23,7 @@ start: www-build main.go  go.mod
 
 dev: bin go.mod
 	DEV=1 CGO_ENABLED=1 ./bin/air \
-	--build.cmd "go build -o out/app ." \
+	--build.cmd "go run prepare/main.go && go build -o out/app ." \
 	--build.bin "out/app" \
 	--build.exclude_dir "out,bin,www" \
 	--build.exclude_regex "_text.go" \

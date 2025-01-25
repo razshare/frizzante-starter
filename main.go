@@ -24,7 +24,7 @@ var items = []Item{
 func configure(_ *frz.Request) *frz.SveltePageConfiguration {
 	return &frz.SveltePageConfiguration{
 		Render: frz.ModeFull,
-		Props: map[string]interface{}{
+		Data: map[string]interface{}{
 			"items": &items,
 		},
 	}

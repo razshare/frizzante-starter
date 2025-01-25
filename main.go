@@ -38,7 +38,6 @@ func main() {
 	frz.ServerWithPort(server, 8080)
 	frz.ServerWithHostName(server, "127.0.0.1")
 	frz.ServerWithEmbeddedFileSystem(server, efs)
-	frz.ServerWithCertificateAndKey(server, "cert.pem", "key.pem")
 
 	// Route.
 	frz.ServerWithSveltePage(server, "GET /", "welcome", configure)

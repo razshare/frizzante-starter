@@ -23,7 +23,7 @@
 
 <script>
     import {getContext} from "svelte";
-    const { text, pageId, start, end } = $props()
+    const { text, pageId, start = false, end = false } = $props()
     const page = getContext("page")
 </script>
 <button class="next" class:start class:end onmouseup={()=>page(pageId)}>{text}</button>

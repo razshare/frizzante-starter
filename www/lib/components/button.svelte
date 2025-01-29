@@ -22,6 +22,6 @@
 </style>
 
 <script>
-    const { text, onmouseup, start, end } = $props()
+    const { text, onmouseup, start = false, end = false } = $props()
 </script>
 <button class="btn" class:start class:end {onmouseup}>{text}</button>

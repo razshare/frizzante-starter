@@ -12,7 +12,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      $lib: './lib',
+      $lib: "./lib",
+      $pages: "./pages",
     },
   },
   build: {

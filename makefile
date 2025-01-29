@@ -21,7 +21,7 @@ build: www-build main.go  go.mod
 start: www-build main.go  go.mod
 	CGO_ENABLED=1 go run main.go
 
-dev: bin go.mod
+dev: air main.go go.mod
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "go run github.com/razshare/frizzante/prepare && go build -o bin/app ." \
 	--build.bin "bin/app" \
@@ -30,8 +30,8 @@ dev: bin go.mod
 	--build.include_ext "go,svelte,js,json" \
 	--build.log "go-build-errors.log" & make www-watch & wait
 
-bin:
-	curl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s
+air:
+	which bin/air || curl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s
 
 www-prepare:
 	go run github.com/razshare/frizzante/prepare

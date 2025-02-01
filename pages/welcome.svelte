@@ -23,6 +23,6 @@
 <Layout>
     <h1>Welcome to Frizzante.</h1>
     <div class="menu">
-        <Link center text="Show todos" pageId="todo"/>
+        <Link center text="Show todos" pageId="todos"/>
     </div>
 </Layout>

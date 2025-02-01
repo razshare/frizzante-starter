@@ -30,7 +30,7 @@
 </script>
 
 <svelte:head>
-    <title>Todo</title>
+    <title>Todos</title>
 </svelte:head>
 
 <Layout>

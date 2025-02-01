@@ -41,7 +41,7 @@ func main() {
 
 	// Route.
 	frz.ServerWithSveltePage(server, "GET /", "welcome", configure)
-	frz.ServerWithSveltePage(server, "GET /todo", "todo", configure)
+	frz.ServerWithSveltePage(server, "GET /todos", "todos", configure)
 	frz.ServerWithRequestHandler(server, "POST /check",
 		func(server *frz.Server, request *frz.Request, response *frz.Response) {
 			if !frz.VerifyContentType(request, "application/json") {

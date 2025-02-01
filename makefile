@@ -1,10 +1,10 @@
 test: configure
 	CGO_ENABLED=1 go test
 
-build: configure
+build:
 	CGO_ENABLED=1 go build -o bin/app .
 
-start: configure
+start:
 	CGO_ENABLED=1 go run main.go
 
 dev:
@@ -12,7 +12,7 @@ dev:
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "go run github.com/razshare/frizzante/prepare && go build -o bin/app ." \
 	--build.bin "bin/app" \
-	--build.exclude_dir "out,tmp,bin,www/.frizzante,www/dist,www/node_modules,www/tmp,www/lib" \
+	--build.exclude_dir "out,tmp,bin,www,lib" \
 	--build.exclude_regex "_test.go" \
 	--build.include_ext "go,js,svelte,json" \
 	--build.log "go-build-errors.log" & \

@@ -1,7 +1,7 @@
 <style>
     .btn {
         color: cadetblue;
-        width: 20rem;
+        width: 100%;
         text-align: start;
         cursor: pointer;
         border: 0;
@@ -22,6 +22,6 @@
 </style>
 
 <script>
-    const { text, onmouseup, start = false, end = false } = $props()
+    const { text, onmouseup, start = false, center = false, end = false } = $props()
 </script>
-<button class="btn" class:start class:end {onmouseup}>{text}</button>
+<button class="btn" class:start class:center class:end {onmouseup}>{text}</button>

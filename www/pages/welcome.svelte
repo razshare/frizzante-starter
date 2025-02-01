@@ -1,9 +1,10 @@
 <style>
     h1 {
         color: cadetblue;
+        text-align: center;
     }
     .menu {
-        text-align: end;
+        text-align: center;
     }
     h1,.menu {
         width: 400px;
@@ -22,6 +23,6 @@
 <Layout>
     <h1>Welcome to Frizzante.</h1>
     <div class="menu">
-        <Link end text="Todo >" pageId="todo"/>
+        <Link center text="Show todos" pageId="todo"/>
     </div>
 </Layout>

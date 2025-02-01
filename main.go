@@ -10,7 +10,7 @@ type Item struct {
 	Description string `json:"description"`
 }
 
-//go:embed www/dist/*/**
+//go:embed .dist/*/**
 var efs embed.FS
 
 var items = []Item{

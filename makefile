@@ -13,7 +13,7 @@ dev: clean update
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "go build -o bin/app ." \
 	--build.bin "bin/app" \
-	--build.exclude_dir "out,tmp,bin,www,lib" \
+	--build.exclude_dir "out,tmp,bin,lib" \
 	--build.exclude_regex "_test.go" \
 	--build.include_ext "go,js,svelte,json" \
 	--build.log "go-build-errors.log" & \
@@ -22,13 +22,11 @@ dev: clean update
 	wait
 
 www-watch-server:
-	cd www && \
-	bunx vite build --watch --ssr .frizzante/vite-project/render.server.js --outDir dist/server && \
-	./node_modules/.bin/esbuild dist/server/render.server.js --bundle --outfile=dist/server/render.server.js --format=esm --allow-overwrite
+	bunx vite build --watch --ssr .frizzante/vite-project/render.server.js --outDir .dist/server && \
+	./node_modules/.bin/esbuild .dist/server/render.server.js --bundle --outfile=.dist/server/render.server.js --format=esm --allow-overwrite
 
 www-watch-client:
-	cd www && \
-	bunx vite build --watch --outDir dist/client
+	bunx vite build --watch --outDir .dist/client
 
 configure: clean update
 	go run github.com/razshare/frizzante/prepare
@@ -42,28 +40,26 @@ clean:
 	rm key.pem -f
 	rm bin/app -f
 	rm tmp -fr
-	rm www/dist -fr
-	rm www/tmp -fr
-	rm www/node_modules -fr
-	rm www/.frizzante -fr
-	mkdir www/dist/server -p
-	mkdir www/dist/client -p
-	touch www/dist/.gitkeep
-	touch www/dist/server/.gitkeep
-	touch www/dist/client/.gitkeep
+	rm tmp -fr
+	rm node_modules -fr
+	rm .dist -fr
+	rm .frizzante -fr
+	mkdir .dist/server -p
+	mkdir .dist/client -p
+	touch .dist/.gitkeep
+	touch .dist/server/.gitkeep
+	touch .dist/client/.gitkeep
 
 update:
 	go mod tidy
-	cd www && bun update
+	bun update
 
 www-build-server:
-	cd www && \
-	bunx vite build --ssr .frizzante/vite-project/render.server.js --outDir dist/server --emptyOutDir && \
-	./node_modules/.bin/esbuild dist/server/render.server.js --bundle --outfile=dist/server/render.server.js --format=esm --allow-overwrite
+	bunx vite build --ssr .frizzante/vite-project/render.server.js --outDir .dist/server --emptyOutDir && \
+	./node_modules/.bin/esbuild .dist/server/render.server.js --bundle --outfile=.dist/server/render.server.js --format=esm --allow-overwrite
 
 www-build-client:
-	cd www && \
-	bunx vite build --outDir dist/client --emptyOutDir
+	bunx vite build --outDir .dist/client --emptyOutDir
 
 certificate-interactive:
 	openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem

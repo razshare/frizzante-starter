@@ -11,18 +11,18 @@
     "skipLibCheck": true,
     "checkJs": true,
     "paths": {
-      "$lib/*": ["../lib/*"],
-      "$pages/*": ["../pages/*"]
+      "$lib/*": ["./lib/*"],
+      "$pages/*": ["./pages/*"]
     }
   },
   "include": [
-    "../pages/**/*.svelte",
-    "../pages/**/*.d.ts",
-    "../pages/**/*.d.ts",
-    "../pages/**/*.js",
-    "../lib/**/*.svelte",
-    "../lib/**/*.d.ts",
-    "../lib/**/*.d.ts",
-    "../lib/**/*.js"
+    "./pages/**/*.svelte",
+    "./pages/**/*.d.ts",
+    "./pages/**/*.d.ts",
+    "./pages/**/*.js",
+    "./lib/**/*.svelte",
+    "./lib/**/*.d.ts",
+    "./lib/**/*.d.ts",
+    "./lib/**/*.js"
   ]
 }

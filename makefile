@@ -33,10 +33,10 @@ dev: air main.go go.mod
 air:
 	which bin/air || curl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s
 
-www-prepare:
+configure:
 	go run github.com/razshare/frizzante/prepare
 
-www-build: www-prepare www/package.json
+www-build: configure www/package.json
 	make www-build-server & make www-build-client & wait
 
 www-build-server: www/package.json
@@ -48,7 +48,7 @@ www-build-client: www/package.json
 	cd www && \
 	bunx vite build --outDir dist/client --emptyOutDir
 
-www-watch: www-prepare www/package.json
+www-watch: configure www/package.json
 	make www-watch-server & make www-watch-client & wait
 
 www-watch-server: www/package.json

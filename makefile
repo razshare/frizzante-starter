@@ -27,7 +27,7 @@ dev: air main.go go.mod
 	--build.bin "bin/app" \
 	--build.exclude_dir "out,tmp,bin,www/.frizzante,www/dist,www/node_modules,www/tmp" \
 	--build.exclude_regex "_text.go" \
-	--build.include_ext "go,svelte,js,json" \
+	--build.include_ext "go" \
 	--build.log "go-build-errors.log" & make www-watch & wait
 
 air:

@@ -21,7 +21,7 @@ var items = []Item{
 	{Checked: false, Description: "Pet the cat."},
 }
 
-func configure(_ *frz.Request, _ *frz.Response) *frz.SveltePageConfiguration {
+func configure(_ *frz.Server, _ *frz.Request, _ *frz.Response) *frz.SveltePageConfiguration {
 	return &frz.SveltePageConfiguration{
 		Render: frz.ModeFull,
 		Data: map[string]interface{}{

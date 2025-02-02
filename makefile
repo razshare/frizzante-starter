@@ -5,7 +5,7 @@ build: configure
 	CGO_ENABLED=1 go build -o bin/app .
 
 start: configure
-	CGO_ENABLED=1 go run main.go
+	CGO_ENABLED=1 go run .
 
 dev: clean update
 	go run github.com/razshare/frizzante/prepare

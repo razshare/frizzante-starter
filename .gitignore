@@ -52,6 +52,9 @@ go.work.sum
 *.crt
 *.key
 
+# Sqlite
+*.db
+
 # Frizzante
 /bin
 /.frizzante

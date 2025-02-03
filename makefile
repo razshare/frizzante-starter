@@ -36,6 +36,7 @@ configure: clean update
 
 clean:
 	go clean
+	rm main.db -f
 	rm cert.pem -f
 	rm key.pem -f
 	rm bin/app -f

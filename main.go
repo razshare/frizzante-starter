@@ -3,63 +3,35 @@ package main
 import (
 	"embed"
 	frz "github.com/razshare/frizzante"
+	"main/handlers"
+	"main/pages"
 )
-
-type Item struct {
-	Checked     bool   `json:"checked"`
-	Description string `json:"description"`
-}
 
 //go:embed .dist/*/**
 var efs embed.FS
 
-var items = []Item{
-	{Checked: false, Description: "Pet the cat."},
-	{Checked: false, Description: "Do laundry"},
-	{Checked: false, Description: "Pet the cat."},
-	{Checked: false, Description: "Cook"},
-	{Checked: false, Description: "Pet the cat."},
-}
-
-func configure(_ *frz.Server, _ *frz.Request, _ *frz.Response) *frz.SveltePageConfiguration {
-	return &frz.SveltePageConfiguration{
-		Render: frz.ModeFull,
-		Data: map[string]interface{}{
-			"items": &items,
-		},
-	}
-}
-
 func main() {
 	// Create.
-	server := frz.ServerCreate()
+	srv := frz.ServerCreate()
 
 	// Setup.
-	frz.ServerWithPort(server, 8080)
-	frz.ServerWithHostName(server, "127.0.0.1")
-	frz.ServerWithEmbeddedFileSystem(server, efs)
+	frz.ServerWithPort(srv, 8080)
+	frz.ServerWithHostName(srv, "127.0.0.1")
+	frz.ServerWithEmbeddedFileSystem(srv, efs)
 
-	// Route.
-	frz.ServerWithSveltePage(server, "GET /", "welcome", configure)
-	frz.ServerWithSveltePage(server, "GET /todos", "todos", configure)
-	frz.ServerWithRequestHandler(server, "POST /check",
-		func(server *frz.Server, request *frz.Request, response *frz.Response) {
-			if !frz.VerifyContentType(request, "application/json") {
-				frz.SendStatus(response, 400)
-				return
-			}
-			frz.ReceiveJson(request, &items)
-		},
-	)
+	// Route (order matters, "/" should always be last).
+	frz.ServerWithSveltePage(srv, "GET /todos", "todos", pages.Todos)
+	frz.ServerWithRequestHandler(srv, "POST /check", handlers.Check)
+	frz.ServerWithSveltePage(srv, "GET /", "welcome", pages.Welcome)
 
 	// Log.
-	frz.ServerOnError(server, func(err error) {
-		frz.ServerLogError(server, err)
+	frz.ServerOnError(srv, func(err error) {
+		frz.ServerLogError(srv, err)
 	})
-	frz.ServerOnInformation(server, func(information string) {
-		frz.ServerLogInformation(server, information)
+	frz.ServerOnInformation(srv, func(inf string) {
+		frz.ServerLogInformation(srv, inf)
 	})
 
 	// Start.
-	frz.ServerStart(server)
+	frz.ServerStart(srv)
 }

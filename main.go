@@ -18,10 +18,11 @@ func main() {
 	frz.ServerWithPort(srv, 8080)
 	frz.ServerWithHostName(srv, "127.0.0.1")
 	frz.ServerWithEmbeddedFileSystem(srv, efs)
+	frz.ServerWithSessionHandler(srv, handlers.Session)
 
 	// Route (order matters, "/" should always be last).
-	frz.ServerWithSveltePage(srv, "GET /todos", "todos", pages.Todos)
 	frz.ServerWithRequestHandler(srv, "POST /check", handlers.Check)
+	frz.ServerWithSveltePage(srv, "GET /todos", "todos", pages.Todos)
 	frz.ServerWithSveltePage(srv, "GET /", "welcome", pages.Welcome)
 
 	// Log.

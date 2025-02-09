@@ -6,7 +6,7 @@ import (
 )
 
 func Todos(_ *frz.Server, req *frz.Request, res *frz.Response) *frz.SveltePageConfiguration {
-	get, _ := frz.SessionStart(req, res)
+	get, _, _ := frz.SessionStart(req, res)
 
 	items := get("items", []schemas.Item{
 		{Checked: false, Description: "Pet the cat."},

@@ -10,7 +10,7 @@ func Check(_ *frz.Server, req *frz.Request, res *frz.Response) {
 		return
 	}
 
-	get, set := frz.SessionStart(req, res)
+	get, set, _ := frz.SessionStart(req, res)
 	items := get("items", []any{})
 	frz.ReceiveJson(req, &items)
 	set("items", items)

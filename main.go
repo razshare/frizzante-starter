@@ -25,11 +25,11 @@ func main() {
 
 	// Route (order matters, "/" should always be last).
 	frz.ServerWithRequestHandler(srv, "POST /check", handlers.Check)
-	frz.ServerWithSveltePage(srv, "GET /todos", "todos", pages.Todos)
-	frz.ServerWithSveltePage(srv, "GET /", "welcome", pages.Welcome)
+	frz.ServerWithPageRequestHandler(srv, "GET /todos", "todos", pages.Todos)
+	frz.ServerWithPageRequestHandler(srv, "GET /", "welcome", pages.Welcome)
 
 	// Log.
-	frz.ServerWithErrorHandler(srv, func(err error) {
+	frz.ServerWithErrorReceiver(srv, func(err error) {
 		logger.Fatal(err)
 	})
 

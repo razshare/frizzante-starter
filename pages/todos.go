@@ -5,7 +5,7 @@ import (
 	"main/schemas"
 )
 
-func Todos(_ *frz.Server, req *frz.Request, res *frz.Response) *frz.SveltePageConfiguration {
+func Todos(_ *frz.Server, req *frz.Request, res *frz.Response, p *frz.Page) {
 	get, _, _ := frz.SessionStart(req, res)
 
 	items := get("items", []schemas.Item{
@@ -16,10 +16,6 @@ func Todos(_ *frz.Server, req *frz.Request, res *frz.Response) *frz.SveltePageCo
 		{Checked: false, Description: "Pet the cat."},
 	})
 
-	return &frz.SveltePageConfiguration{
-		Render: frz.ModeFull,
-		Data: map[string]interface{}{
-			"items": items,
-		},
-	}
+	frz.PageWithRenderMode(p, frz.ModeFull)
+	frz.PageWithData(p, "items", items)
 }

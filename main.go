@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	frz "github.com/razshare/frizzante"
+	"log"
 	"main/handlers"
 	"main/pages"
 )
@@ -12,6 +13,7 @@ var efs embed.FS
 
 func main() {
 	// Create.
+	logger := log.Default()
 	srv := frz.ServerCreate()
 
 	// Setup.
@@ -19,6 +21,7 @@ func main() {
 	frz.ServerWithHostName(srv, "127.0.0.1")
 	frz.ServerWithEmbeddedFileSystem(srv, efs)
 	frz.ServerWithSessionHandler(srv, handlers.Session)
+	frz.ServerWithLogger(srv, logger)
 
 	// Route (order matters, "/" should always be last).
 	frz.ServerWithRequestHandler(srv, "POST /check", handlers.Check)
@@ -26,11 +29,8 @@ func main() {
 	frz.ServerWithSveltePage(srv, "GET /", "welcome", pages.Welcome)
 
 	// Log.
-	frz.ServerOnError(srv, func(err error) {
-		frz.ServerLogError(srv, err)
-	})
-	frz.ServerOnInformation(srv, func(inf string) {
-		frz.ServerLogInformation(srv, inf)
+	frz.ServerWithErrorHandler(srv, func(err error) {
+		logger.Fatal(err)
 	})
 
 	// Start.

@@ -1,4 +1,4 @@
-package handlers
+package routes
 
 import (
 	frz "github.com/razshare/frizzante"

@@ -1,8 +1,8 @@
-package handlers
+package sessions
 
 var memory = map[string]map[string]any{}
 
-func Session(id string) (
+func InMemory(id string) (
 	get func(key string, defaultValue any) (value any),
 	set func(key string, value any),
 	unset func(key string),

@@ -4,8 +4,9 @@ import (
 	"embed"
 	frz "github.com/razshare/frizzante"
 	"log"
-	"main/handlers"
 	"main/pages"
+	"main/routes"
+	"main/sessions"
 )
 
 //go:embed .dist/*/**
@@ -20,13 +21,13 @@ func main() {
 	frz.ServerWithPort(srv, 8080)
 	frz.ServerWithHostName(srv, "127.0.0.1")
 	frz.ServerWithEmbeddedFileSystem(srv, efs)
-	frz.ServerWithSessionHandler(srv, handlers.Session)
+	frz.ServerWithSessionHandler(srv, sessions.InMemory)
 	frz.ServerWithLogger(srv, logger)
 
 	// Route (order matters, "/" should always be last).
-	frz.ServerWithRequestHandler(srv, "POST /check", handlers.Check)
-	frz.ServerWithRequestPageHandler(srv, "GET /todos", "todos", pages.Todos)
-	frz.ServerWithRequestPageHandler(srv, "GET /", "welcome", pages.Welcome)
+	frz.ServerWithRoute(srv, "POST /check", routes.Check)
+	frz.ServerWithPage(srv, "GET /todos", "todos", pages.Todos)
+	frz.ServerWithPage(srv, "GET /", "welcome", pages.Welcome)
 
 	// Log.
 	frz.ServerWithErrorReceiver(srv, func(err error) {

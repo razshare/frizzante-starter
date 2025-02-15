@@ -6,7 +6,6 @@ import (
 	"log"
 	"main/pages"
 	"main/routes"
-	"main/sessions"
 )
 
 //go:embed .dist/*/**
@@ -21,7 +20,6 @@ func main() {
 	frz.ServerWithPort(srv, 8080)
 	frz.ServerWithHostName(srv, "127.0.0.1")
 	frz.ServerWithEmbeddedFileSystem(srv, efs)
-	frz.ServerWithSessionHandler(srv, sessions.InMemory)
 	frz.ServerWithLogger(srv, logger)
 
 	// Route (order matters, "/" should always be last).

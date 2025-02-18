@@ -16,7 +16,7 @@ func noop(
 	_ *frz.Server,
 	_ *frz.Request,
 	_ *frz.Response,
-	_ *frz.PageConfiguration,
+	_ *frz.Page,
 ) {
 }
 
@@ -32,9 +32,9 @@ func main() {
 	frz.ServerWithLogger(srv, logger)
 
 	// Route (order matters, "/" should always be last).
-	frz.ServerWithRoute(srv, "POST /check", frz.Route(routes.Check))
-	frz.ServerWithRoute(srv, "GET /todos", frz.Page("todos", pages.Todos))
-	frz.ServerWithRoute(srv, "GET /", frz.Page("welcome", noop))
+	frz.ServerWithApi(srv, "POST /check", routes.Check)
+	frz.ServerWithPage(srv, "GET /todos", "todos", pages.Todos)
+	frz.ServerWithPage(srv, "GET /", "welcome", noop)
 
 	// Log.
 	frz.ServerWithErrorReceiver(srv, func(err error) {

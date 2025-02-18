@@ -11,6 +11,15 @@ import (
 //go:embed .dist/*/**
 var efs embed.FS
 
+// Noop.
+func noop(
+	_ *frz.Server,
+	_ *frz.Request,
+	_ *frz.Response,
+	_ *frz.PageConfiguration,
+) {
+}
+
 func main() {
 	// Create.
 	logger := log.Default()
@@ -23,9 +32,9 @@ func main() {
 	frz.ServerWithLogger(srv, logger)
 
 	// Route (order matters, "/" should always be last).
-	frz.ServerWithRoute(srv, "POST /check", routes.Check)
-	frz.ServerWithPage(srv, "GET /todos", "todos", pages.Todos)
-	frz.ServerWithPage(srv, "GET /", "welcome", pages.Welcome)
+	frz.ServerWithRoute(srv, "POST /check", frz.Route(routes.Check))
+	frz.ServerWithRoute(srv, "GET /todos", frz.Page("todos", pages.Todos))
+	frz.ServerWithRoute(srv, "GET /", frz.Page("welcome", noop))
 
 	// Log.
 	frz.ServerWithErrorReceiver(srv, func(err error) {

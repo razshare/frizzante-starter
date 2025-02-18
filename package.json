@@ -6,8 +6,8 @@
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
     "compression": "^1.8.0",
     "express": "^4.21.2",
-    "sirv": "^3.0.0",
-    "svelte": "^5.20.1",
+    "sirv": "^3.0.1",
+    "svelte": "^5.20.2",
     "vite": "^6.1.0"
   }
 }

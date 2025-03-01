@@ -23,12 +23,12 @@ func main() {
 	frz.ServerWithLogger(srv, logger)
 
 	// Route (order matters, "/" should always be last).
-	frz.ServerWithApi(srv, "POST /check", routes.Check)
-	frz.ServerWithPage(srv, "GET /todos", "todos", pages.Todos)
-	frz.ServerWithPage(srv, "GET /", "welcome", pages.Welcome)
+	frz.ServerRoute(srv, "POST /check", routes.Check)
+	frz.ServerRoutePage(srv, "GET /todos", "todos", pages.Todos)
+	frz.ServerRoutePage(srv, "GET /", "welcome", pages.Welcome)
 
 	// Log.
-	frz.ServerWithErrorReceiver(srv, func(err error) {
+	frz.ServerRecallError(srv, func(err error) {
 		logger.Fatal(err)
 	})
 

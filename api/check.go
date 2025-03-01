@@ -1,4 +1,4 @@
-package routes
+package api
 
 import (
 	frz "github.com/razshare/frizzante"

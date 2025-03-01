@@ -4,8 +4,8 @@ import (
 	"embed"
 	frz "github.com/razshare/frizzante"
 	"log"
+	"main/api"
 	"main/pages"
-	"main/routes"
 )
 
 //go:embed .dist/*/**
@@ -23,7 +23,7 @@ func main() {
 	frz.ServerWithLogger(srv, logger)
 
 	// Route (order matters, "/" should always be last).
-	frz.ServerRoute(srv, "POST /check", routes.Check)
+	frz.ServerRouteApi(srv, "POST /check", api.Check)
 	frz.ServerRoutePage(srv, "GET /todos", "todos", pages.Todos)
 	frz.ServerRoutePage(srv, "GET /", "welcome", pages.Welcome)
 

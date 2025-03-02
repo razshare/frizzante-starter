@@ -1,4 +1,14 @@
 <style>
+    .link {
+        color: cadetblue;
+        text-decoration: none;
+    }
+
+    .link:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
     .menu, .item {
         width: 100%;
     }
@@ -21,10 +31,10 @@
 </style>
 
 <script>
-    import Layout from '$lib/components/Layout.svelte'
-    import Link from "$lib/components/Link.svelte";
-    import {getContext} from "svelte";
     import Submit from "$frizzante/components/Submit.svelte";
+    import Link from '$frizzante/components/Link.svelte'
+    import Layout from '$lib/components/Layout.svelte'
+    import {getContext} from "svelte";
 
     /**
      * @typedef Item
@@ -60,6 +70,8 @@
     </div>
     <br/>
     <div class="menu">
-        <Link center text="< Back" pageId="Welcome"/>
+        <Link align="center" pageId="Welcome">
+            <span class="link">&lt; Back</span>
+        </Link>
     </div>
 </Layout>

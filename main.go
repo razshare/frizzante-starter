@@ -24,8 +24,9 @@ func main() {
 
 	// Route (order matters, "/" should always be last).
 	frz.ServerRouteApi(srv, "POST /check", api.Check)
-	frz.ServerRoutePage(srv, "GET /todos", "todos", pages.Todos)
-	frz.ServerRoutePage(srv, "GET /", "welcome", pages.Welcome)
+	frz.ServerRoutePage(srv, "GET /todos", "Todos", pages.Todos)
+	frz.ServerRoutePage(srv, "POST /todos", "Todos", pages.Todos)
+	frz.ServerRoutePage(srv, "GET /", "Welcome", pages.Welcome)
 
 	// Log.
 	frz.ServerRecallError(srv, func(err error) {

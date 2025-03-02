@@ -29,6 +29,15 @@
     import {getContext} from "svelte";
     const { text, pageId, start = false, center = false, end = false } = $props()
     const page = getContext("page")
+    const path = getContext("path")
+
+    /**
+     * @param {Event} e
+     */
+    function onmouseup(e){
+        e.preventDefault()
+        page(pageId)
+    }
 </script>
 
-<button class="next" class:start class:center class:end onmouseup={()=>page(pageId)}>{text}</button>
+<a href="{path(pageId)}" class="next" class:start class:center class:end {onmouseup}>{text}</a>

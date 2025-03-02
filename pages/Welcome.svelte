@@ -12,8 +12,8 @@
 </style>
 
 <script>
-    import Layout from '$lib/components/layout.svelte'
-    import Link from '$lib/components/link.svelte'
+    import Layout from '$lib/components/Layout.svelte'
+    import Link from '$lib/components/Link.svelte'
 </script>
 
 <svelte:head>
@@ -23,6 +23,6 @@
 <Layout>
     <h1>Welcome to Frizzante.</h1>
     <div class="menu">
-        <Link center text="Show todos" pageId="todos"/>
+        <Link center text="Show todos" pageId="Todos"/>
     </div>
 </Layout>

@@ -11,15 +11,28 @@
     "skipLibCheck": true,
     "checkJs": true,
     "paths": {
-      "$lib/*": ["./lib/*"],
-      "$pages/*": ["./pages/*"]
+      "$frizzante/*": [
+        "./.frizzante/vite-project/lib/*"
+      ],
+      "$lib/*": [
+        "./lib/*"
+      ],
+      "$pages/*": [
+        "./pages/*"
+      ]
     }
   },
   "include": [
+    "./.frizzante/vite-project/**/*.svelte",
+    "./.frizzante/vite-project/**/*.d.ts",
+    "./.frizzante/vite-project/**/*.d.ts",
+    "./.frizzante/vite-project/**/*.js",
     "./pages/**/*.svelte",
+    "./pages/**/*.d.ts",
     "./pages/**/*.d.ts",
     "./pages/**/*.js",
     "./lib/**/*.svelte",
+    "./lib/**/*.d.ts",
     "./lib/**/*.d.ts",
     "./lib/**/*.js"
   ]

@@ -7,9 +7,6 @@ import (
 )
 
 func Todos(_ *frz.Server, req *frz.Request, res *frz.Response, p *frz.Page) {
-	// Forcing SSR only (this is optional).
-	frz.PageWithRenderMode(p, frz.RenderModeServer)
-
 	// The default session operator will destroy any session after 30 minutes of inactivity.
 	get, _, _ := frz.SessionStart(req, res)
 	items := get("items", []schemas.Item{

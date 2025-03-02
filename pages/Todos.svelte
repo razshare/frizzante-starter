@@ -23,8 +23,8 @@
 <script>
     import Layout from '$lib/components/Layout.svelte'
     import Link from "$lib/components/Link.svelte";
-    import Submit from '$lib/components/Submit.svelte';
     import {getContext} from "svelte";
+    import Submit from "$frizzante/components/Submit.svelte";
 
     /**
      * @typedef Item
@@ -42,11 +42,7 @@
     const data = getContext("data")
 </script>
 
-<svelte:head>
-    <title>Todos</title>
-</svelte:head>
-
-<Layout>
+<Layout title="Todos">
     <div class="items">
         {#each data.items as item, index}
             <div class="item">

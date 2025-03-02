@@ -16,11 +16,7 @@
     import Link from '$lib/components/Link.svelte'
 </script>
 
-<svelte:head>
-    <title>Welcome</title>
-</svelte:head>
-
-<Layout>
+<Layout title="Welcome">
     <h1>Welcome to Frizzante.</h1>
     <div class="menu">
         <Link center text="Show todos" pageId="Todos"/>

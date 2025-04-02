@@ -31,9 +31,9 @@
 </style>
 
 <script>
-    import Submit from "$frizzante/components/Submit.svelte";
-    import Link from '$frizzante/components/Link.svelte'
-    import Layout from '$lib/components/Layout.svelte'
+    import Submit from "$frizzante/components/submit.svelte";
+    import Link from '$frizzante/components/link.svelte'
+    import Layout from '$lib/components/layout.svelte'
     import {getContext} from "svelte";
 
     /**
@@ -70,7 +70,7 @@
     </div>
     <br/>
     <div class="menu">
-        <Link align="center" pageId="Welcome">
+        <Link align="center" pageId="welcome">
             <span class="link">&lt; Back</span>
         </Link>
     </div>

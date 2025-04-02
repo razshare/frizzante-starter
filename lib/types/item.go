@@ -1,4 +1,4 @@
-package lib
+package types
 
 type Item struct {
 	Checked     bool   `json:"checked"`

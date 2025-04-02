@@ -14,7 +14,6 @@ export default defineConfig({
     alias: {
       $frizzante: "./.frizzante/vite-project/lib",
       $lib: "./lib",
-      $pages: "./pages",
     },
   },
   build: {

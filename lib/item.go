@@ -1,4 +1,4 @@
-package schemas
+package lib
 
 type Item struct {
 	Checked     bool   `json:"checked"`

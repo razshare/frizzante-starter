@@ -3,7 +3,6 @@ package main
 import (
 	"embed"
 	frz "github.com/razshare/frizzante"
-	"log"
 	"main/api"
 	"main/pages"
 )
@@ -13,26 +12,21 @@ var efs embed.FS
 
 func main() {
 	// Create.
-	logger := log.Default()
-	srv := frz.ServerCreate()
+	s := frz.ServerCreate()
+	n := frz.NotifierCreate()
 
 	// Setup.
-	frz.ServerWithPort(srv, 8080)
-	frz.ServerWithHostName(srv, "127.0.0.1")
-	frz.ServerWithEmbeddedFileSystem(srv, efs)
-	frz.ServerWithLogger(srv, logger)
+	frz.ServerWithPort(s, 8080)
+	frz.ServerWithHostName(s, "127.0.0.1")
+	frz.ServerWithEmbeddedFileSystem(s, efs)
+	frz.ServerWithNotifier(s, n)
 
 	// Route (order matters, "/" should always be last).
-	frz.ServerRouteApi(srv, "POST /check", api.Check)
-	frz.ServerRoutePage(srv, "GET /todos", "Todos", pages.Todos)
-	frz.ServerRoutePage(srv, "POST /todos", "Todos", pages.Todos)
-	frz.ServerRoutePage(srv, "GET /", "Welcome", pages.Welcome)
-
-	// Log.
-	frz.ServerRecallError(srv, func(err error) {
-		logger.Fatal(err)
-	})
+	frz.ServerRouteApi(s, "POST /check", api.Check)
+	frz.ServerRoutePage(s, "GET /todos", "Todos", pages.Todos)
+	frz.ServerRoutePage(s, "POST /todos", "Todos", pages.Todos)
+	frz.ServerRoutePage(s, "GET /", "Welcome", pages.Welcome)
 
 	// Start.
-	frz.ServerStart(srv)
+	frz.ServerStart(s)
 }

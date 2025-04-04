@@ -29,7 +29,7 @@
 <Layout title="Welcome">
     <h1>Welcome to Frizzante.</h1>
     <div class="menu">
-        <Link align="center" pageId="Todos">
+        <Link align="center" pageId="todos::View">
             <span class="link">Show todos</span>
         </Link>
     </div>

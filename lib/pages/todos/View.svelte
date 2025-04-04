@@ -69,7 +69,7 @@
     </div>
     <br/>
     <div class="menu">
-        <Link align="center" pageId="Welcome">
+        <Link align="center" pageId="welcome::View">
             <span class="link">&lt; Back</span>
         </Link>
     </div>

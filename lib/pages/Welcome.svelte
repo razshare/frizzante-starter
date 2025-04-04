@@ -22,14 +22,14 @@
 </style>
 
 <script>
-    import Link from '$frizzante/components/link.svelte'
-    import Layout from '$lib/components/layout.svelte'
+    import Link from '$frizzante/components/Link.svelte'
+    import Layout from '$lib/components/Layout.svelte'
 </script>
 
 <Layout title="Welcome">
     <h1>Welcome to Frizzante.</h1>
     <div class="menu">
-        <Link align="center" pageId="todos">
+        <Link align="center" pageId="Todos">
             <span class="link">Show todos</span>
         </Link>
     </div>

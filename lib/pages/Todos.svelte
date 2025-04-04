@@ -31,38 +31,37 @@
 </style>
 
 <script>
-    import Submit from "$frizzante/components/submit.svelte";
-    import Link from '$frizzante/components/link.svelte'
-    import Layout from '$lib/components/layout.svelte'
+    import Submit from "$frizzante/components/Submit.svelte";
+    import Link from '$frizzante/components/Link.svelte'
+    import Layout from '$lib/components/Layout.svelte'
     import {getContext} from "svelte";
 
     /**
      * @typedef Item
-     * @property {string} id
-     * @property {string} description
-     * @property {boolean} checked
+     * @property {string} Description
+     * @property {boolean} Checked
      */
 
     /**
      * @typedef Data
-     * @property {Array<Item>} items
+     * @property {Array<Item>} Items
      */
 
     /** @type {Data} */
-    const data = getContext("data")
+    const data = getContext("Data")
 </script>
 
 <Layout title="Todos">
     <div class="items">
-        {#each data.items as item, index}
+        {#each data.Items as item, index}
             <div class="item">
-                {#if item.checked}
-                    <Submit form={{uncheck:index}}>
-                        <span class="btn">(x) {item.description}</span>
+                {#if item.Checked}
+                    <Submit form={{Uncheck:index}}>
+                        <span class="btn">(x) {item.Description}</span>
                     </Submit>
                 {:else}
-                    <Submit form={{check:index}}>
-                        <span class="btn">(&nbsp;&nbsp;) {item.description}</span>
+                    <Submit form={{Check:index}}>
+                        <span class="btn">(&nbsp;&nbsp;) {item.Description}</span>
                     </Submit>
                 {/if}
             </div>
@@ -70,7 +69,7 @@
     </div>
     <br/>
     <div class="menu">
-        <Link align="center" pageId="welcome">
+        <Link align="center" pageId="Welcome">
             <span class="link">&lt; Back</span>
         </Link>
     </div>

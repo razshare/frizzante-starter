@@ -22,9 +22,9 @@ func main() {
 	frz.ServerWithNotifier(s, n)
 
 	// Route (order matters, "/" should always be last).
-	frz.ServerRouteApi(s, "POST /check", api.Check)
-	frz.ServerRoutePage(s, "GET /todos", "Todos", pages.Todos)
-	frz.ServerRoutePage(s, "POST /todos", "Todos", pages.Todos)
+	frz.ServerRouteApi(s, "POST /Check", api.Check)
+	frz.ServerRoutePage(s, "GET /Todos", "Todos", pages.Todos)
+	frz.ServerRoutePage(s, "POST /Todos", "Todos", pages.Todos)
 	frz.ServerRoutePage(s, "GET /", "Welcome", pages.Welcome)
 
 	// Start.

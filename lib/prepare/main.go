@@ -1,12 +1,5 @@
 package main
 
-import (
-	frz "github.com/razshare/frizzante"
-	"path"
-)
+import frz "github.com/razshare/frizzante"
 
-func main() {
-	frz.PrepareStart()
-	frz.PrepareSveltePages(path.Join("lib", "pages"))
-	frz.PrepareEnd()
-}
+func main() { frz.Prepare() }

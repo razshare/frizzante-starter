@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	frz "github.com/razshare/frizzante"
+	"main/lib/guards"
 	"main/lib/indexes"
 )
 
@@ -20,7 +21,11 @@ func main() {
 	frz.ServerWithEmbeddedFileSystem(s, dist)
 	frz.ServerWithNotifier(s, n)
 
-	// Route pages.
+	// Guards.
+	frz.ServerWithPageGuard(s, guards.Render)
+	frz.ServerWithPageGuard(s, guards.Session)
+
+	// Routes.
 	frz.ServerWithPage(s, "/todos", "todos", indexes.Todos)
 	frz.ServerWithPage(s, "/", "welcome", indexes.Welcome)
 

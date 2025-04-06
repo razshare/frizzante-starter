@@ -1,7 +1,7 @@
 package indexes
 
 import (
-	frz "github.com/razshare/frizzante"
+	f "github.com/razshare/frizzante"
 	"strconv"
 )
 
@@ -18,41 +18,41 @@ var initialItems = []Item{
 	{Checked: false, Description: "Pet the cat."},
 }
 
-func showTodos(req *frz.Request, res *frz.Response, p *frz.Page) {
+func showTodos(req *f.Request, res *f.Response, p *f.Page) {
 	// The default session operator will destroy any session after 30 minutes of inactivity.
-	get, _, _ := frz.SessionStart(req, res)
+	get, _, _ := f.SessionStart(req, res)
 	items := get("items", initialItems).([]Item)
 
-	frz.PageWithData(p, "items", items)
+	f.PageWithData(p, "items", items)
 }
 
-func updateTodos(req *frz.Request, res *frz.Response, p *frz.Page) {
+func updateTodos(req *f.Request, res *f.Response, p *f.Page) {
 	// The default session operator will destroy any session after 30 minutes of inactivity.
-	get, _, _ := frz.SessionStart(req, res)
+	get, _, _ := f.SessionStart(req, res)
 	items := get("items", initialItems).([]Item)
 
 	// Read form.
-	form := frz.ReceiveForm(req)
+	form := f.ReceiveForm(req)
 	if form.Has("check") {
 		index, pe := strconv.ParseInt(form.Get("check"), 10, 32)
 		if nil != pe {
-			frz.PageWithData(p, "error", pe.Error())
+			f.PageWithData(p, "error", pe.Error())
 			return
 		}
 		items[index].Checked = true
 	} else if form.Has("uncheck") {
 		index, pe := strconv.ParseInt(form.Get("uncheck"), 10, 32)
 		if nil != pe {
-			frz.PageWithData(p, "error", pe.Error())
+			f.PageWithData(p, "error", pe.Error())
 			return
 		}
 		items[index].Checked = false
 	}
 
-	frz.PageWithData(p, "items", items)
+	f.PageWithData(p, "items", items)
 }
 
-func Todos() (show frz.PageFunction, action frz.PageFunction) {
+func Todos() (show f.PageFunction, action f.PageFunction) {
 	show = showTodos
 	action = updateTodos
 	return

@@ -1,8 +1,8 @@
 package guards
 
-import frz "github.com/razshare/frizzante"
+import f "github.com/razshare/frizzante"
 
-func Render(_ *frz.Request, _ *frz.Response, p *frz.Page, pass func()) {
-	frz.PageWithRender(p, frz.RenderFull)
+func Render(_ *f.Request, _ *f.Response, p *f.Page, pass func()) {
+	f.PageWithRender(p, f.RenderFull)
 	pass()
 }

@@ -2,4 +2,4 @@ package main
 
 import f "github.com/razshare/frizzante"
 
-func main() { f.Prepare() }
+func main() { f.Make() }

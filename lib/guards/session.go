@@ -1,8 +1,8 @@
 package guards
 
-import frz "github.com/razshare/frizzante"
+import f "github.com/razshare/frizzante"
 
-func Session(req *frz.Request, res *frz.Response, _ *frz.Page, pass func()) {
-	frz.SessionStart(req, res)
+func Session(req *f.Request, res *f.Response, _ *f.Page, pass func()) {
+	f.SessionStart(req, res)
 	pass()
 }

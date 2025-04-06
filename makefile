@@ -73,3 +73,9 @@ hooks:
 	printf "#!/usr/bin/env bash\n" > .git/hooks/pre-commit
 	printf "make test" >> .git/hooks/pre-commit
 	chmod +x .git/hooks/pre-commit
+
+index:
+	go run lib/make/main.go -index
+
+guard:
+	go run lib/make/main.go -guard

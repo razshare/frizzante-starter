@@ -1,8 +1,8 @@
 package indexes
 
-import "github.com/razshare/frizzante"
+import f "github.com/razshare/frizzante"
 
-func Welcome() (show frizzante.PageFunction, action frizzante.PageFunction) {
+func Welcome() (show f.PageFunction, action f.PageFunction) {
 	// Noop.
 	return
 }

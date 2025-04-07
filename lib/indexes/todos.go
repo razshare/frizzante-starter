@@ -2,6 +2,7 @@ package indexes
 
 import (
 	f "github.com/razshare/frizzante"
+	"net/url"
 	"strconv"
 )
 
@@ -33,23 +34,25 @@ func todosActionFunction(req *f.Request, res *f.Response, p *f.Page) {
 
 	// Read form.
 	form := f.ReceiveForm(req)
+
+	// Handle checks.
 	if form.Has("check") {
-		index, pe := strconv.ParseInt(form.Get("check"), 10, 32)
-		if nil != pe {
-			f.PageWithData(p, "error", pe.Error())
-			return
-		}
-		items[index].Checked = true
+		handleCheck(items, form)
 	} else if form.Has("uncheck") {
-		index, pe := strconv.ParseInt(form.Get("uncheck"), 10, 32)
-		if nil != pe {
-			f.PageWithData(p, "error", pe.Error())
-			return
-		}
-		items[index].Checked = false
+		handleUncheck(items, form)
 	}
 
 	f.PageWithData(p, "items", items)
+}
+
+func handleCheck(items []Item, form *url.Values) {
+	index, _ := strconv.ParseInt(form.Get("check"), 10, 32)
+	items[index].Checked = true
+}
+
+func handleUncheck(items []Item, form *url.Values) {
+	index, _ := strconv.ParseInt(form.Get("uncheck"), 10, 32)
+	items[index].Checked = false
 }
 
 func Todos(

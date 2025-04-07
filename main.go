@@ -26,8 +26,8 @@ func main() {
 	f.ServerWithPageGuard(s, guards.Session)
 
 	// Routes.
-	f.ServerWithPage(s, "/todos", "todos", indexes.Todos)
-	f.ServerWithPage(s, "/", "welcome", indexes.Welcome)
+	f.ServerWithPage(s, "/todos", "Todos", indexes.Todos)
+	f.ServerWithPage(s, "/", "Welcome", indexes.Welcome)
 
 	// Start.
 	f.ServerStart(s)

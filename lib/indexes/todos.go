@@ -18,7 +18,7 @@ var initialItems = []Item{
 	{Checked: false, Description: "Pet the cat."},
 }
 
-func todosShow(req *f.Request, res *f.Response, p *f.Page) {
+func todosShowFunction(req *f.Request, res *f.Response, p *f.Page) {
 	// The default session operator will destroy any session after 30 minutes of inactivity.
 	get, _, _ := f.SessionStart(req, res)
 	items := get("items", initialItems).([]Item)
@@ -26,7 +26,7 @@ func todosShow(req *f.Request, res *f.Response, p *f.Page) {
 	f.PageWithData(p, "items", items)
 }
 
-func todosAction(req *f.Request, res *f.Response, p *f.Page) {
+func todosActionFunction(req *f.Request, res *f.Response, p *f.Page) {
 	// The default session operator will destroy any session after 30 minutes of inactivity.
 	get, _, _ := f.SessionStart(req, res)
 	items := get("items", initialItems).([]Item)
@@ -52,13 +52,12 @@ func todosAction(req *f.Request, res *f.Response, p *f.Page) {
 	f.PageWithData(p, "items", items)
 }
 
-func Todos() (
-	page string,
-	show f.PageFunction,
-	action f.PageFunction,
+func Todos(
+	route func(path string, page string),
+	show func(showFunction f.PageFunction),
+	action func(actionFunction f.PageFunction),
 ) {
-	page = "todos"
-	show = todosShow
-	action = todosAction
-	return
+	route("/todos", "todos")
+	show(todosShowFunction)
+	action(todosActionFunction)
 }

@@ -22,8 +22,8 @@ func main() {
 	f.ServerWithNotifier(s, n)
 
 	// Guards.
-	f.ServerWithPageGuard(s, guards.Render)
-	f.ServerWithPageGuard(s, guards.Session)
+	f.ServerWithIndexGuard(s, guards.Render)
+	f.ServerWithIndexGuard(s, guards.Session)
 
 	// Routes.
 	f.ServerWithIndex(s, indexes.Todos)

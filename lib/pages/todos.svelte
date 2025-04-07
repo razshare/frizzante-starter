@@ -69,7 +69,7 @@
     </div>
     <br/>
     <div class="menu">
-        <Link align="center" page="Welcome">
+        <Link align="center" page="welcome">
             <span class="link">&lt; Back</span>
         </Link>
     </div>

@@ -74,6 +74,9 @@ hooks:
 	printf "make test" >> .git/hooks/pre-commit
 	chmod +x .git/hooks/pre-commit
 
+api:
+	go run lib/make/main.go -api
+
 index:
 	go run lib/make/main.go -index
 

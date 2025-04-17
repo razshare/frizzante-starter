@@ -57,8 +57,8 @@ func handleUncheck(items []Item, form *url.Values) {
 
 func Todos(
 	route func(path string, page string),
-	show func(showFunction f.PageFunction),
-	action func(actionFunction f.PageFunction),
+	show func(showFunction func(req *f.Request, res *f.Response, p *f.Page)),
+	action func(actionFunction func(req *f.Request, res *f.Response, p *f.Page)),
 ) {
 	route("/todos", "todos")
 	show(todosShowFunction)

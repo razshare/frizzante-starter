@@ -1,4 +1,4 @@
-package api
+package events
 
 import (
 	"fmt"
@@ -15,7 +15,7 @@ func IsAlive(req *f.Request) *bool {
 	return &value
 }
 
-func testServeFunction(req *f.Request, res *f.Response) {
+func handler(req *f.Request, res *f.Response) {
 	alive := IsAlive(req)
 	f.SendSseUpgrade(res)
 
@@ -25,10 +25,10 @@ func testServeFunction(req *f.Request, res *f.Response) {
 	}
 }
 
-func Events(
-	route func(pattern string),
-	serve func(testServeFunction func(req *f.Request, res *f.Response)),
+func Api(
+	withPattern func(pattern string),
+	withHandler func(handler func(req *f.Request, res *f.Response)),
 ) {
-	route("GET /api/events")
-	serve(testServeFunction)
+	withPattern("GET /api/events")
+	withHandler(handler)
 }

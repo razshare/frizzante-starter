@@ -1,4 +1,4 @@
-package indexes
+package todos
 
 import (
 	f "github.com/razshare/frizzante"
@@ -19,7 +19,7 @@ var initialItems = []Item{
 	{Checked: false, Description: "Pet the cat."},
 }
 
-func todosShowFunction(req *f.Request, res *f.Response, p *f.Page) {
+func baseHandler(req *f.Request, res *f.Response, p *f.Page) {
 	// The default session operator will destroy any session after 30 minutes of inactivity.
 	get, _, _ := f.SessionStart(req, res)
 	items := get("items", initialItems).([]Item)
@@ -27,7 +27,7 @@ func todosShowFunction(req *f.Request, res *f.Response, p *f.Page) {
 	f.PageWithData(p, "items", items)
 }
 
-func todosActionFunction(req *f.Request, res *f.Response, p *f.Page) {
+func actionHandler(req *f.Request, res *f.Response, p *f.Page) {
 	// The default session operator will destroy any session after 30 minutes of inactivity.
 	get, _, _ := f.SessionStart(req, res)
 	items := get("items", initialItems).([]Item)
@@ -55,12 +55,14 @@ func handleUncheck(items []Item, form *url.Values) {
 	items[index].Checked = false
 }
 
-func Todos(
-	route func(path string, page string),
-	show func(showFunction func(req *f.Request, res *f.Response, p *f.Page)),
-	action func(actionFunction func(req *f.Request, res *f.Response, p *f.Page)),
+func Index(
+	withPage func(page string),
+	withPath func(path string),
+	withBaseHandler func(baseHandler func(req *f.Request, res *f.Response, page *f.Page)),
+	withActionHandler func(actionFunction func(req *f.Request, res *f.Response, page *f.Page)),
 ) {
-	route("/todos", "todos")
-	show(todosShowFunction)
-	action(todosActionFunction)
+	withPage("todos")
+	withPath("/todos")
+	withBaseHandler(baseHandler)
+	withActionHandler(actionHandler)
 }

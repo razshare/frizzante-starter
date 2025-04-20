@@ -3,9 +3,11 @@ package main
 import (
 	"embed"
 	f "github.com/razshare/frizzante"
-	"main/lib/api"
-	"main/lib/guards"
-	"main/lib/indexes"
+	"main/lib/components/server/events"
+	"main/lib/components/server/render"
+	"main/lib/components/server/session"
+	"main/lib/components/server/todos"
+	"main/lib/components/server/welcome"
 )
 
 //go:embed .dist/*/**
@@ -23,15 +25,15 @@ func main() {
 	f.ServerWithNotifier(s, n)
 
 	// Guards.
-	f.ServerWithIndexGuard(s, guards.Render)
-	f.ServerWithIndexGuard(s, guards.Session)
+	f.ServerWithGuard(s, render.Guard)
+	f.ServerWithGuard(s, session.Guard)
 
 	// Routes.
-	f.ServerWithIndex(s, indexes.Todos)
-	f.ServerWithIndex(s, indexes.Welcome)
+	f.ServerWithIndex(s, todos.Index)
+	f.ServerWithIndex(s, welcome.Index)
 
 	// Api.
-	f.ServerWithApi(s, api.Events)
+	f.ServerWithApi(s, events.Api)
 
 	// Start.
 	f.ServerStart(s)

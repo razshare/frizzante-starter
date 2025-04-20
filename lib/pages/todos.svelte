@@ -33,7 +33,7 @@
 <script>
     import Submit from "$frizzante/components/Submit.svelte";
     import Link from '$frizzante/components/Link.svelte'
-    import Layout from '$lib/components/Layout.svelte'
+    import Layout from '$lib/components/ui/Layout.svelte'
     import {getContext} from "svelte";
 
     /**

@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	f "github.com/razshare/frizzante"
+	"main/lib/api"
 	"main/lib/guards"
 	"main/lib/indexes"
 )
@@ -28,6 +29,9 @@ func main() {
 	// Routes.
 	f.ServerWithIndex(s, indexes.Todos)
 	f.ServerWithIndex(s, indexes.Welcome)
+
+	// Api.
+	f.ServerWithApi(s, api.Events)
 
 	// Start.
 	f.ServerStart(s)

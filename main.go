@@ -4,7 +4,6 @@ import (
 	"embed"
 	f "github.com/razshare/frizzante"
 	"main/lib/components/server/events"
-	"main/lib/components/server/render"
 	"main/lib/components/server/session"
 	"main/lib/components/server/todos"
 	"main/lib/components/server/welcome"
@@ -25,7 +24,6 @@ func main() {
 	f.ServerWithNotifier(s, n)
 
 	// Guards.
-	f.ServerWithGuard(s, render.Guard)
 	f.ServerWithGuard(s, session.Guard)
 
 	// Routes.

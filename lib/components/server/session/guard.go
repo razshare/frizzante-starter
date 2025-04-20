@@ -2,14 +2,19 @@ package session
 
 import f "github.com/razshare/frizzante"
 
-func pageHandler(req *f.Request, res *f.Response, _ *f.Page, pass func()) {
+func guardHandler(req *f.Request, res *f.Response, pass func()) {
 	f.SessionStart(req, res)
 	pass()
 }
 
 func Guard(
-	_ func(func(req *f.Request, res *f.Response, pass func())),
-	withPageHandler func(func(req *f.Request, res *f.Response, page *f.Page, pass func())),
+	withGuardHandler func(
+		guardHandler func(
+			req *f.Request,
+			res *f.Response,
+			pass func(),
+		),
+	),
 ) {
-	withPageHandler(pageHandler)
+	withGuardHandler(guardHandler)
 }

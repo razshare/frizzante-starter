@@ -31,28 +31,28 @@ func handleUncheck(items []Item, form *url.Values) {
 
 func Todos(
 	withPath func(path string),
-	withDocument func(document *f.Document),
-	withBaseHandler func(baseHandler func(request *f.Request, response *f.Response, document *f.Document)),
-	withActionHandler func(actionFunction func(request *f.Request, response *f.Response, document *f.Document)),
+	withView func(view *f.View),
+	withBaseHandler func(baseHandler func(request *f.Request, response *f.Response, view *f.View)),
+	withActionHandler func(actionFunction func(request *f.Request, response *f.Response, view *f.View)),
 ) {
 	withPath("/todos")
-	withDocument(f.DocumentCreate("Todos"))
+	withView(f.ViewReference("Todos"))
 
 	// Base.
-	withBaseHandler(func(request *f.Request, response *f.Response, document *f.Document) {
+	withBaseHandler(func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		get, _, _ := f.SessionStart(request, response)
-		document.Data["items"] = get("items", initialItems)
+		view.Data["items"] = get("items", initialItems)
 	})
 
 	// Action.
-	withActionHandler(func(req *f.Request, res *f.Response, doc *f.Document) {
+	withActionHandler(func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
-		get, _, _ := f.SessionStart(req, res)
+		get, _, _ := f.SessionStart(request, response)
 		items := get("items", initialItems).([]Item)
 
 		// Read form.
-		form := f.ReceiveForm(req)
+		form := f.ReceiveForm(request)
 
 		// Handle checks.
 		if form.Has("check") {
@@ -61,6 +61,6 @@ func Todos(
 			handleUncheck(items, form)
 		}
 
-		doc.Data["items"] = items
+		view.Data["items"] = items
 	})
 }

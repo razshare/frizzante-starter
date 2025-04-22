@@ -4,10 +4,10 @@ import f "github.com/razshare/frizzante"
 
 func Welcome(
 	withPath func(path string),
-	withDocument func(document *f.Document),
-	_ func(baseHandler func(request *f.Request, response *f.Response, document *f.Document)),
-	_ func(actionFunction func(request *f.Request, response *f.Response, document *f.Document)),
+	withView func(view *f.View),
+	_ func(baseHandler func(request *f.Request, response *f.Response, view *f.View)),
+	_ func(actionFunction func(request *f.Request, response *f.Response, view *f.View)),
 ) {
 	withPath("/")
-	withDocument(f.DocumentCreate("Welcome"))
+	withView(f.ViewReference("Welcome"))
 }

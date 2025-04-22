@@ -6,10 +6,10 @@ import (
 	"time"
 )
 
-func RequestIsAlive(req *f.Request) *bool {
+func RequestIsAlive(request *f.Request) *bool {
 	value := true
 	go func() {
-		<-f.ReceiveCancellation(req)
+		<-f.ReceiveCancellation(request)
 		value = false
 	}()
 	return &value
@@ -17,15 +17,15 @@ func RequestIsAlive(req *f.Request) *bool {
 
 func Events(
 	withPattern func(pattern string),
-	withHandler func(handler func(req *f.Request, res *f.Response)),
+	withHandler func(handler func(request *f.Request, response *f.Response)),
 ) {
 	withPattern("GET /api/events")
-	withHandler(func(req *f.Request, res *f.Response) {
-		alive := RequestIsAlive(req)
-		f.SendSseUpgrade(res)
+	withHandler(func(request *f.Request, response *f.Response) {
+		alive := RequestIsAlive(request)
+		f.SendSseUpgrade(response)
 
 		for *alive {
-			f.SendEcho(res, fmt.Sprintf("Server time is %s", time.Now().Format(time.RFC1123)))
+			f.SendEcho(response, fmt.Sprintf("Server time is %s", time.Now().Format(time.RFC1123)))
 			time.Sleep(time.Second)
 		}
 	})

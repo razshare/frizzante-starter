@@ -5,7 +5,7 @@ import f "github.com/razshare/frizzante"
 func Welcome(
 	withPath func(path string),
 	withView func(view *f.View),
-	_ func(baseHandler func(
+	withBaseHandler func(baseHandler func(
 		request *f.Request,
 		response *f.Response,
 		view *f.View,
@@ -18,4 +18,11 @@ func Welcome(
 ) {
 	withPath("/")
 	withView(f.ViewReference("Welcome"))
+	withBaseHandler(func(
+		request *f.Request,
+		response *f.Response,
+		view *f.View,
+	) {
+		view.Render = f.RenderClient
+	})
 }

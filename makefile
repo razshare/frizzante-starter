@@ -77,9 +77,6 @@ hooks:
 api:
 	go run lib/make/main.go -api
 
-index:
-	go run lib/make/main.go -index
-
 guard:
 	go run lib/make/main.go -guard
 

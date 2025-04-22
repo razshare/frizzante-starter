@@ -32,21 +32,37 @@ func handleUncheck(items []Item, form *url.Values) {
 func Todos(
 	withPath func(path string),
 	withView func(view *f.View),
-	withBaseHandler func(baseHandler func(request *f.Request, response *f.Response, view *f.View)),
-	withActionHandler func(actionFunction func(request *f.Request, response *f.Response, view *f.View)),
+	withBaseHandler func(baseHandler func(
+		request *f.Request,
+		response *f.Response,
+		view *f.View,
+	)),
+	withActionHandler func(actionFunction func(
+		request *f.Request,
+		response *f.Response,
+		view *f.View,
+	)),
 ) {
 	withPath("/todos")
 	withView(f.ViewReference("Todos"))
 
 	// Base.
-	withBaseHandler(func(request *f.Request, response *f.Response, view *f.View) {
+	withBaseHandler(func(
+		request *f.Request,
+		response *f.Response,
+		view *f.View,
+	) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		get, _, _ := f.SessionStart(request, response)
 		view.Data["items"] = get("items", initialItems)
 	})
 
 	// Action.
-	withActionHandler(func(request *f.Request, response *f.Response, view *f.View) {
+	withActionHandler(func(
+		request *f.Request,
+		response *f.Response,
+		view *f.View,
+	) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		get, _, _ := f.SessionStart(request, response)
 		items := get("items", initialItems).([]Item)

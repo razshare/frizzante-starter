@@ -17,10 +17,16 @@ func RequestIsAlive(request *f.Request) *bool {
 
 func Events(
 	withPattern func(pattern string),
-	withHandler func(handler func(request *f.Request, response *f.Response)),
+	withHandler func(handler func(
+		request *f.Request,
+		response *f.Response,
+	)),
 ) {
 	withPattern("GET /api/events")
-	withHandler(func(request *f.Request, response *f.Response) {
+	withHandler(func(
+		request *f.Request,
+		response *f.Response,
+	) {
 		alive := RequestIsAlive(request)
 		f.SendSseUpgrade(response)
 

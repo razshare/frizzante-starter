@@ -33,7 +33,7 @@
     <div class="menu">
         <span>{$message}</span><br/>
         <br/>
-        <Link align="center" page="todos">
+        <Link align="center" view="Todos">
             <span class="link">Show todos</span>
         </Link>
     </div>

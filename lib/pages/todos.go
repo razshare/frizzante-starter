@@ -31,18 +31,18 @@ func handleUncheck(items []Item, form *url.Values) {
 
 func Todos(
 	withPath func(path string),
-	withDocument func(doc *f.Document),
-	withBaseHandler func(baseHandler func(req *f.Request, res *f.Response, doc *f.Document)),
-	withActionHandler func(actionFunction func(req *f.Request, res *f.Response, doc *f.Document)),
+	withDocument func(document *f.Document),
+	withBaseHandler func(baseHandler func(request *f.Request, response *f.Response, document *f.Document)),
+	withActionHandler func(actionFunction func(request *f.Request, response *f.Response, document *f.Document)),
 ) {
 	withPath("/todos")
-	withDocument(f.DocumentCreate("todos"))
+	withDocument(f.DocumentCreate("Todos"))
 
 	// Base.
-	withBaseHandler(func(req *f.Request, res *f.Response, doc *f.Document) {
+	withBaseHandler(func(request *f.Request, response *f.Response, document *f.Document) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
-		get, _, _ := f.SessionStart(req, res)
-		doc.Data["items"] = get("items", initialItems)
+		get, _, _ := f.SessionStart(request, response)
+		document.Data["items"] = get("items", initialItems)
 	})
 
 	// Action.

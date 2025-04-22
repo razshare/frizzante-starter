@@ -9,29 +9,29 @@ import (
 )
 
 //go:embed .dist/*/**
-var d embed.FS
+var dist embed.FS
 
 func main() {
 	// Create.
-	s := f.ServerCreate()
-	n := f.NotifierCreate()
+	server := f.ServerCreate()
+	notifier := f.NotifierCreate()
 
 	// Setup.
-	f.ServerWithPort(s, 8080)
-	f.ServerWithHostName(s, "127.0.0.1")
-	f.ServerWithEmbeddedFileSystem(s, d)
-	f.ServerWithNotifier(s, n)
+	f.ServerWithPort(server, 8080)
+	f.ServerWithHostName(server, "127.0.0.1")
+	f.ServerWithEmbeddedFileSystem(server, dist)
+	f.ServerWithNotifier(server, notifier)
 
 	// Guards.
-	f.ServerWithGuard(s, guards.Session)
+	f.ServerWithGuard(server, guards.Session)
 
 	// Routes.
-	f.ServerWithPage(s, pages.Welcome)
-	f.ServerWithPage(s, pages.Todos)
+	f.ServerWithPage(server, pages.Welcome)
+	f.ServerWithPage(server, pages.Todos)
 
-	// Events.
-	f.ServerWithApi(s, api.Events)
+	// Api.
+	f.ServerWithApi(server, api.Events)
 
 	// Start.
-	f.ServerStart(s)
+	f.ServerStart(server)
 }

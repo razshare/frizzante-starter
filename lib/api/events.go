@@ -31,7 +31,7 @@ func Events(
 		f.SendSseUpgrade(response)
 
 		for *alive {
-			f.SendEcho(response, fmt.Sprintf("Server time is %s", time.Now().Format(time.RFC1123)))
+			f.SendEcho(response, fmt.Sprintf("Server time is %s", time.Now().Format(time.TimeOnly)))
 			time.Sleep(time.Second)
 		}
 	})

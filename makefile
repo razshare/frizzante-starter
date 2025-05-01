@@ -15,7 +15,7 @@ dev: clean update
 	--build.bin "bin/app" \
 	--build.exclude_dir "out,tmp,bin" \
 	--build.exclude_regex "_test.go,.frizzante" \
-	--build.include_ext "go" \
+	--build.include_ext "go,svelte,js,css,json" \
 	--build.log "go-build-errors.log" & \
 	make www-watch-server & \
 	make www-watch-client & \

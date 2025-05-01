@@ -54,7 +54,7 @@ func Todos(
 	) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		get, _, _ := f.SessionStart(request, response)
-		view.Data["items"] = get("items", initialItems)
+		f.ViewWithData(view, "items", get("items", initialItems))
 	})
 
 	// Action.
@@ -76,7 +76,6 @@ func Todos(
 		} else if form.Has("uncheck") {
 			handleUncheck(items, form)
 		}
-
-		view.Data["items"] = items
+		f.ViewWithData(view, "items", items)
 	})
 }

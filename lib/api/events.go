@@ -16,11 +16,8 @@ func RequestIsAlive(request *f.Request) *bool {
 }
 
 func Events(
-	withPattern func(pattern string),
-	withHandler func(handler func(
-		request *f.Request,
-		response *f.Response,
-	)),
+	withPattern func(string),
+	withHandler func(func(*f.Request, *f.Response)),
 ) {
 	withPattern("GET /api/events")
 	withHandler(func(

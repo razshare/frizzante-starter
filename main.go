@@ -25,7 +25,7 @@ func main() {
 	// Guards.
 	f.ServerWithGuard(server, guards.Session)
 
-	// Routes.
+	// Pages.
 	f.ServerWithPage(server, pages.Welcome)
 	f.ServerWithPage(server, pages.Todos)
 

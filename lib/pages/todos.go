@@ -30,18 +30,10 @@ func handleUncheck(items []Item, form *url.Values) {
 }
 
 func Todos(
-	withPath func(path string),
-	withView func(view *f.View),
-	withBaseHandler func(baseHandler func(
-		request *f.Request,
-		response *f.Response,
-		view *f.View,
-	)),
-	withActionHandler func(actionFunction func(
-		request *f.Request,
-		response *f.Response,
-		view *f.View,
-	)),
+	withPath func(string),
+	withView func(*f.View),
+	withBaseHandler func(func(*f.Request, *f.Response, *f.View)),
+	withActionHandler func(func(*f.Request, *f.Response, *f.View)),
 ) {
 	withPath("/todos")
 	withView(f.ViewReference("Todos"))

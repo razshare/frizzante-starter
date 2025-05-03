@@ -30,10 +30,10 @@ func handleUncheck(items []Item, form *url.Values) {
 }
 
 func Todos(
-	withPath f.ProvidePagePath,
-	withView f.ProvidePageView,
-	withBaseHandler f.ProvidePageBaseHandler,
-	withActionHandler f.ProvidePageActionHandler,
+	withPath f.WithPagePath,
+	withView f.WithPageView,
+	withBaseHandler f.WithPageBaseHandler,
+	withActionHandler f.WithPageActionHandler,
 ) {
 	withPath("/todos")
 	withView(f.ViewReference("Todos"))

@@ -31,17 +31,17 @@ func handleUncheck(items []Item, form *url.Values) {
 
 func Todos(context f.PageContext) {
 	// Context.
-	path, view, base, action := context()
+	withPath, withView, withBase, withAction := context()
 
 	// Configure.
-	path("/todos")
-	view(f.ViewReference("Todos"))
-	base(func(request *f.Request, response *f.Response, view *f.View) {
+	withPath("/todos")
+	withView(f.ViewReference("Todos"))
+	withBase(func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		get, _, _ := f.SessionStart(request, response)
 		f.ViewWithData(view, "items", get("items", initialItems))
 	})
-	action(func(request *f.Request, response *f.Response, view *f.View) {
+	withAction(func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		get, _, _ := f.SessionStart(request, response)
 		items := get("items", initialItems).([]Item)

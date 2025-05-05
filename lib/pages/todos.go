@@ -39,22 +39,14 @@ func Todos(
 	withView(f.ViewReference("Todos"))
 
 	// Base.
-	withBaseHandler(func(
-		request *f.Request,
-		response *f.Response,
-		view *f.View,
-	) {
+	withBaseHandler(func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		get, _, _ := f.SessionStart(request, response)
 		f.ViewWithData(view, "items", get("items", initialItems))
 	})
 
 	// Action.
-	withActionHandler(func(
-		request *f.Request,
-		response *f.Response,
-		view *f.View,
-	) {
+	withActionHandler(func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		get, _, _ := f.SessionStart(request, response)
 		items := get("items", initialItems).([]Item)

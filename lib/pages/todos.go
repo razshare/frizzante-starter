@@ -29,24 +29,19 @@ func handleUncheck(items []Item, form *url.Values) {
 	items[index].Checked = false
 }
 
-func Todos(
-	withPath f.WithPagePath,
-	withView f.WithPageView,
-	withBaseHandler f.WithPageBaseHandler,
-	withActionHandler f.WithPageActionHandler,
-) {
-	withPath("/todos")
-	withView(f.ViewReference("Todos"))
+func Todos(context f.PageContext) {
+	// Context.
+	path, view, base, action := context()
 
-	// Base.
-	withBaseHandler(func(request *f.Request, response *f.Response, view *f.View) {
+	// Configure.
+	path("/todos")
+	view(f.ViewReference("Todos"))
+	base(func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		get, _, _ := f.SessionStart(request, response)
 		f.ViewWithData(view, "items", get("items", initialItems))
 	})
-
-	// Action.
-	withActionHandler(func(request *f.Request, response *f.Response, view *f.View) {
+	action(func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		get, _, _ := f.SessionStart(request, response)
 		items := get("items", initialItems).([]Item)

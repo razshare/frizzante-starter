@@ -22,15 +22,15 @@ func main() {
 	f.ServerWithEmbeddedFileSystem(server, dist)
 	f.ServerWithNotifier(server, notifier)
 
-	// Guards.
-	f.ServerWithGuard(server, guards.Session)
+	// Build guards.
+	f.ServerWithGuardBuilder(server, guards.Session)
 
-	// Pages.
-	f.ServerWithPage(server, pages.Welcome)
-	f.ServerWithPage(server, pages.Todos)
+	// Build pages.
+	f.ServerWithPageBuilder(server, pages.Welcome)
+	f.ServerWithPageBuilder(server, pages.Todos)
 
-	// Api.
-	f.ServerWithApi(server, api.Events)
+	// Build api.
+	f.ServerWithApiBuilder(server, api.Events)
 
 	// Start.
 	f.ServerStart(server)

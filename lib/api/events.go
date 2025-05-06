@@ -23,7 +23,7 @@ func Events(context f.ApiContext) {
 	withPattern("GET /api/events")
 	withHandler(func(request *f.Request, response *f.Response) {
 		alive := RequestIsAlive(request)
-		f.SendSseUpgrade(response)
+		f.ResponseSendSseUpgrade(response)
 
 		for *alive {
 			f.ResponseSendMessage(response, fmt.Sprintf("Server time is %s", time.Now().Format(time.TimeOnly)))

@@ -47,7 +47,7 @@ func Todos(context f.PageContext) {
 		items := get("items", initialItems).([]Item)
 
 		// Read form.
-		form := f.ReceiveForm(request)
+		form := f.RequestReceiveForm(request)
 
 		// Handle checks.
 		if form.Has("check") {

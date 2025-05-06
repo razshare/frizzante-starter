@@ -4,9 +4,9 @@ import f "github.com/razshare/frizzante"
 
 func Welcome(context f.PageContext) {
 	// Context.
-	withpath, withView, _, _ := context()
+	withPath, withView, _, _ := context()
 
 	// Map.
-	withpath("/")
+	withPath("/")
 	withView(f.ViewReference("Welcome"))
 }

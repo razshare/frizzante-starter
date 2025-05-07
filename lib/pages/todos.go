@@ -34,13 +34,14 @@ func Todos(page *f.Page) {
 	f.PageWithView(page, f.ViewReference("Todos"))
 	f.PageWithBase(page, func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
-		get, _, _ := f.SessionStart(request, response)
-		f.ViewWithData(view, "items", get("items", initialItems))
+		session := f.SessionStart(request, response)
+		items := f.SessionGet[[]Item](session, "items", initialItems)
+		f.ViewWithData(view, "items", items)
 	})
 	f.PageWithAction(page, func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
-		get, _, _ := f.SessionStart(request, response)
-		items := get("items", initialItems).([]Item)
+		session := f.SessionStart(request, response)
+		items := f.SessionGet[[]Item](session, "items", initialItems)
 
 		// Read form.
 		form := f.RequestReceiveForm(request)

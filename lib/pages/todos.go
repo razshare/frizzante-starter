@@ -32,16 +32,30 @@ func handleUncheck(items []Item, form *url.Values) {
 func Todos(page *f.Page) {
 	f.PageWithPath(page, "/todos")
 	f.PageWithView(page, f.ViewReference("Todos"))
-	f.PageWithBase(page, func(request *f.Request, response *f.Response, view *f.View) {
+	f.PageWithBaseHandler(page, func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		session := f.SessionStart(request, response)
-		items := f.SessionGet[[]Item](session, "items", initialItems)
+
+		// Make sure "items" exists.
+		if !f.SessionHas(session, "items") {
+			f.SessionSet(session, "items", initialItems)
+		}
+
+		// Retrieve and inject items.
+		items := f.SessionGet[[]Item](session, "items")
 		f.ViewWithData(view, "items", items)
 	})
-	f.PageWithAction(page, func(request *f.Request, response *f.Response, view *f.View) {
+	f.PageWithActionHandler(page, func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		session := f.SessionStart(request, response)
-		items := f.SessionGet[[]Item](session, "items", initialItems)
+
+		// Make sure "items" exists.
+		if !f.SessionHas(session, "items") {
+			f.SessionSet(session, "items", initialItems)
+		}
+
+		// Retrieve items.
+		items := f.SessionGet[[]Item](session, "items")
 
 		// Read form.
 		form := f.RequestReceiveForm(request)
@@ -52,6 +66,8 @@ func Todos(page *f.Page) {
 		} else if form.Has("uncheck") {
 			handleUncheck(items, form)
 		}
+
+		// Inject items.
 		f.ViewWithData(view, "items", items)
 	})
 }

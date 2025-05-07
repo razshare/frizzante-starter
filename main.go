@@ -4,7 +4,6 @@ import (
 	"embed"
 	f "github.com/razshare/frizzante"
 	"main/lib/api"
-	"main/lib/guards"
 	"main/lib/pages"
 )
 
@@ -21,9 +20,6 @@ func main() {
 	f.ServerWithHostName(server, "127.0.0.1")
 	f.ServerWithEmbeddedFileSystem(server, dist)
 	f.ServerWithNotifier(server, notifier)
-
-	// Build guards.
-	f.ServerWithGuardBuilder(server, guards.Session)
 
 	// Build pages.
 	f.ServerWithPageBuilder(server, pages.Welcome)

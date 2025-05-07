@@ -2,6 +2,7 @@ package pages
 
 import (
 	f "github.com/razshare/frizzante"
+	"main/lib/guards"
 	"net/url"
 	"strconv"
 )
@@ -32,6 +33,7 @@ func handleUncheck(items []Item, form *url.Values) {
 func Todos(page *f.Page) {
 	f.PageWithPath(page, "/todos")
 	f.PageWithView(page, f.ViewReference("Todos"))
+	f.PageWithGuardHandler(page, guards.Session)
 	f.PageWithBaseHandler(page, func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		session := f.SessionStart(request, response)

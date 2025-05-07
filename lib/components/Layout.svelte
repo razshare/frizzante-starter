@@ -25,7 +25,6 @@
     const {title, children} = $props()
 </script>
 
-
 <svelte:head>
     <meta charset="UTF-8">
     <meta name="viewport"

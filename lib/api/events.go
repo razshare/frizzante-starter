@@ -19,7 +19,7 @@ func RequestIsAlive(request *f.Request) *bool {
 func Events(api *f.Api) {
 	f.ApiWithPattern(api, "GET /api/events")
 	f.ApiWithGuardHandler(api, guards.Session)
-	f.ApiWithHandler(api, func(request *f.Request, response *f.Response) {
+	f.ApiWithRequestHandler(api, func(request *f.Request, response *f.Response) {
 		alive := RequestIsAlive(request)
 		f.ResponseSendSseUpgrade(response)
 

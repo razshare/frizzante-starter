@@ -69,6 +69,9 @@ func Todos(page *f.Page) {
 			handleUncheck(items, form)
 		}
 
+		// PUpdate session.
+		f.SessionSet(session, "items", items)
+
 		// Inject items.
 		f.ViewWithData(view, "items", items)
 	})

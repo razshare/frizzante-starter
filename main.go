@@ -3,7 +3,6 @@ package main
 import (
 	"embed"
 	f "github.com/razshare/frizzante"
-	"main/lib"
 	"main/lib/api"
 	"main/lib/pages"
 )
@@ -12,18 +11,23 @@ import (
 var dist embed.FS
 
 func main() {
+	// Create.
 	server := f.ServerCreate()
 	notifier := f.NotifierCreate()
-	archive := f.ArchiveCreateLocal(notifier, ".sessions")
-	sessionBuilder := f.SessionBuilderCreate(archive, lib.InitializeState)
 
+	// Setup.
 	f.ServerWithPort(server, 8080)
+	f.ServerWithNotifier(server, notifier)
 	f.ServerWithHostName(server, "127.0.0.1")
 	f.ServerWithEmbeddedFileSystem(server, dist)
-	f.ServerWithNotifier(server, notifier)
-	f.ServerWithApiBuilder(server, api.Events)
+
+	//Pages.
 	f.ServerWithPageBuilder(server, pages.Todos)
 	f.ServerWithPageBuilder(server, pages.Welcome)
-	f.ServerWithSessionBuilder[lib.UserSession](server, sessionBuilder)
+
+	// Api.
+	f.ServerWithApiBuilder(server, api.Events)
+
+	//Start.
 	f.ServerStart(server)
 }

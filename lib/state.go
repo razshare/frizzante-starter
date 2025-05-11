@@ -1,22 +1,17 @@
 package lib
 
-import (
-	"time"
-)
-
-type UserSession struct {
-	Items        []Item    `json:"items"`
-	LastActivity time.Time `json:"lastActivity"`
-}
-
 type Item struct {
 	Checked     bool   `json:"checked"`
 	Description string `json:"description"`
 }
 
-// InitializeState initializes the session state.
-func InitializeState() *UserSession {
-	return &UserSession{
+type State struct {
+	Items []Item `json:"items"`
+}
+
+// InitializeState initialize session state.
+func InitializeState() State {
+	return State{
 		Items: []Item{
 			{Checked: false, Description: "Pet the cat."},
 			{Checked: false, Description: "Do laundry"},

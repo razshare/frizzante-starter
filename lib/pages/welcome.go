@@ -2,11 +2,11 @@ package pages
 
 import (
 	f "github.com/razshare/frizzante"
-	"main/lib/guads"
+	"main/lib/guards"
 )
 
 func Welcome(page *f.Page) {
 	f.PageWithPath(page, "/")
 	f.PageWithView(page, f.ViewReference("Welcome"))
-	f.PageWithGuardHandler(page, guads.Session)
+	f.PageWithGuardHandler(page, guards.Session)
 }

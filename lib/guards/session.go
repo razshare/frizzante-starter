@@ -1,4 +1,4 @@
-package guads
+package guards
 
 import (
 	f "github.com/razshare/frizzante"

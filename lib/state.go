@@ -1,6 +1,8 @@
 package lib
 
-import "time"
+import (
+	"time"
+)
 
 type UserSession struct {
 	Items        []Item    `json:"items"`
@@ -12,8 +14,8 @@ type Item struct {
 	Description string `json:"description"`
 }
 
-// InitialState creates the initial state.
-func InitialState() *UserSession {
+// InitializeState initializes the session state.
+func InitializeState() *UserSession {
 	return &UserSession{
 		Items: []Item{
 			{Checked: false, Description: "Pet the cat."},

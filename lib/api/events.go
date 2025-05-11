@@ -3,7 +3,7 @@ package api
 import (
 	"fmt"
 	f "github.com/razshare/frizzante"
-	"main/lib/guards"
+	"main/lib/guads"
 	"time"
 )
 
@@ -18,7 +18,7 @@ func RequestIsAlive(request *f.Request) *bool {
 
 func Events(api *f.Api) {
 	f.ApiWithPattern(api, "GET /api/events")
-	f.ApiWithGuardHandler(api, guards.Session)
+	f.ApiWithGuardHandler(api, guads.Session)
 	f.ApiWithRequestHandler(api, func(request *f.Request, response *f.Response) {
 		alive := RequestIsAlive(request)
 		f.ResponseSendSseUpgrade(response)

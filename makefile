@@ -13,7 +13,7 @@ dev: clean update
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "go build -o bin/app ." \
 	--build.bin "bin/app" \
-	--build.exclude_dir "out,tmp,bin,archive" \
+	--build.exclude_dir "out,bin,.sessions" \
 	--build.exclude_regex "_test.go,.frizzante,node_modules" \
 	--build.include_ext "go,svelte,js,css,json" \
 	--build.log "go-build-errors.log" & \
@@ -36,13 +36,11 @@ configure: clean update
 
 clean:
 	go clean
-	rm main.db -f
+	rm bin/app -f
 	rm cert.pem -f
 	rm key.pem -f
-	rm bin/app -f
-	rm tmp -fr
-	rm tmp -fr
 	rm node_modules -fr
+	rm .sessions -fr
 	rm .dist -fr
 	rm .frizzante -fr
 	mkdir .dist/server -p

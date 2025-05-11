@@ -40,7 +40,6 @@ clean:
 	rm cert.pem -f
 	rm key.pem -f
 	rm node_modules -fr
-	rm .sessions -fr
 	rm .dist -fr
 	rm .frizzante -fr
 	mkdir .dist/server -p

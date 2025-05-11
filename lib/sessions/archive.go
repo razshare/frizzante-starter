@@ -14,23 +14,30 @@ var archive = f.ArchiveCreateOnDisk(".sessions")
 
 func Archive(session *f.Session[lib.State]) {
 	f.SessionWithLoader(session, func() {
-		state, sessionExists := archiveStores[session.Id]
-		if !sessionExists {
-			state = lib.InitializeState()
-			archiveStores[session.Id] = state
+		state, existsInMemory := archiveStores[session.Id]
+		if !existsInMemory {
 			archiveOperating[session.Id] = make(chan int, 1)
 			archiveOperating[session.Id] <- 0
-
 			<-archiveOperating[session.Id]
-			if !f.ArchiveHas(archive, session.Id, archiveKey) {
-				readBytes, marshalError := json.Marshal(state)
-				if nil != marshalError {
-					f.NotifierSendError(archiveNotifier, marshalError)
-					archiveOperating[session.Id] <- 0
+			existsOnDisk := f.ArchiveHas(archive, session.Id, archiveKey)
+
+			if existsOnDisk {
+				readBytes := f.ArchiveGet(archive, session.Id, archiveKey)
+				unmarshalError := json.Unmarshal(readBytes, &state)
+				if nil != unmarshalError {
+					f.NotifierSendError(archiveNotifier, unmarshalError)
 					return
 				}
-				f.ArchiveSet(archive, session.Id, archiveKey, readBytes)
+			} else {
+				state = lib.InitializeState()
+				jsonBytes, marshalError := json.Marshal(state)
+				if nil != marshalError {
+					f.NotifierSendError(archiveNotifier, marshalError)
+					return
+				}
+				f.ArchiveSet(archive, session.Id, archiveKey, jsonBytes)
 			}
+			archiveStores[session.Id] = state
 			archiveOperating[session.Id] <- 0
 		}
 

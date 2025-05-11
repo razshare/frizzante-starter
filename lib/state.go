@@ -10,8 +10,8 @@ type State struct {
 }
 
 // InitializeState initialize session state.
-func InitializeState() *State {
-	return &State{
+func InitializeState() State {
+	return State{
 		Items: []Item{
 			{Checked: false, Description: "Pet the cat."},
 			{Checked: false, Description: "Do laundry"},

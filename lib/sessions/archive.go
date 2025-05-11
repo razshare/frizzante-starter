@@ -8,11 +8,11 @@ import (
 
 var archiveKey = "session.json"
 var archiveNotifier = f.NotifierCreate()
-var archiveStores = map[string]lib.State{}
+var archiveStores = map[string]*lib.State{}
 var archiveOperating = map[string]chan int{}
 var archive = f.ArchiveCreateOnDisk(".sessions")
 
-func Archive(session *f.Session[lib.State]) {
+func Archive(session *f.Session[*lib.State]) {
 	f.SessionWithLoader(session, func() {
 		state, existsInMemory := archiveStores[session.Id]
 		if !existsInMemory {

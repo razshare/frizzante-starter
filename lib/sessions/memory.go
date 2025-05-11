@@ -6,9 +6,9 @@ import (
 )
 
 var memoryOperating = map[string]chan int{}
-var memoryStores = map[string]lib.State{}
+var memoryStores = map[string]*lib.State{}
 
-func Memory(session *f.Session[lib.State]) {
+func Memory(session *f.Session[*lib.State]) {
 	f.SessionWithLoader(session, func() {
 		state, sessionExists := memoryStores[session.Id]
 		if !sessionExists {

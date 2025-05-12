@@ -28,7 +28,7 @@ func Todos(page *f.Page) {
 		session := f.SessionStart(request, response, sessions.Archive)
 
 		// Inject items into view.
-		f.ViewWithData(view, "items", session.Items)
+		f.ViewWithData(view, "items", session.State.Items)
 	})
 	f.PageWithActionHandler(page, func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
@@ -39,12 +39,12 @@ func Todos(page *f.Page) {
 
 		// Handle checks.
 		if form.Has("check") {
-			check(session.Items, form)
+			check(session.State.Items, form)
 		} else if form.Has("uncheck") {
-			uncheck(session.Items, form)
+			uncheck(session.State.Items, form)
 		}
 
 		// Inject items.
-		f.ViewWithData(view, "items", session.Items)
+		f.ViewWithData(view, "items", session.State.Items)
 	})
 }

@@ -9,7 +9,7 @@ var memoryOperating = map[string]chan int{}
 var memoryStores = map[string]lib.State{}
 
 func Memory(session *f.Session[lib.State]) {
-	f.SessionWithLoader(session, func() {
+	f.SessionWithLoadHandler(session, func() {
 		state, sessionExists := memoryStores[session.Id]
 		if !sessionExists {
 			state = lib.InitializeState()
@@ -19,19 +19,19 @@ func Memory(session *f.Session[lib.State]) {
 		}
 
 		<-memoryOperating[session.Id]
-		session.Store = memoryStores[session.Id]
+		session.State = memoryStores[session.Id]
 		memoryOperating[session.Id] <- 0
 	})
 
-	f.SessionWithValidator(session, func() bool {
+	f.SessionWithValidateHandler(session, func() bool {
 		return true
 	})
 
-	f.SessionWithSaver(session, func() {
+	f.SessionWithSaveHandler(session, func() {
 		// Noop.
 	})
 
-	f.SessionWithDestroyer(session, func() {
+	f.SessionWithDestroyHandler(session, func() {
 		<-memoryOperating[session.Id]
 		delete(memoryStores, session.Id)
 		delete(memoryOperating, session.Id)

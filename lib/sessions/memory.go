@@ -30,7 +30,9 @@ func Memory(session *f.Session[lib.State]) {
 	})
 
 	f.SessionWithSaveHandler(session, func() {
-		// Noop.
+		<-memoryOperating[session.Id]
+		memoryStores[session.Id] = session.State
+		memoryOperating[session.Id] <- 0
 	})
 
 	f.SessionWithDestroyHandler(session, func() {

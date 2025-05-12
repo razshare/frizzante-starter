@@ -28,7 +28,7 @@ func Todos(page *f.Page) {
 		session := f.SessionStart(request, response, sessions.Archive)
 
 		// Inject items into view.
-		f.ViewWithData(view, "items", session.State.Items)
+		view.Data["items"] = session.State.Items
 	})
 	f.PageWithActionHandler(page, func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
@@ -45,6 +45,6 @@ func Todos(page *f.Page) {
 		}
 
 		// Inject items.
-		f.ViewWithData(view, "items", session.State.Items)
+		view.Data["items"] = session.State.Items
 	})
 }

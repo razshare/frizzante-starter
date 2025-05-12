@@ -3,11 +3,13 @@ package sessions
 import (
 	f "github.com/razshare/frizzante"
 	"main/lib"
+	"time"
 )
 
 var memoryOperating = map[string]chan int{}
 var memoryStores = map[string]lib.State{}
 
+// Memory builds sessions in memory.
 func Memory(session *f.Session[lib.State]) {
 	f.SessionWithLoadHandler(session, func() {
 		state, sessionExists := memoryStores[session.Id]
@@ -24,7 +26,7 @@ func Memory(session *f.Session[lib.State]) {
 	})
 
 	f.SessionWithValidateHandler(session, func() bool {
-		return true
+		return time.Since(session.State.LastActivity) < 30*time.Minute
 	})
 
 	f.SessionWithSaveHandler(session, func() {

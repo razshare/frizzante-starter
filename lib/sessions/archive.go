@@ -7,8 +7,9 @@ import (
 )
 
 var archiveKey = "session.json"
-var archive = f.ArchiveCreateOnDisk(".sessions", time.Hour)
+var archive = f.ArchiveCreateOnDisk(".sessions", time.Second/2)
 
+// Archive builds sessions using a disk archive.
 func Archive(session *f.Session[lib.State]) {
 	f.SessionWithLoadHandler(session, func() {
 		if !f.ArchiveHas(archive, session.Id, archiveKey) {
@@ -21,7 +22,7 @@ func Archive(session *f.Session[lib.State]) {
 	})
 
 	f.SessionWithValidateHandler(session, func() bool {
-		return true
+		return time.Since(session.State.LastActivity) < 30*time.Minute
 	})
 
 	f.SessionWithSaveHandler(session, func() {

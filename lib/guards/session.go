@@ -3,12 +3,11 @@ package guards
 import (
 	f "github.com/razshare/frizzante"
 	"main/lib"
-	"main/lib/sessions"
 	"time"
 )
 
 func Session(request *f.Request, response *f.Response, pass func()) {
-	session := f.SessionStart(request, response, sessions.Archive)
+	session := f.SessionStart(request, response)
 
 	if !f.SessionHas(session, "lastActivity") {
 		f.SessionSetTime(session, "lastActivity", time.Now())

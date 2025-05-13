@@ -4,7 +4,6 @@ import (
 	f "github.com/razshare/frizzante"
 	"main/lib"
 	"main/lib/guards"
-	"main/lib/sessions"
 	"net/url"
 	"strconv"
 )
@@ -25,7 +24,7 @@ func Todos(page *f.Page) {
 	f.PageWithGuardHandler(page, guards.Session)
 	f.PageWithBaseHandler(page, func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
-		session := f.SessionStart(request, response, sessions.Archive)
+		session := f.SessionStart(request, response)
 
 		// Get items.
 		items := f.SessionGetJson[[]lib.Item](session, "items")
@@ -35,7 +34,7 @@ func Todos(page *f.Page) {
 	})
 	f.PageWithActionHandler(page, func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
-		session := f.SessionStart(request, response, sessions.Archive)
+		session := f.SessionStart(request, response)
 
 		// Get items.
 		items := f.SessionGetJson[[]lib.Item](session, "items")

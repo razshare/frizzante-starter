@@ -27,24 +27,33 @@ func Todos(page *f.Page) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		session := f.SessionStart(request, response, sessions.Archive)
 
+		// Get items.
+		items := f.SessionGetJson[[]lib.Item](session, "items")
+
 		// Inject items into view.
-		view.Data["items"] = session.State.Items
+		f.ViewWithData(view, "items", items)
 	})
 	f.PageWithActionHandler(page, func(request *f.Request, response *f.Response, view *f.View) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
 		session := f.SessionStart(request, response, sessions.Archive)
+
+		// Get items.
+		items := f.SessionGetJson[[]lib.Item](session, "items")
 
 		// Read form.
 		form := f.RequestReceiveForm(request)
 
 		// Handle checks.
 		if form.Has("check") {
-			check(session.State.Items, form)
+			check(items, form)
 		} else if form.Has("uncheck") {
-			uncheck(session.State.Items, form)
+			uncheck(items, form)
 		}
 
 		// Inject items.
-		view.Data["items"] = session.State.Items
+		f.ViewWithData(view, "items", items)
+
+		// Update session.
+		f.SessionSetJson(session, "items", items)
 	})
 }

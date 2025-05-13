@@ -24,6 +24,7 @@ func main() {
 	//Pages.
 	f.ServerWithPageBuilder(server, pages.Todos)
 	f.ServerWithPageBuilder(server, pages.Welcome)
+	f.ServerWithPageBuilder(server, pages.Expired)
 
 	// Api.
 	f.ServerWithApiBuilder(server, api.Events)

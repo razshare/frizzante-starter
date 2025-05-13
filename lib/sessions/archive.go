@@ -2,34 +2,28 @@ package sessions
 
 import (
 	f "github.com/razshare/frizzante"
-	"main/lib"
 	"time"
 )
 
-var archiveKey = "session.json"
 var archive = f.ArchiveCreateOnDisk(".sessions", time.Second/2)
 
 // Archive builds sessions using a disk archive.
-func Archive(session *f.Session[lib.State]) {
-	f.SessionWithLoadHandler(session, func() {
-		if !f.ArchiveHas(archive, session.Id, archiveKey) {
-			session.State = lib.InitializeState()
-			f.ArchiveSetAsJson(archive, session.Id, archiveKey, session.State)
-			return
-		}
+func Archive(session *f.Session) {
+	sessionId := f.SessionId(session)
 
-		session.State = f.ArchiveGetJson[lib.State](archive, session.Id, archiveKey)
+	f.SessionWithGetHandler(session, func(key string) []byte {
+		return f.ArchiveGet(archive, sessionId, key)
 	})
 
-	f.SessionWithValidateHandler(session, func() bool {
-		return time.Since(session.State.LastActivity) < 30*time.Minute
+	f.SessionWithSetHandler(session, func(key string, value []byte) {
+		f.ArchiveSet(archive, sessionId, key, value)
 	})
 
-	f.SessionWithSaveHandler(session, func() {
-		f.ArchiveSetAsJson(archive, session.Id, archiveKey, session.State)
+	f.SessionWithHasHandler(session, func(key string) bool {
+		return f.ArchiveHas(archive, sessionId, key)
 	})
 
 	f.SessionWithDestroyHandler(session, func() {
-		f.ArchiveRemove(archive, session.Id, archiveKey)
+		f.ArchiveRemoveDomain(archive, sessionId)
 	})
 }

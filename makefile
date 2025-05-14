@@ -72,8 +72,8 @@ hooks:
 	chmod +x .git/hooks/pre-commit
 
 api:
-	go run lib/make/main.go -api
+	go run lib/cli/main.go -api
 
 page:
-	go run lib/make/main.go -page && \
+	go run lib/cli/main.go -page && \
 	make configure

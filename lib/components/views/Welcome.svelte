@@ -25,7 +25,7 @@
     import Link from '$frizzante/components/Link.svelte'
     import Layout from '$lib/components/Layout.svelte'
     import {source} from "sveltekit-sse";
-    const message = source("/api/events", {options: {method: "GET"}}).select("message")
+    const message = source("/Api/Events", {options: {method: "GET"}}).select("message")
 </script>
 
 <Layout title="Welcome">

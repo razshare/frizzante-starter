@@ -19,7 +19,7 @@ func uncheck(items []lib.Item, form *url.Values) {
 }
 
 func Todos(page *f.Page) {
-	f.PageWithPath(page, "/todos")
+	f.PageWithPath(page, "/Todos")
 	f.PageWithView(page, f.ViewReference("Todos"))
 	f.PageWithGuardHandler(page, guards.Session)
 	f.PageWithBaseHandler(page, func(request *f.Request, response *f.Response, view *f.View) {

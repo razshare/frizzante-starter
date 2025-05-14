@@ -2,4 +2,4 @@ package main
 
 import f "github.com/razshare/frizzante"
 
-func main() { f.Make() }
+func main() { f.Cli() }

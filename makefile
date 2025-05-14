@@ -74,9 +74,6 @@ hooks:
 api:
 	go run lib/make/main.go -api
 
-guard:
-	go run lib/make/main.go -guard
-
 page:
 	go run lib/make/main.go -page && \
 	make configure

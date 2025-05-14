@@ -8,7 +8,7 @@
         "compression": "^1.8.0",
         "express": "^4.21.2",
         "sirv": "^3.0.1",
-        "svelte": "^5.28.6",
+        "svelte": "^5.30.0",
         "sveltekit-sse": "^0.13.19",
         "vite": "^6.3.5",
       },
@@ -317,7 +317,7 @@
 
     "statuses": ["statuses@2.0.1", "", {}, "sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ=="],
 
-    "svelte": ["svelte@5.28.6", "", { "dependencies": { "@ampproject/remapping": "^2.3.0", "@jridgewell/sourcemap-codec": "^1.5.0", "@sveltejs/acorn-typescript": "^1.0.5", "@types/estree": "^1.0.5", "acorn": "^8.12.1", "aria-query": "^5.3.1", "axobject-query": "^4.1.0", "clsx": "^2.1.1", "esm-env": "^1.2.1", "esrap": "^1.4.6", "is-reference": "^3.0.3", "locate-character": "^3.0.0", "magic-string": "^0.30.11", "zimmerframe": "^1.1.2" } }, "sha512-9qqr7mw8YR9PAnxGFfzCK6PUlNGtns7wVavrhnxyf3fpB1mP/Ol55Z2UnIapsSzNNl3k9qw7cZ22PdE8+xT/jQ=="],
+    "svelte": ["svelte@5.30.0", "", { "dependencies": { "@ampproject/remapping": "^2.3.0", "@jridgewell/sourcemap-codec": "^1.5.0", "@sveltejs/acorn-typescript": "^1.0.5", "@types/estree": "^1.0.5", "acorn": "^8.12.1", "aria-query": "^5.3.1", "axobject-query": "^4.1.0", "clsx": "^2.1.1", "esm-env": "^1.2.1", "esrap": "^1.4.6", "is-reference": "^3.0.3", "locate-character": "^3.0.0", "magic-string": "^0.30.11", "zimmerframe": "^1.1.2" } }, "sha512-D8L1f9Oc7SFkQYwkPLtfJXedStDigDffX8TFXM2yVzz7VmgKZgppsA5NTTpwzL+G0wxqcJRQR8alUH9qNF1SBQ=="],
 
     "sveltekit-sse": ["sveltekit-sse@0.13.19", "", { "peerDependencies": { "@microsoft/fetch-event-source": "^2.0.1", "@sveltejs/kit": "^2.0.0", "svelte": "^4.0.0 || ^5.0.0-next.0" } }, "sha512-0uOiMqRdpjoM2dM/2fyLPUfGdhhOeW9KX4LR03b4K/cYFoZt4RYyOQJrX5RPijPf9sGX2mXkc0GEA2d0l3zifg=="],
 

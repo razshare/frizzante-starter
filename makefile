@@ -28,7 +28,7 @@ www-watch-server:
 www-watch-client:
 	bunx vite build --watch --outDir .dist/client
 
-configure: clean update
+configure: update
 	go run lib/prepare/main.go
 	make www-build-server & \
 	make www-build-client & \
@@ -36,6 +36,7 @@ configure: clean update
 
 clean:
 	go clean
+	rm bin/app -f
 	rm cert.pem -f
 	rm key.pem -f
 	rm node_modules -fr

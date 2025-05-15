@@ -36,7 +36,6 @@ configure: clean update
 
 clean:
 	go clean
-	rm bin/app -f
 	rm cert.pem -f
 	rm key.pem -f
 	rm node_modules -fr

@@ -17,16 +17,16 @@ dev: clean update
 	--build.exclude_regex "_test.go,.frizzante,node_modules" \
 	--build.include_ext "go,svelte,js,css,json" \
 	--build.log "go-build-errors.log" & \
-	make www-watch-server & \
-	make www-watch-client & \
+	make www-dev-server & \
+	make www-dev-client & \
 	wait
 
-www-watch-server:
-	bunx vite build --watch --ssr .frizzante/vite-project/render.server.js --outDir .dist/server && \
+www-dev-server:
+	DEV=1 bunx vite build --watch --ssr .frizzante/vite-project/render.server.js --outDir .dist/server && \
 	./node_modules/.bin/esbuild .dist/server/render.server.js --bundle --outfile=.dist/server/render.server.js --format=esm --allow-overwrite
 
-www-watch-client:
-	bunx vite build --watch --outDir .dist/client
+www-dev-client:
+	DEV=1 bunx vite build --watch --outDir .dist/client
 
 configure: update
 	go run lib/prepare/main.go

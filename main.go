@@ -19,7 +19,7 @@ func main() {
 	f.ServerWithPort(server, 8080)
 	f.ServerWithNotifier(server, notifier)
 	f.ServerWithHostName(server, "127.0.0.1")
-	f.ServerWithEmbeddedFileSystem(server, dist)
+	f.ServerWithEmbeddedFileSystem(server, &dist)
 
 	//Pages.
 	f.ServerWithPageBuilder(server, pages.Todos)

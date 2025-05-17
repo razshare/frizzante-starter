@@ -32,14 +32,14 @@
 
 <script>
     import Submit from "$frizzante/components/Submit.svelte";
-    import Link from '$frizzante/components/Link.svelte'
     import Layout from '$lib/components/Layout.svelte'
     import {getContext} from "svelte";
+    import Link from "$frizzante/components/Link.svelte";
 
     /**
      * @typedef Item
-     * @property {string} description
-     * @property {boolean} checked
+     * @property {string} Description
+     * @property {boolean} Checked
      */
 
     /**
@@ -55,13 +55,13 @@
     <div class="items">
         {#each data.items as item, index}
             <div class="item">
-                {#if item.checked}
+                {#if item.Checked}
                     <Submit form={{uncheck:index}}>
-                        <span class="btn">(x) {item.description}</span>
+                        <span class="btn">(x) {item.Description}</span>
                     </Submit>
                 {:else}
                     <Submit form={{check:index}}>
-                        <span class="btn">(&nbsp;&nbsp;) {item.description}</span>
+                        <span class="btn">(&nbsp;&nbsp;) {item.Description}</span>
                     </Submit>
                 {/if}
             </div>
@@ -69,7 +69,7 @@
     </div>
     <br/>
     <div class="menu">
-        <Link align="center" view="Welcome">
+        <Link page="Welcome">
             <span class="link">&lt; Back</span>
         </Link>
     </div>

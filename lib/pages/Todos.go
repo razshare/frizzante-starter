@@ -4,6 +4,7 @@ import (
 	f "github.com/razshare/frizzante"
 	"main/lib"
 	"main/lib/guards"
+	"main/lib/sessions"
 	"net/url"
 	"strconv"
 )
@@ -18,26 +19,37 @@ func uncheck(items []lib.Item, form *url.Values) {
 	items[index].Checked = false
 }
 
-func Todos(page *f.Page) {
-	f.PageWithPath(page, "/Todos")
-	f.PageWithView(page, f.ViewReference("Todos"))
-	f.PageWithGuardHandler(page, guards.Session)
-	f.PageWithBaseHandler(page, func(request *f.Request, response *f.Response, view *f.View) {
-		// The default session operator will destroy any session after 30 minutes of inactivity.
-		session := f.SessionStart(request, response)
+type TodosData struct {
+	Items []lib.Item `json:"items"`
+}
 
-		// Get items.
-		items := f.SessionGetJson[[]lib.Item](session, "items")
+func Todos(page *f.Page[TodosData]) {
+	// Configure.
+	f.PageWithPath(page, "/Todos")
+	f.PageWithName(page, "Todos")
+	f.PageWithView(page, "Todos", func() TodosData {
+		return TodosData{}
+	})
+
+	// Guard.
+	f.PageWithGuardHandler(page, guards.Session)
+
+	// Handle base.
+	f.PageWithBaseHandler(page, func(request *f.Request, response *f.Response, view *f.View[TodosData]) {
+		// The default session operator will destroy any session after 30 minutes of inactivity.
+		session := f.SessionStart(request, response, sessions.Archived)
 
 		// Inject items into view.
-		f.ViewWithData(view, "items", items)
+		view.Data.Items = session.Data.Items
 	})
-	f.PageWithActionHandler(page, func(request *f.Request, response *f.Response, view *f.View) {
+
+	// Handle action.
+	f.PageWithActionHandler(page, func(request *f.Request, response *f.Response, view *f.View[TodosData]) {
 		// The default session operator will destroy any session after 30 minutes of inactivity.
-		session := f.SessionStart(request, response)
+		session := f.SessionStart(request, response, sessions.Archived)
 
 		// Get items.
-		items := f.SessionGetJson[[]lib.Item](session, "items")
+		items := session.Data.Items
 
 		// Read form.
 		form := f.RequestReceiveForm(request)
@@ -49,10 +61,13 @@ func Todos(page *f.Page) {
 			uncheck(items, form)
 		}
 
-		// Inject items.
-		f.ViewWithData(view, "items", items)
+		// Update view items.
+		view.Data.Items = items
 
-		// Update session.
-		f.SessionSetJson(session, "items", items)
+		// Update session items.
+		session.Data.Items = items
+
+		// Save session.
+		f.SessionSave(session)
 	})
 }

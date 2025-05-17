@@ -22,9 +22,10 @@
 </style>
 
 <script>
-    import Link from '$frizzante/components/Link.svelte'
     import Layout from '$lib/components/Layout.svelte'
     import {source} from "sveltekit-sse";
+    import Link from "$frizzante/components/Link.svelte";
+
     const message = source("/Api/Events", {options: {method: "GET"}}).select("message")
 </script>
 
@@ -33,7 +34,7 @@
     <div class="menu">
         <span>{$message}</span><br/>
         <br/>
-        <Link align="center" view="Todos">
+        <Link page="Todos">
             <span class="link">Show todos</span>
         </Link>
     </div>

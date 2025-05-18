@@ -3,8 +3,8 @@ package main
 import (
 	"embed"
 	f "github.com/razshare/frizzante"
-	"main/lib/api"
-	"main/lib/pages"
+	"main/lib/controllers/api"
+	"main/lib/controllers/pages"
 )
 
 //go:embed .dist/*/**
@@ -12,23 +12,18 @@ var dist embed.FS
 
 func main() {
 	// Create.
-	server := f.ServerCreate()
-	notifier := f.NotifierCreate()
+	server := f.NewServer()
+	notifier := f.NewNotifier()
 
-	// Setup.
-	f.ServerWithPort(server, 8080)
-	f.ServerWithNotifier(server, notifier)
-	f.ServerWithHostName(server, "127.0.0.1")
-	f.ServerWithEmbeddedFileSystem(server, &dist)
-
-	//Pages.
-	f.ServerWithPageBuilder(server, pages.Todos)
-	f.ServerWithPageBuilder(server, pages.Welcome)
-	f.ServerWithPageBuilder(server, pages.Expired)
-
-	// Api.
-	f.ServerWithApiBuilder(server, api.Events)
+	// Configure.
+	server.WithPort(8080)
+	server.WithNotifier(notifier)
+	server.WithHostName("127.0.0.1")
+	server.WithEmbeddedFileSystem(&dist)
+	server.WithPageController(pages.WelcomeController{})
+	server.WithApiController(api.EventsController{})
+	server.WithPageController(pages.TodosController{})
 
 	//Start.
-	f.ServerStart(server)
+	server.Start()
 }

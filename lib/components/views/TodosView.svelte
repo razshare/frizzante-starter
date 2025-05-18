@@ -31,10 +31,9 @@
 </style>
 
 <script>
-    import Submit from "$frizzante/components/Submit.svelte";
     import Layout from '$lib/components/Layout.svelte'
-    import {getContext} from "svelte";
-    import Link from "$frizzante/components/Link.svelte";
+    import Action from "$lib/components/Action.svelte";
+    import Link from "$lib/components/Link.svelte";
 
     /**
      * @typedef Item
@@ -44,32 +43,32 @@
 
     /**
      * @typedef Data
-     * @property {Array<Item>} items
+     * @property {Array<Item>} Items
      */
 
-    /** @type {Data} */
-    const data = getContext("data")
+    /** @type {ServerProperties<Data>} */
+    let {server = $bindable()} = $props()
 </script>
 
 <Layout title="Todos">
     <div class="items">
-        {#each data.items as item, index}
+        {#each server.data.Items as item, index}
             <div class="item">
                 {#if item.Checked}
-                    <Submit form={{uncheck:index}}>
+                    <Action bind:server of="Todos" using={{uncheck:index}}>
                         <span class="btn">(x) {item.Description}</span>
-                    </Submit>
+                    </Action>
                 {:else}
-                    <Submit form={{check:index}}>
+                    <Action bind:server of="Todos" using={{check:index}}>
                         <span class="btn">(&nbsp;&nbsp;) {item.Description}</span>
-                    </Submit>
+                    </Action>
                 {/if}
             </div>
         {/each}
     </div>
     <br/>
     <div class="menu">
-        <Link page="Welcome">
+        <Link bind:server to="Welcome">
             <span class="link">&lt; Back</span>
         </Link>
     </div>

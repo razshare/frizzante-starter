@@ -16,12 +16,12 @@
 
 <script>
     /**
-     * @typedef Props
+     * @typedef LayoutProperties
      * @property {string} title
      * @property {import("svelte").Snippet} children
      */
 
-    /** @type {Props} */
+    /** @type {LayoutProperties} */
     const {title, children} = $props()
 </script>
 

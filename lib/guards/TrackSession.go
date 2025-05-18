@@ -6,16 +6,15 @@ import (
 	"time"
 )
 
-func Session(request *f.Request, response *f.Response, pass func()) {
+func SessionIsValid(request *f.Request, response *f.Response) bool {
 	session := f.SessionStart(request, response, sessions.Archived)
 
 	if time.Since(session.Data.LastActivity) > 30*time.Minute {
-		f.SessionDestroy(session)
-		f.ResponseSendNavigate(response, "Expired")
-		return
+		session.Destroy()
+		response.SendNavigate("Expired", f.NewView(nil))
+		return false
 	}
 
 	session.Data.LastActivity = time.Now()
-
-	pass()
+	return true
 }

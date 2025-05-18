@@ -20,9 +20,13 @@ func main() {
 	server.WithNotifier(notifier)
 	server.WithHostName("127.0.0.1")
 	server.WithEmbeddedFileSystem(&dist)
+
+	// Pages.
 	server.WithPageController(pages.WelcomeController{})
-	server.WithApiController(api.EventsController{})
 	server.WithPageController(pages.TodosController{})
+
+	// Api.
+	server.WithApiController(api.EventsController{})
 
 	//Start.
 	server.Start()

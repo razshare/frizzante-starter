@@ -1,14 +1,8 @@
+type Modifier = "push" | "back" | "forward"
+
 let counter = 0;
 
-/**
- *
- * @param {Server<any>} server
- * @param {string} id
- * @param {"back"|"forward"|"push"} modifier
- * @param {false|Record<string,any>} [data]
- * @returns {Promise<void>}
- */
-async function swap(server, id, modifier, data = false) {
+async function swap(server: ServerProperties<any>, id: string, modifier: Modifier, data: any = false): Promise<void> {
     if (!server.ids[id]) {
         return;
     }
@@ -32,37 +26,31 @@ async function swap(server, id, modifier, data = false) {
         ...server.data,
         ...json.data,
     }
+    server.ids = {
+        ...server.ids,
+        ...json.ids,
+    }
     server.id = json.id;
 }
 
-/**
- *
- * @param {Server<any>} server
- * @param {string} id
- * @param {false|Record<string,any>} [data]
- * @returns {Promise<void>}
- */
-export function navigate(server, id, data = false) {
+
+export function navigate(server: ServerProperties<any>, id: string, data: any = false): Promise<void> {
     return swap(server, id, "push", data);
 }
 
-/**
- *
- * @param {Server<any>} server
- */
-export function route(server) {
-    const listener = async function pop(e) {
+export function route(server: ServerProperties<any>): void {
+    const listener = async function pop(e: PopStateEvent) {
         e.preventDefault();
-        const viewLocal = e.state?.id ?? "";
+        const idLocal = e.state?.id ?? "";
         const counterLocal = e.state?.counter ?? 0;
         if (counterLocal < counter) {
-            swap(server, viewLocal, "back");
             counter = counterLocal;
+            await swap(server, idLocal, "back");
         } else if (counterLocal > counter) {
-            swap(server, viewLocal, "forward");
             counter = counterLocal;
+            await swap(server, idLocal, "forward");
         } else {
-            swap(server, viewLocal, "push");
+            await swap(server, idLocal, "push");
         }
     }
     window.addEventListener("popstate", listener);

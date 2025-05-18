@@ -10,30 +10,32 @@
     }
 </style>
 
-<script>
-    import {uuid} from "$lib/scripts/uuid.js";
-    import {navigate} from "$lib/scripts/router.js";
+<script lang="ts">
+    import {uuid} from "$lib/scripts/uuid.ts";
+    import type {Snippet} from "svelte";
+    import {navigate} from "$lib/scripts/router.ts";
 
     const actionId = uuid()
 
-    /**
-     * @typedef ActionProperties
-     * @property {string} of
-     * @property {Record<string,any>} using
-     * @property {import("svelte").Snippet} children
-     */
+    type Props = {
+        of: string
+        using: any
+        children: Snippet
+        server: ServerProperties<{}>
+        class?: string
+        style?: string
+    }
 
-    /** @type {ServerProperties<any> & ActionProperties} */
     let {
-        server = $bindable(),
         of,
-        using = {},
+        using,
         children,
-    } = $props()
+        server = $bindable(),
+        ...rest
+    }: Props = $props()
 
-    async function onsubmit(e) {
+    async function onsubmit(e: any) {
         e.preventDefault()
-        /** @type {HTMLFormElement} */
         const form = e.target
         const body = new FormData(form)
         const method = form.method.toUpperCase()
@@ -45,22 +47,26 @@
 
         const json = await response.json()
 
-        if(server.id !== json.id){
-            navigate(server, json.id, server.data)
-        }
-
-        server.id = json.id
         server.data = {
             ...server.data,
             ...json.data,
         }
-        server.ids = json.ids
 
+        server.ids = {
+            ...server.ids,
+            ...json.ids
+        }
 
+        if (server.id !== json.id) {
+            navigate(server, json.id, server.data)
+                .then(function done() {
+                    server.id = json.id
+                })
+        }
     }
 </script>
 
-<form method="POST" action="{server.ids[of]}" {onsubmit}>
+<form method="POST" action="{server.ids[of]}" {...rest} {onsubmit}>
     {#each Object.keys(using) as key}
         {@const value = using[key]}
         <input type="hidden" name="{key}" value="{value}">

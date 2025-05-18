@@ -1,30 +1,44 @@
-<script>
-    /**
-     * @typedef LinkProperties
-     * @property {string} to
-     * @property {import("svelte").Snippet} children
-     */
+<style>
+    a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+    a:hover {
+        color: inherit;
+        text-decoration: inherit;
+    }
+    a:active {
+        color: inherit;
+        text-decoration: inherit;
+    }
+</style>
 
-    import {navigate} from "$lib/scripts/router.js";
+<script lang="ts">
+    import {navigate} from "$lib/scripts/router.ts";
+    import type {Snippet} from "svelte";
 
-    /** @type {ServerProperties<any> & LinkProperties} */
-    let {
-        server = $bindable(),
-        to,
-        children,
-    } = $props()
-
-    function href() {
-        return server.ids[to] ?? ""
+    type Props = {
+        to: string
+        children: Snippet
+        server: ServerProperties<{}>
+        class?: string
+        style?: string
     }
 
-    async function onclick(e) {
+    let {
+        to,
+        children,
+        server = $bindable(),
+        ...rest
+    }: Props = $props()
+
+    async function onclick(e: MouseEvent) {
         e.preventDefault()
-        navigate(server, to)
+        await navigate(server, to)
         return false
     }
 </script>
 
-<a href="{server.ids[to]}" {onclick}>
+<a href="{server.ids[to]}" {...rest} {onclick}>
     {@render children()}
 </a>

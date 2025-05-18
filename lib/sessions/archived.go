@@ -11,7 +11,7 @@ var key = "session.json"
 var notifier = f.NewNotifier()
 var archive = f.NewArchiveOnDisk(".sessions", time.Second/2)
 
-func Archived(session *f.Session[lib.State]) {
+func Archived(session *f.Session[lib.Data]) {
 	session.WithExistsHandler(func() bool {
 		return archive.Has(session.Id, key)
 	})
@@ -42,5 +42,5 @@ func Archived(session *f.Session[lib.State]) {
 		return
 	}
 
-	session.Data = lib.InitialState()
+	session.Data = lib.InitialData()
 }

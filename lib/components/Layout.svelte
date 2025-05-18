@@ -14,17 +14,21 @@
     }
 </style>
 
-<script>
-    /**
-     * @typedef LayoutProperties
-     * @property {string} title
-     * @property {import("svelte").Snippet} children
-     */
-
+<script lang="ts">
     import Router from "$lib/components/Router.svelte";
+    import type {Snippet} from "svelte";
 
-    /** @type {ServerProperties<any> & LayoutProperties} */
-    let { server = $bindable(), title, children} = $props()
+    type Props = {
+        title: string
+        children: Snippet
+        server: ServerProperties<{}>
+    }
+
+    let {
+        title,
+        children,
+        server = $bindable(),
+    }: Props = $props()
 </script>
 
 <svelte:head>

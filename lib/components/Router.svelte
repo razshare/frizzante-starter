@@ -1,14 +1,16 @@
-<script>
-    /**
-     * @typedef Props
-     * @property {import("svelte").Snippet} children
-     */
+<script lang="ts">
+    import {onMount, type Snippet} from "svelte";
+    import {route} from "$lib/scripts/router.ts";
 
-    import {onMount} from "svelte";
-    import {route} from "$lib/scripts/router.js";
+    type Props = {
+        children: Snippet
+        server: ServerProperties<{}>
+    }
 
-    /** @type {ServerProperties<any> & Props} */
-    let {server = $bindable(), children} = $props()
+    let {
+        children,
+        server = $bindable(),
+    }: Props = $props()
 
     onMount(function () {
         route(server)

@@ -21,18 +21,23 @@
     }
 </style>
 
-<script>
+<script lang="ts">
     import Layout from '$lib/components/Layout.svelte'
     import {source} from "sveltekit-sse";
     import Link from "$lib/components/Link.svelte";
 
     const message = source("/api/events", {options: {method: "GET"}}).select("message")
 
-    /** @type {ServerProperties<any>} */
-    let {server = $bindable()} = $props()
+    type Props = {
+        server: ServerProperties<{}>
+    }
+
+    let {
+        server = $bindable(),
+    }: Props = $props()
 </script>
 
-<Layout title="Welcome">
+<Layout bind:server title="Welcome">
     <h1>Welcome to Frizzante.</h1>
     <div class="menu">
         <span>{$message}</span><br/>

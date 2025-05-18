@@ -10,15 +10,20 @@
     }
 </style>
 
-<script>
+<script lang="ts">
     import Layout from "$lib/components/Layout.svelte";
     import Link from "$lib/components/Link.svelte";
 
-    /** @type {ServerProperties<any>} */
-    let {server = $bindable()} = $props()
+    type Props = {
+        server: ServerProperties<{}>
+    }
+
+    let {
+        server = $bindable(),
+    }: Props = $props()
 </script>
 
-<Layout title="Expired">
+<Layout bind:server title="Expired">
     <h1>Your session has expired!</h1>
     <Link bind:server to="Welcome">
         <span class="link">Ok</span>

@@ -30,37 +30,40 @@
     }
 </style>
 
-<script>
+<script lang="ts">
     import Layout from '$lib/components/Layout.svelte'
     import Action from "$lib/components/Action.svelte";
     import Link from "$lib/components/Link.svelte";
 
-    /**
-     * @typedef Item
-     * @property {string} Description
-     * @property {boolean} Checked
-     */
+    type Item = {
+        description: string
+        checked: boolean
+    }
 
-    /**
-     * @typedef Data
-     * @property {Array<Item>} Items
-     */
+    type Data = {
+        items: Item[]
+    }
 
-    /** @type {ServerProperties<Data>} */
-    let {server = $bindable()} = $props()
+    type Props = {
+        server: ServerProperties<Data>
+    }
+
+    let {
+        server = $bindable(),
+    }: Props = $props()
 </script>
 
-<Layout title="Todos">
+<Layout bind:server title="Todos">
     <div class="items">
-        {#each server.data.Items as item, index}
+        {#each server.data.items as item, index}
             <div class="item">
-                {#if item.Checked}
+                {#if item.checked}
                     <Action bind:server of="Todos" using={{uncheck:index}}>
-                        <span class="btn">(x) {item.Description}</span>
+                        <span class="btn">(x) {item.description}</span>
                     </Action>
                 {:else}
                     <Action bind:server of="Todos" using={{check:index}}>
-                        <span class="btn">(&nbsp;&nbsp;) {item.Description}</span>
+                        <span class="btn">(&nbsp;&nbsp;) {item.description}</span>
                     </Action>
                 {/if}
             </div>

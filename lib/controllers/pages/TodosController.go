@@ -9,7 +9,7 @@ import (
 )
 
 type TodosData struct {
-	Items []lib.Item
+	Items []lib.Item `json:"items"`
 }
 
 type TodosController struct {

@@ -12,6 +12,7 @@
 
 <script>
     import {uuid} from "$lib/scripts/uuid.js";
+    import {navigate} from "$lib/scripts/router.js";
 
     const actionId = uuid()
 
@@ -44,9 +45,18 @@
 
         const json = await response.json()
 
+        if(server.id !== json.id){
+            navigate(server, json.id, server.data)
+        }
+
         server.id = json.id
-        server.data = json.data
+        server.data = {
+            ...server.data,
+            ...json.data,
+        }
         server.ids = json.ids
+
+
     }
 </script>
 

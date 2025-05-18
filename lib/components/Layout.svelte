@@ -21,8 +21,10 @@
      * @property {import("svelte").Snippet} children
      */
 
-    /** @type {LayoutProperties} */
-    const {title, children} = $props()
+    import Router from "$lib/components/Router.svelte";
+
+    /** @type {ServerProperties<any> & LayoutProperties} */
+    let { server = $bindable(), title, children} = $props()
 </script>
 
 <svelte:head>
@@ -32,6 +34,8 @@
     <title>{title}</title>
 </svelte:head>
 
-<div class="content">
-    {@render children()}
-</div>
+<Router bind:server>
+    <div class="content">
+        {@render children()}
+    </div>
+</Router>

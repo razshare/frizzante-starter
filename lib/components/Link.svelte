@@ -5,6 +5,8 @@
      * @property {import("svelte").Snippet} children
      */
 
+    import {navigate} from "$lib/scripts/router.js";
+
     /** @type {ServerProperties<any> & LinkProperties} */
     let {
         server = $bindable(),
@@ -18,18 +20,7 @@
 
     async function onclick(e) {
         e.preventDefault()
-        const headers = {"Accept": "application/json"}
-        const response = await fetch(`${server.ids[to]}`, {method: "GET", headers})
-        if (response.status >= 300) {
-            return
-        }
-
-        const json = await response.json()
-
-        server.id = json.id
-        server.ids = json.ids
-        server.data = json.data
-
+        navigate(server, to)
         return false
     }
 </script>

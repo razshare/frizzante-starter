@@ -24,6 +24,7 @@ func main() {
 	// Pages.
 	server.WithPageController(pages.WelcomeController{})
 	server.WithPageController(pages.TodosController{})
+	server.WithPageController(pages.ExpiredController{})
 
 	// Api.
 	server.WithApiController(api.EventsController{})

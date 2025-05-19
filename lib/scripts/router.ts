@@ -44,7 +44,7 @@ export function route(server: ServerProperties<any>): void {
     if(started){
         return
     }
-    debugger
+
     const listener = async function pop(e: PopStateEvent) {
         e.preventDefault();
         let id = e.state?.id ?? "";

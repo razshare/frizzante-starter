@@ -11,7 +11,7 @@ func SessionIsValid(request *f.Request, response *f.Response) bool {
 
 	if time.Since(session.Data.LastActivity) > 30*time.Minute {
 		session.Destroy()
-		response.SendNavigate("Expired", f.NewView(nil))
+		response.SendNavigate("Expired")
 		return false
 	}
 

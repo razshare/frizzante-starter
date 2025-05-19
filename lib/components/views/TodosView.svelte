@@ -73,8 +73,10 @@
     </div>
     <br/>
     <div class="menu">
-        <Link bind:server to="Welcome">
-            <span class="link">&lt; Back</span>
-        </Link>
+        <span class="link">
+            <Link bind:server to="Welcome">
+                &lt; Back
+            </Link>
+        </span>
     </div>
 </Layout>

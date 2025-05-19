@@ -27,7 +27,9 @@
 <Router bind:server/>
 <Layout title="Expired">
     <h1>Your session has expired!</h1>
-    <Link bind:server to="Welcome">
-        <span class="link">Ok</span>
-    </Link>
+    <span class="link">
+        <Link bind:server to="Welcome">
+            Ok
+        </Link>
+    </span>
 </Layout>

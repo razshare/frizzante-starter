@@ -44,8 +44,10 @@
     <div class="menu">
         <span>{$message}</span><br/>
         <br/>
-        <Link bind:server to="Todos">
-            <span class="link">Show todos</span>
-        </Link>
+        <span class="link">
+            <Link bind:server to="Todos">
+                Show todos
+            </Link>
+        </span>
     </div>
 </Layout>

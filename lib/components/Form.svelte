@@ -4,22 +4,15 @@
         width: 100%;
         height: 100%;
     }
-
-    .submit {
-        display: none;
-    }
 </style>
 
 <script lang="ts">
-    import {uuid} from "$lib/scripts/uuid.ts";
     import type {Snippet} from "svelte";
     import {navigate} from "$lib/scripts/router.ts";
 
-    const actionId = uuid()
-
     type Props = {
         of: string
-        using?: any
+        using: any
         children: Snippet
         server: ServerProperties<{}>
         class?: string
@@ -28,7 +21,6 @@
 
     let {
         of,
-        using,
         children,
         server = $bindable(),
         ...rest
@@ -67,14 +59,5 @@
 </script>
 
 <form method="POST" action="{server.ids[of]}" {...rest} {onsubmit}>
-    {#each Object.keys(using ?? {}) as key}
-        {@const value = using[key]}
-        <input type="hidden" name="{key}" value="{value}">
-    {/each}
-
-    <input class="submit" type="submit" id="{actionId}"/>
-
-    <label for="{actionId}">
-        {@render children()}
-    </label>
+    {@render children()}
 </form>

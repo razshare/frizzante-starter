@@ -1,18 +1,3 @@
-<style>
-    a {
-        color: inherit;
-        text-decoration: inherit;
-    }
-    a:hover {
-        color: inherit;
-        text-decoration: inherit;
-    }
-    a:active {
-        color: inherit;
-        text-decoration: inherit;
-    }
-</style>
-
 <script lang="ts">
     import {navigate} from "$lib/scripts/router.ts";
     import type {Snippet} from "svelte";

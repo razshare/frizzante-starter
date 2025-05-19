@@ -9,11 +9,11 @@ async function swap(server: ServerProperties<any>, id: string, modifier: Modifie
 
     const path = server.ids[id];
 
-    if ("push" === modifier) {
-        window.history.pushState({id, counter: ++counter}, "", path);
-    }
 
     if (false !== data) {
+        if ("push" === modifier) {
+            window.history.pushState({id, counter: ++counter}, "", path);
+        }
         server.id = id;
         return;
     }
@@ -31,6 +31,16 @@ async function swap(server: ServerProperties<any>, id: string, modifier: Modifie
         ...json.ids,
     }
     server.id = json.id;
+
+    const search = response.url.split('?', 2)[1] ?? ''
+
+    if ("push" === modifier) {
+        if ('' !== search) {
+            window.history.pushState({id, counter: ++counter}, "", `${path}?${search}`);
+            return
+        }
+        window.history.pushState({id, counter: ++counter}, "", path);
+    }
 }
 
 
@@ -41,7 +51,7 @@ export function navigate(server: ServerProperties<any>, id: string, data: any = 
 let started = false
 
 export function route(server: ServerProperties<any>): void {
-    if(started){
+    if (started) {
         return
     }
 
@@ -49,10 +59,10 @@ export function route(server: ServerProperties<any>): void {
         e.preventDefault();
         let id = e.state?.id ?? "";
 
-        if('' === id){
+        if ('' === id) {
             for (const idLocal in server.ids) {
                 const path = server.ids[idLocal]
-                if('/' === path || '' === path){
+                if ('/' === path || '' === path) {
                     id = idLocal
                     break
                 }

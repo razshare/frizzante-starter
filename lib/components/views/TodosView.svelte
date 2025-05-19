@@ -34,6 +34,7 @@
     import Layout from '$lib/components/Layout.svelte'
     import Action from "$lib/components/Action.svelte";
     import Link from "$lib/components/Link.svelte";
+    import Router from "$lib/components/Router.svelte";
 
     type Item = {
         description: string
@@ -53,7 +54,8 @@
     }: Props = $props()
 </script>
 
-<Layout bind:server title="Todos">
+<Router bind:server/>
+<Layout title="Todos">
     <div class="items">
         {#each server.data.items as item, index}
             <div class="item">

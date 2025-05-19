@@ -15,19 +15,16 @@
 </style>
 
 <script lang="ts">
-    import Router from "$lib/components/Router.svelte";
     import type {Snippet} from "svelte";
 
     type Props = {
         title: string
         children: Snippet
-        server: ServerProperties<{}>
     }
 
     let {
         title,
         children,
-        server = $bindable(),
     }: Props = $props()
 </script>
 
@@ -38,8 +35,6 @@
     <title>{title}</title>
 </svelte:head>
 
-<Router bind:server>
-    <div class="content">
-        {@render children()}
-    </div>
-</Router>
+<div class="content">
+    {@render children()}
+</div>

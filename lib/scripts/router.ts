@@ -38,20 +38,37 @@ export function navigate(server: ServerProperties<any>, id: string, data: any = 
     return swap(server, id, "push", data);
 }
 
+let started = false
+
 export function route(server: ServerProperties<any>): void {
+    if(started){
+        return
+    }
+    debugger
     const listener = async function pop(e: PopStateEvent) {
         e.preventDefault();
-        const idLocal = e.state?.id ?? "";
+        let id = e.state?.id ?? "";
+
+        if('' === id){
+            for (const idLocal in server.ids) {
+                const path = server.ids[idLocal]
+                if('/' === path || '' === path){
+                    id = idLocal
+                    break
+                }
+            }
+        }
         const counterLocal = e.state?.counter ?? 0;
         if (counterLocal < counter) {
             counter = counterLocal;
-            await swap(server, idLocal, "back");
+            await swap(server, id, "back");
         } else if (counterLocal > counter) {
             counter = counterLocal;
-            await swap(server, idLocal, "forward");
+            await swap(server, id, "forward");
         } else {
-            await swap(server, idLocal, "push");
+            await swap(server, id, "push");
         }
     }
     window.addEventListener("popstate", listener);
+    started = true
 }

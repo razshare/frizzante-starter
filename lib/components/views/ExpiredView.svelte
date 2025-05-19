@@ -13,6 +13,7 @@
 <script lang="ts">
     import Layout from "$lib/components/Layout.svelte";
     import Link from "$lib/components/Link.svelte";
+    import Router from "$lib/components/Router.svelte";
 
     type Props = {
         server: ServerProperties<{}>
@@ -23,7 +24,8 @@
     }: Props = $props()
 </script>
 
-<Layout bind:server title="Expired">
+<Router bind:server/>
+<Layout title="Expired">
     <h1>Your session has expired!</h1>
     <Link bind:server to="Welcome">
         <span class="link">Ok</span>

@@ -12,7 +12,6 @@
 
     type Props = {
         of: string
-        using: any
         children: Snippet
         server: ServerProperties<{}>
         class?: string

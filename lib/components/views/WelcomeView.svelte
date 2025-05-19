@@ -25,6 +25,7 @@
     import Layout from '$lib/components/Layout.svelte'
     import {source} from "sveltekit-sse";
     import Link from "$lib/components/Link.svelte";
+    import Router from "$lib/components/Router.svelte";
 
     const message = source("/api/events", {options: {method: "GET"}}).select("message")
 
@@ -37,7 +38,8 @@
     }: Props = $props()
 </script>
 
-<Layout bind:server title="Welcome">
+<Router bind:server/>
+<Layout title="Welcome">
     <h1>Welcome to Frizzante.</h1>
     <div class="menu">
         <span>{$message}</span><br/>

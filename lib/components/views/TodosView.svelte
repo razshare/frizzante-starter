@@ -31,40 +31,32 @@
 </style>
 
 <script lang="ts">
+    import Router from '$frizzante/components/Router.svelte';
     import Layout from '$lib/components/Layout.svelte'
-    import Action from "$lib/components/Action.svelte";
-    import Link from "$lib/components/Link.svelte";
-    import Router from "$lib/components/Router.svelte";
+    import {getContext} from "svelte";
+    import type {ServerContext} from "$frizzante/types.ts";
+    import Action from "$frizzante/components/Action.svelte";
+    import {href} from "$frizzante/scripts/href.ts";
 
     type Item = {
         description: string
         checked: boolean
     }
 
-    type Data = {
-        items: Item[]
-    }
-
-    type Props = {
-        server: ServerProperties<Data>
-    }
-
-    let {
-        server = $bindable(),
-    }: Props = $props()
+    const server = getContext("server") as ServerContext<{ items: Item[] }>
 </script>
 
-<Router bind:server/>
+<Router/>
 <Layout title="Todos">
     <div class="items">
         {#each server.data.items as item, index}
             <div class="item">
                 {#if item.checked}
-                    <Action bind:server of="Todos" using={{uncheck:index}}>
+                    <Action of="Todos" using={{uncheck:index}}>
                         <span class="btn">(x) {item.description}</span>
                     </Action>
                 {:else}
-                    <Action bind:server of="Todos" using={{check:index}}>
+                    <Action of="Todos" using={{check:index}}>
                         <span class="btn">(&nbsp;&nbsp;) {item.description}</span>
                     </Action>
                 {/if}
@@ -73,10 +65,6 @@
     </div>
     <br/>
     <div class="menu">
-        <span class="link">
-            <Link bind:server to="Welcome">
-                &lt; Back
-            </Link>
-        </span>
+        <a class="link" {...href("Welcome")}>&lt; Back</a>
     </div>
 </Layout>

@@ -22,32 +22,22 @@
 </style>
 
 <script lang="ts">
+    import Router from '$frizzante/components/Router.svelte';
     import Layout from '$lib/components/Layout.svelte'
     import {source} from "sveltekit-sse";
-    import Link from "$lib/components/Link.svelte";
-    import Router from "$lib/components/Router.svelte";
+    import {href} from "$frizzante/scripts/href.ts";
 
     const message = source("/api/events", {options: {method: "GET"}}).select("message")
-
-    type Props = {
-        server: ServerProperties<{}>
-    }
-
-    let {
-        server = $bindable(),
-    }: Props = $props()
 </script>
 
-<Router bind:server/>
+<Router/>
 <Layout title="Welcome">
     <h1>Welcome to Frizzante.</h1>
     <div class="menu">
         <span>{$message}</span><br/>
         <br/>
-        <span class="link">
-            <Link bind:server to="Todos">
-                Show todos
-            </Link>
-        </span>
+        <a class="link" {...href("Todos")}>
+            Show todos
+        </a>
     </div>
 </Layout>

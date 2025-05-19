@@ -12,24 +12,16 @@
 
 <script lang="ts">
     import Layout from "$lib/components/Layout.svelte";
-    import Link from "$lib/components/Link.svelte";
-    import Router from "$lib/components/Router.svelte";
-
-    type Props = {
-        server: ServerProperties<{}>
-    }
-
-    let {
-        server = $bindable(),
-    }: Props = $props()
+    import {href} from "$frizzante/scripts/href.ts";
+    import Router from "$frizzante/components/Router.svelte";
 </script>
 
-<Router bind:server/>
+<Router/>
 <Layout title="Expired">
     <h1>Your session has expired!</h1>
     <span class="link">
-        <Link bind:server to="Welcome">
+        <a {...href("Welcome")}>
             Ok
-        </Link>
+        </a>
     </span>
 </Layout>

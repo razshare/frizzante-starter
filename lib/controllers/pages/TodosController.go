@@ -25,18 +25,18 @@ func (_ TodosController) Configure() f.PageConfiguration {
 	}
 }
 
-func (_ TodosController) Base(request *f.Request, response *f.Response) {
-	session := f.SessionStart(request, response, sessions.Archived)
+func (_ TodosController) Base(req *f.Request, res *f.Response) {
+	session := f.SessionStart(req, res, sessions.Archived)
 
-	response.SendView(f.NewViewWithData(f.RenderModeFull, TodosData{
+	res.SendView(f.NewViewWithData(f.RenderModeFull, TodosData{
 		Items: session.Data.Items,
 	}))
 }
 
-func (_ TodosController) Action(request *f.Request, response *f.Response) {
-	session := f.SessionStart(request, response, sessions.Archived)
+func (_ TodosController) Action(req *f.Request, res *f.Response) {
+	session := f.SessionStart(req, res, sessions.Archived)
 
-	form := request.ReceiveForm()
+	form := req.ReceiveForm()
 
 	if form.Has("check") {
 		index, _ := strconv.ParseInt(form.Get("check"), 10, 32)
@@ -48,7 +48,7 @@ func (_ TodosController) Action(request *f.Request, response *f.Response) {
 
 	session.Save()
 
-	response.SendView(f.NewViewWithData(f.RenderModeFull, TodosData{
+	res.SendView(f.NewViewWithData(f.RenderModeFull, TodosData{
 		Items: session.Data.Items,
 	}))
 }

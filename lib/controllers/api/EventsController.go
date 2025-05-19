@@ -16,14 +16,14 @@ func (_ EventsController) Configure() f.ApiConfiguration {
 	}
 }
 
-func (_ EventsController) Handle(request *f.Request, response *f.Response) {
-	alive := request.IsAlive()
-	response.SendSseUpgrade()
+func (_ EventsController) Handle(req *f.Request, res *f.Response) {
+	alive := req.IsAlive()
+	res.SendSseUpgrade()
 
 	for *alive {
 		now := time.Now().Format(time.TimeOnly)
 		message := fmt.Sprintf("Server time is %s", now)
-		response.SendMessage(message)
+		res.SendMessage(message)
 		time.Sleep(time.Second)
 	}
 }

@@ -16,9 +16,9 @@ func (_ WelcomeController) Configure() f.PageConfiguration {
 }
 
 func (_ WelcomeController) Base(_ *f.Request, response *f.Response) {
-	response.SendView(f.NewView(nil))
+	response.SendView(f.NewView(f.RenderModeFull))
 }
 
 func (_ WelcomeController) Action(_ *f.Request, response *f.Response) {
-	response.SendView(f.NewView(nil))
+	response.SendView(f.NewView(f.RenderModeFull))
 }

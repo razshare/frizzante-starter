@@ -28,7 +28,7 @@ func (_ TodosController) Configure() f.PageConfiguration {
 func (_ TodosController) Base(request *f.Request, response *f.Response) {
 	session := f.SessionStart(request, response, sessions.Archived)
 
-	response.SendView(f.NewView(TodosData{
+	response.SendView(f.NewViewWithData(f.RenderModeFull, TodosData{
 		Items: session.Data.Items,
 	}))
 }
@@ -48,7 +48,7 @@ func (_ TodosController) Action(request *f.Request, response *f.Response) {
 
 	session.Save()
 
-	response.SendView(f.NewView(TodosData{
+	response.SendView(f.NewViewWithData(f.RenderModeFull, TodosData{
 		Items: session.Data.Items,
 	}))
 }

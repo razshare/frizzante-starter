@@ -2,9 +2,6 @@ package pages
 
 import f "github.com/razshare/frizzante"
 
-type ExpiredData struct {
-}
-
 type ExpiredController struct {
 	f.PageController
 }
@@ -16,9 +13,9 @@ func (_ ExpiredController) Configure() f.PageConfiguration {
 }
 
 func (_ ExpiredController) Base(_ *f.Request, response *f.Response) {
-	response.SendView(f.NewView(ExpiredData{}))
+	response.SendView(f.NewView(f.RenderModeFull))
 }
 
 func (_ ExpiredController) Action(_ *f.Request, response *f.Response) {
-	response.SendView(f.NewView(ExpiredData{}))
+	response.SendView(f.NewView(f.RenderModeFull))
 }

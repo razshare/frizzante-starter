@@ -2,7 +2,7 @@ package lib
 
 import "time"
 
-func InitialData() Data {
+func NewData() Data {
 	return Data{
 		Items: []Item{
 			{Checked: false, Description: "Pet the cat."},

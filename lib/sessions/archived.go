@@ -42,5 +42,5 @@ func Archived(session *f.Session[lib.Data]) {
 		return
 	}
 
-	session.Data = lib.InitialData()
+	session.Data = lib.NewData()
 }

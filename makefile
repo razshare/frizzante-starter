@@ -1,5 +1,5 @@
 test: configure
-	CGO_ENABLED=1 go test
+	CGO_ENABLED=1 go test ./...
 
 build: configure
 	CGO_ENABLED=1 go build -o bin/app .

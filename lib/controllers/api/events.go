@@ -1,4 +1,4 @@
-package events
+package api
 
 import (
 	"fmt"
@@ -6,12 +6,12 @@ import (
 	"time"
 )
 
-var Controller = f.
+var Events = f.
 	NewApiController().
 	WithPath("/api/events").
-	WithHandler("GET", get)
+	WithHandler("GET", eventsGet)
 
-func get(req *f.Request, res *f.Response) {
+func eventsGet(req *f.Request, res *f.Response) {
 	alive := req.IsAlive()
 	res.SendSseUpgrade()
 	for *alive {

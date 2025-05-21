@@ -3,7 +3,7 @@ package main
 import (
 	"embed"
 	f "github.com/razshare/frizzante"
-	"main/lib/controllers/api/events"
+	"main/lib/controllers/api"
 	"main/lib/controllers/pages"
 )
 
@@ -20,7 +20,7 @@ func main() {
 		WithPageController(pages.Todos).
 		WithPageController(pages.Expired).
 		// Add api controllers.
-		WithApiController(events.Controller).
+		WithApiController(api.Events).
 		// Start.
 		Start()
 }

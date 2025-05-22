@@ -36,7 +36,7 @@
     <div class="menu">
         <span>{$message}</span><br/>
         <br/>
-        <a class="link" {...href("todos")}>
+        <a class="link" {...href("Todos")}>
             Show todos
         </a>
     </div>

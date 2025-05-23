@@ -31,7 +31,7 @@
 </script>
 
 <Router/>
-<Layout>
+<Layout title="Welcome">
     <h1>Welcome to Frizzante.</h1>
     <div class="menu">
         <span>{$message}</span><br/>

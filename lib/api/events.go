@@ -7,8 +7,10 @@ import (
 	"time"
 )
 
+var guards []f.Guard
+
 func init() {
-	config.Server.OnRequest("GET /api/events", []f.Guard{}, func(req *f.Request, res *f.Response) {
+	config.Server.OnRequest("GET /api/events", guards, func(req *f.Request, res *f.Response) {
 		alive := req.IsAlive()
 		res.SendSseUpgrade()
 		for *alive {

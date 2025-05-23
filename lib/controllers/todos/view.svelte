@@ -47,7 +47,7 @@
 </script>
 
 <Router/>
-<Layout>
+<Layout title="Todos">
     <div class="items">
         {#each server.data.items as item, index}
             <div class="item">

@@ -6,12 +6,13 @@ import (
 	"strconv"
 )
 
+var guards = []f.Guard{config.GuardSession}
+
 func init() {
 	config.Server.LoadController(func(controller *f.Controller) {
 		controller.
-			WithGuard(config.GuardSession).
-			WithBase(base).
-			WithAction(action)
+			WithBase(guards, base).
+			WithAction(guards, action)
 	})
 }
 

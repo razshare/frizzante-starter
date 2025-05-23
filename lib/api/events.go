@@ -2,14 +2,14 @@ package api
 
 import (
 	"fmt"
-	f "github.com/razshare/frizzante"
 	"main/lib/config"
 	"time"
+
+	f "github.com/razshare/frizzante"
 )
 
-var guards []f.Guard
-
 func init() {
+	var guards []f.Guard
 	config.Server.OnRequest("GET /api/events", guards, func(req *f.Request, res *f.Response) {
 		alive := req.IsAlive()
 		res.SendSseUpgrade()

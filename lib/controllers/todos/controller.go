@@ -1,18 +1,16 @@
 package todos
 
 import (
-	f "github.com/razshare/frizzante"
 	"main/lib/config"
 	"strconv"
+
+	f "github.com/razshare/frizzante"
 )
 
-var guards = []f.Guard{config.GuardSession}
-
 func init() {
+	var guards = []f.Guard{config.GuardSession}
 	config.Server.LoadController(func(controller *f.Controller) {
-		controller.
-			WithBase(guards, base).
-			WithAction(guards, action)
+		controller.WithBase(guards, base).WithAction(guards, action)
 	})
 }
 

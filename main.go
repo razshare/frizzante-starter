@@ -2,25 +2,16 @@ package main
 
 import (
 	"embed"
-	f "github.com/razshare/frizzante"
-	"main/lib/controllers/api"
-	"main/lib/controllers/pages"
+	_ "main/lib/api"
+	"main/lib/config"
+	_ "main/lib/controllers/any"
+	_ "main/lib/controllers/expired"
+	_ "main/lib/controllers/todos"
 )
 
 //go:embed .dist/*/**
 var dist embed.FS
 
 func main() {
-	f.NewServer().
-		// Configure.
-		WithAddress("127.0.0.1:8080").
-		WithEfs(dist).
-		// Add page controllers.
-		WithPageController(pages.Any).
-		WithPageController(pages.Todos).
-		WithPageController(pages.Expired).
-		// Add api controllers.
-		WithApiController(api.Events).
-		// Start.
-		Start()
+	config.Server.WithEfs(dist).Start()
 }

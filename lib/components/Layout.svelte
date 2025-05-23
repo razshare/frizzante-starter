@@ -15,15 +15,18 @@
 </style>
 
 <script lang="ts">
-    import type {Snippet} from "svelte";
+    import {getContext, type Snippet} from "svelte";
+    import type {ServerContext} from "$frizzante/types.ts";
 
     type Props = {
-        title: string
+        title?: string
         children: Snippet
     }
 
+    const server = getContext("server") as ServerContext<any>
+
     let {
-        title,
+        title = server.id,
         children,
     }: Props = $props()
 </script>

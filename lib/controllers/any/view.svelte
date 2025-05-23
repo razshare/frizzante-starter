@@ -31,12 +31,12 @@
 </script>
 
 <Router/>
-<Layout title="Welcome">
+<Layout>
     <h1>Welcome to Frizzante.</h1>
     <div class="menu">
         <span>{$message}</span><br/>
         <br/>
-        <a class="link" {...href("Todos")}>
+        <a class="link" {...href("todos")}>
             Show todos
         </a>
     </div>

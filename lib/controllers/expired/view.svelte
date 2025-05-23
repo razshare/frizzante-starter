@@ -17,10 +17,10 @@
 </script>
 
 <Router/>
-<Layout title="Expired">
+<Layout>
     <h1>Your session has expired!</h1>
     <span class="link">
-        <a {...href("Any")}>
+        <a {...href("any")}>
             Ok
         </a>
     </span>

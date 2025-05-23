@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	config.Server.LoadPageController(func(controller *f.PageController) {
+	config.Server.LoadController(func(controller *f.Controller) {
 		controller.
 			WithGuard(config.GuardSession).
 			WithBase(base).

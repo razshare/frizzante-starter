@@ -5,5 +5,5 @@ import (
 )
 
 func init() {
-	config.Server.LoadPageController(nil)
+	config.Server.LoadController(nil)
 }

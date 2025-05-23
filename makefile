@@ -8,7 +8,7 @@ start: configure
 	CGO_ENABLED=1 go run .
 
 dev: clean update
-	go run lib/prepare/main.go
+	go run lib/tools/prepare/main.go
 	which bin/air || curl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "go build -o bin/app ." \
@@ -29,7 +29,7 @@ www-dev-client:
 	DEV=1 bunx vite build --watch --outDir .dist/client
 
 configure: update
-	go run lib/prepare/main.go
+	go run lib/tools/prepare/main.go
 	make www-build-server & \
 	make www-build-client & \
 	wait
@@ -72,8 +72,8 @@ hooks:
 	chmod +x .git/hooks/pre-commit
 
 api:
-	go run lib/cli/main.go -api
+	go run lib/tools/cli/main.go -api
 
 page:
-	go run lib/cli/main.go -page && \
+	go run lib/tools/cli/main.go -page && \
 	make configure

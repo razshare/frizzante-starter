@@ -11,7 +11,8 @@ func init() {
 		controller.
 			WithGuard(config.GuardSession).
 			WithBase(base).
-			WithAction(action)
+			WithAction(action).
+			GiveWay()
 	})
 }
 
@@ -20,14 +21,14 @@ type data struct {
 }
 
 func base(req *f.Request, res *f.Response) {
-	session := f.SessionStart(req, res, config.SessionLoad)
+	session := f.SessionStart(req, res, config.SessionAdapter)
 	res.SendView(f.NewViewWithData(f.RenderModeFull, data{
 		Items: session.Data.Todos,
 	}))
 }
 
 func action(req *f.Request, res *f.Response) {
-	session := f.SessionStart(req, res, config.SessionLoad)
+	session := f.SessionStart(req, res, config.SessionAdapter)
 	form := req.ReceiveForm()
 	if form.Has("check") {
 		index, _ := strconv.ParseInt(form.Get("check"), 10, 32)

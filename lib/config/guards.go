@@ -6,7 +6,7 @@ import (
 )
 
 func GuardSession(req *f.Request, res *f.Response) bool {
-	session := f.SessionStart(req, res, SessionLoad)
+	session := f.SessionStart(req, res, SessionAdapter)
 
 	if time.Since(session.Data.LastActivity) > 30*time.Minute {
 		session.Destroy()

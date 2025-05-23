@@ -35,7 +35,7 @@ var key = "session.json"
 var notifier = f.NewNotifier()
 var archive = f.NewArchiveOnDisk(".sessions", time.Second/2)
 
-func SessionLoad(session *f.Session[SessionData]) {
+func SessionAdapter(session *f.Session[SessionData]) {
 	session.WithExistsHandler(func() bool {
 		return archive.Has(session.Id, key)
 	})

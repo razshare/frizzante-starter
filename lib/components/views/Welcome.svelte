@@ -22,19 +22,17 @@
 </style>
 
 <script lang="ts">
-    import Router from '$frizzante/components/Router.svelte';
     import Layout from '$lib/components/Layout.svelte'
-    import {source} from "sveltekit-sse";
+    // import {source} from "sveltekit-sse";
     import {href} from "$frizzante/scripts/href.ts";
 
-    const message = source("/api/events", {options: {method: "GET"}}).select("message")
+    // const message = source("/api/events", {options: {method: "GET"}}).select("message")
 </script>
 
-<Router/>
 <Layout title="Welcome">
     <h1>Welcome to Frizzante.</h1>
     <div class="menu">
-        <span>{$message}</span><br/>
+<!--        <span>{$message}</span><br/>-->
         <br/>
         <a class="link" {...href("todos")}>
             Show todos

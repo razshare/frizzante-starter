@@ -31,25 +31,23 @@
 </style>
 
 <script lang="ts">
-    import Router from '$frizzante/components/Router.svelte';
     import Layout from '$lib/components/Layout.svelte'
     import {getContext} from "svelte";
     import type {ServerContext} from "$frizzante/types.ts";
     import Action from "$frizzante/components/Action.svelte";
     import {href} from "$frizzante/scripts/href.ts";
 
-    type Item = {
+    type Todo = {
         description: string
         checked: boolean
     }
 
-    const server = getContext("server") as ServerContext<{ items: Item[] }>
+    const server = getContext("server") as ServerContext<{ todos: Todo[] }>
 </script>
 
-<Router/>
 <Layout title="Todos">
     <div class="items">
-        {#each server.data.items as item, index}
+        {#each server.data.todos as item, index}
             <div class="item">
                 {#if item.checked}
                     <Action of="todos" using={{uncheck:index}}>

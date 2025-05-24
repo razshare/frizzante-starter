@@ -1,4 +1,4 @@
-package config
+package sessions
 
 import (
 	"encoding/json"
@@ -6,36 +6,11 @@ import (
 	"time"
 )
 
-type SessionData struct {
-	Todos        []Todo    `json:"todos"`
-	LastActivity time.Time `json:"lastActivity"`
-	Expired      bool      `json:"expired"`
-}
-
-type Todo struct {
-	Checked     bool   `json:"checked"`
-	Description string `json:"description"`
-}
-
-func NewSessionData() SessionData {
-	return SessionData{
-		Todos: []Todo{
-			{Checked: false, Description: "Pet the cat."},
-			{Checked: false, Description: "Do laundry"},
-			{Checked: false, Description: "Pet the cat."},
-			{Checked: false, Description: "Cook"},
-			{Checked: false, Description: "Pet the cat."},
-		},
-		LastActivity: time.Now(),
-		Expired:      false,
-	}
-}
-
 var key = "session.json"
 var notifier = f.NewNotifier()
 var archive = f.NewArchiveOnDisk(".sessions", time.Second/2)
 
-func SessionAdapter(session *f.Session[SessionData]) {
+func Adapter(session *f.Session[SessionData]) {
 	session.WithExistsHandler(func() bool {
 		return archive.Has(session.Id, key)
 	})

@@ -1,32 +1,35 @@
 package todos
 
 import (
-	"main/lib/config"
+	"main/lib/guards"
+	"main/lib/sessions"
 	"strconv"
 
 	f "github.com/razshare/frizzante"
 )
 
-func init() {
-	var guards = []f.Guard{config.GuardNotExpired}
-	config.Server.LoadController(func(controller *f.Controller) {
-		controller.WithBase(guards, base).WithAction(guards, action)
-	})
+type Controller struct{}
+
+type Data struct {
+	Items []sessions.Todo `json:"items"`
 }
 
-type data struct {
-	Items []config.Todo `json:"items"`
+func (_ Controller) Configure(meta func() f.PageMetadata) f.PageConfiguration {
+	return f.PageConfiguration{
+		Metadata: meta(),
+		Guards:   []f.Guard{guards.NotExpired},
+	}
 }
 
-func base(req *f.Request, res *f.Response) {
-	session := f.SessionStart(req, res, config.SessionAdapter)
-	res.SendView(f.NewViewWithData(f.RenderModeFull, data{
+func (_ Controller) Base(req *f.Request, res *f.Response) {
+	session := f.SessionStart(req, res, sessions.Adapter)
+	res.SendView(f.NewViewWithData(f.RenderModeFull, Data{
 		Items: session.Data.Todos,
 	}))
 }
 
-func action(req *f.Request, res *f.Response) {
-	session := f.SessionStart(req, res, config.SessionAdapter)
+func (_ Controller) Action(req *f.Request, res *f.Response) {
+	session := f.SessionStart(req, res, sessions.Adapter)
 	form := req.ReceiveForm()
 	if form.Has("check") {
 		index, _ := strconv.ParseInt(form.Get("check"), 10, 32)
@@ -36,7 +39,7 @@ func action(req *f.Request, res *f.Response) {
 		session.Data.Todos[index].Checked = false
 	}
 	session.Save()
-	res.SendView(f.NewViewWithData(f.RenderModeFull, data{
+	res.SendView(f.NewViewWithData(f.RenderModeFull, Data{
 		Items: session.Data.Todos,
 	}))
 }

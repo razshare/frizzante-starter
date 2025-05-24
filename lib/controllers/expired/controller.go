@@ -1,7 +1,19 @@
 package expired
 
-import "main/lib/config"
+import f "github.com/razshare/frizzante"
 
-func init() {
-	config.Server.LoadController(nil)
+type Controller struct{}
+
+func (_ Controller) Configure(meta func() f.PageMetadata) f.PageConfiguration {
+	return f.PageConfiguration{
+		Metadata: meta(),
+	}
+}
+
+func (_ Controller) Base(req *f.Request, res *f.Response) {
+	// Noop.
+}
+
+func (_ Controller) Action(req *f.Request, res *f.Response) {
+	// Noop.
 }

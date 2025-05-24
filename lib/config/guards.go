@@ -1,11 +1,12 @@
 package config
 
 import (
-	f "github.com/razshare/frizzante"
 	"time"
+
+	f "github.com/razshare/frizzante"
 )
 
-func GuardSession(req *f.Request, res *f.Response) bool {
+func GuardNotExpired(req *f.Request, res *f.Response) bool {
 	session := f.SessionStart(req, res, SessionAdapter)
 
 	if time.Since(session.Data.LastActivity) > 30*time.Minute {

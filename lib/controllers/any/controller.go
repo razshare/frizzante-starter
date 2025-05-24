@@ -8,7 +8,7 @@ import (
 )
 
 func init() {
-	var guards = []f.Guard{config.GuardSession}
+	var guards = []f.Guard{config.GuardNotExpired}
 	config.Server.LoadController(func(controller *f.Controller) {
 		controller.WithBase(guards, base).WithAction(guards, action).GiveWay()
 	})

@@ -13,10 +13,10 @@ type Data struct {
 	Items []sessions.Todo `json:"items"`
 }
 
-func (_ Controller) Configure(meta func() f.Metadata) f.PageConfiguration {
+func (_ Controller) Configure(id f.Identifier) f.PageConfiguration {
 	return f.PageConfiguration{
-		Metadata: meta(),
-		GiveWay:  true,
+		Id:      id(),
+		GiveWay: true,
 	}
 }
 

@@ -8,10 +8,10 @@ import (
 
 type Controller struct{}
 
-func (_ Controller) Configure(meta func() f.Metadata) f.ApiConfiguration {
+func (_ Controller) Configure(id f.Identifier) f.ApiConfiguration {
 	return f.ApiConfiguration{
-		Metadata: meta(),
-		Pattern:  "GET /api/events",
+		Id:      id(),
+		Pattern: "GET /api/events",
 	}
 }
 

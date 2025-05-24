@@ -4,9 +4,9 @@ import f "github.com/razshare/frizzante"
 
 type Controller struct{}
 
-func (_ Controller) Configure(meta func() f.Metadata) f.PageConfiguration {
+func (_ Controller) Configure(id f.Identifier) f.PageConfiguration {
 	return f.PageConfiguration{
-		Metadata: meta(),
+		Id: id(),
 	}
 }
 

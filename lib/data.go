@@ -1,4 +1,4 @@
-package sessions
+package lib
 
 import "time"
 

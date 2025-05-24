@@ -4,7 +4,7 @@ go 1.24
 
 replace github.com/razshare/frizzante => /home/raz/Github/razshare/frizzante
 
-require github.com/razshare/frizzante v0.76.0
+require github.com/razshare/frizzante v0.78.0
 
 require (
 	github.com/evanw/esbuild v0.24.2 // indirect

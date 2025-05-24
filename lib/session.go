@@ -1,4 +1,4 @@
-package sessions
+package lib
 
 import (
 	"encoding/json"
@@ -6,34 +6,34 @@ import (
 	"time"
 )
 
-var key = "session.json"
-var notifier = f.NewNotifier()
-var archive = f.NewArchiveOnDisk(".sessions", time.Second/2)
+var sessionKey = "session.json"
+var sessionNotifier = f.NewNotifier()
+var sessionArchive = f.NewArchiveOnDisk(".sessions", time.Second/2)
 
-func Adapter(session *f.Session[SessionData]) {
+func SessionAdapter(session *f.Session[SessionData]) {
 	session.WithExistsHandler(func() bool {
-		return archive.Has(session.Id, key)
+		return sessionArchive.Has(session.Id, sessionKey)
 	})
 
 	session.WithLoadHandler(func() {
-		data := archive.Get(session.Id, key)
+		data := sessionArchive.Get(session.Id, sessionKey)
 		unmarshalError := json.Unmarshal(data, &session.Data)
 		if nil != unmarshalError {
-			notifier.SendError(unmarshalError)
+			sessionNotifier.SendError(unmarshalError)
 		}
 	})
 
 	session.WithSaveHandler(func() {
 		data, marshalError := json.Marshal(session.Data)
 		if nil != marshalError {
-			notifier.SendError(marshalError)
+			sessionNotifier.SendError(marshalError)
 			return
 		}
-		archive.Set(session.Id, key, data)
+		sessionArchive.Set(session.Id, sessionKey, data)
 	})
 
 	session.WithDestroyHandler(func() {
-		archive.RemoveDomain(session.Id)
+		sessionArchive.RemoveDomain(session.Id)
 	})
 
 	if session.Exists() {

@@ -50,11 +50,11 @@
         {#each server.data.todos as item, index}
             <div class="item">
                 {#if item.checked}
-                    <Action of="todos" using={{uncheck:index}}>
+                    <Action path="/todos" using={{uncheck:index}}>
                         <span class="btn">(x) {item.description}</span>
                     </Action>
                 {:else}
-                    <Action of="todos" using={{check:index}}>
+                    <Action path="/todos" using={{check:index}}>
                         <span class="btn">(&nbsp;&nbsp;) {item.description}</span>
                     </Action>
                 {/if}
@@ -63,6 +63,6 @@
     </div>
     <br/>
     <div class="menu">
-        <a class="link" {...href("any")}>&lt; Back</a>
+        <a class="link" {...href("/")}>&lt; Back</a>
     </div>
 </Layout>

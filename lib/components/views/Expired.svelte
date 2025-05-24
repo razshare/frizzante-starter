@@ -18,7 +18,7 @@
 <Layout title="Session Expired">
     <h1>Your session has expired!</h1>
     <span class="link">
-        <a {...href("any")}>
+        <a {...href("/")}>
             Ok
         </a>
     </span>

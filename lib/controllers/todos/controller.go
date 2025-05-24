@@ -14,7 +14,7 @@ type Data struct {
 	Items []sessions.Todo `json:"items"`
 }
 
-func (_ Controller) Configure(meta func() f.PageMetadata) f.PageConfiguration {
+func (_ Controller) Configure(meta func() f.Metadata) f.PageConfiguration {
 	return f.PageConfiguration{
 		Metadata: meta(),
 		Guards:   []f.Guard{guards.NotExpired},

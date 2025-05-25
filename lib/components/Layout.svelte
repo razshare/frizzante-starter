@@ -1,4 +1,4 @@
-<style global>
+<style>
     .content {
         position: fixed;
         left: 0;
@@ -11,6 +11,28 @@
         justify-content: center;
         align-content: center;
         font-family: "Noto Sans Gothic", serif;
+        text-align: center;
+    }
+
+    :global(h1) {
+        color: cadetblue;
+        text-align: center;
+        width: 400px;
+    }
+
+    :global(.link) {
+        color: cadetblue;
+        text-decoration: none;
+    }
+
+    :global(.link:hover) {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    :global(.menu) {
+        text-align: center;
+        width: 400px;
     }
 </style>
 

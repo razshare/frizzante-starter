@@ -1,32 +1,11 @@
 <style>
-    .link {
-        color: cadetblue;
-        text-decoration: none;
-    }
-
-    .link:hover {
-        cursor: pointer;
-        text-decoration: underline;
-    }
-
-    .menu, .item {
-        width: 100%;
-    }
-
-    .items {
-        min-width: 400px;
+    ol {
         padding: 1rem;
         border-radius: 0.3rem;
         background: rgba(0, 0, 0, 0.3);
-    }
-
-    .btn {
-        color: cadetblue;
-        cursor: crosshair;
-    }
-
-    .btn:hover {
-        text-decoration: underline;
+        list-style-type: none;
+        min-width: 400px;
+        text-align: start;
     }
 </style>
 
@@ -46,23 +25,21 @@
 </script>
 
 <Layout title="Todos">
-    <div class="items">
+    <ol>
         {#each server.data.todos as item, index}
-            <div class="item">
+            <li>
                 {#if item.checked}
                     <Action path="/todos" using={{uncheck:index}}>
-                        <span class="btn">(x) {item.description}</span>
+                        <span class="link">(x) {item.description}</span>
                     </Action>
                 {:else}
                     <Action path="/todos" using={{check:index}}>
-                        <span class="btn">(&nbsp;&nbsp;) {item.description}</span>
+                        <span class="link">(&nbsp;&nbsp;) {item.description}</span>
                     </Action>
                 {/if}
-            </div>
+            </li>
         {/each}
-    </div>
+    </ol>
     <br/>
-    <div class="menu">
-        <a class="link" {...href("/")}>&lt; Back</a>
-    </div>
+    <a class="link" {...href("/")}>&lt; Back</a>
 </Layout>

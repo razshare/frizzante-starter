@@ -10,7 +10,7 @@ import (
 func init() {
 	Server.
 		WithRequestHandler("POST /todos", func(req *f.Request, res *f.Response) {
-			if Expired(req, res) {
+			if !f.AllGuardsPass(req, res, NotExpired) {
 				return
 			}
 
@@ -29,20 +29,23 @@ func init() {
 				RenderMode: f.RenderModeFull,
 				Data:       session.Data,
 			})
+
 		}).
 		WithRequestHandler("GET /todos", func(req *f.Request, res *f.Response) {
-			if Expired(req, res) {
+			if !f.AllGuardsPass(req, res, NotExpired) {
 				return
 			}
+
 			session := f.SessionStart(req, res, SessionAdapter)
 			res.SendView(f.View{
 				Name:       "Todos",
 				RenderMode: f.RenderModeFull,
 				Data:       session.Data,
 			})
+
 		}).
 		WithRequestHandler("GET /welcome", func(req *f.Request, res *f.Response) {
-			if Expired(req, res) {
+			if !f.AllGuardsPass(req, res, NotExpired) {
 				return
 			}
 
@@ -51,9 +54,10 @@ func init() {
 				RenderMode: f.RenderModeFull,
 				Data:       map[string]string{},
 			})
+
 		}).
 		WithRequestHandler("GET /api/events", func(req *f.Request, res *f.Response) {
-			if Expired(req, res) {
+			if !f.AllGuardsPass(req, res, NotExpired) {
 				return
 			}
 
@@ -65,6 +69,7 @@ func init() {
 				res.SendMessage(message)
 				time.Sleep(time.Second)
 			}
+
 		}).
 		WithRequestHandler("GET /expired", func(req *f.Request, res *f.Response) {
 			res.SendView(f.View{
@@ -74,7 +79,7 @@ func init() {
 			})
 		}).
 		WithRequestHandler("GET /", func(req *f.Request, res *f.Response) {
-			if Expired(req, res) {
+			if !f.AllGuardsPass(req, res, NotExpired) {
 				return
 			}
 
@@ -86,4 +91,8 @@ func init() {
 				})
 			})
 		})
+
+	//AllGuardsPass(NotExpired) <- func(req *f.Request, res *f.Response) {
+	//
+	//}
 }

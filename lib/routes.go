@@ -9,7 +9,7 @@ import (
 
 func init() {
 	Server.
-		WithRoute("POST /todos", func(req *f.Request, res *f.Response) {
+		WithRequestHandler("POST /todos", func(req *f.Request, res *f.Response) {
 			if !f.AllGuardsPass(req, res, NotExpired) {
 				return
 			}
@@ -31,7 +31,7 @@ func init() {
 			})
 
 		}).
-		WithRoute("GET /todos", func(req *f.Request, res *f.Response) {
+		WithRequestHandler("GET /todos", func(req *f.Request, res *f.Response) {
 			if !f.AllGuardsPass(req, res, NotExpired) {
 				return
 			}
@@ -44,7 +44,7 @@ func init() {
 			})
 
 		}).
-		WithRoute("GET /welcome", func(req *f.Request, res *f.Response) {
+		WithRequestHandler("GET /welcome", func(req *f.Request, res *f.Response) {
 			if !f.AllGuardsPass(req, res, NotExpired) {
 				return
 			}
@@ -56,7 +56,7 @@ func init() {
 			})
 
 		}).
-		WithRoute("GET /api/events", func(req *f.Request, res *f.Response) {
+		WithRequestHandler("GET /api/events", func(req *f.Request, res *f.Response) {
 			if !f.AllGuardsPass(req, res, NotExpired) {
 				return
 			}
@@ -71,14 +71,14 @@ func init() {
 			}
 
 		}).
-		WithRoute("GET /expired", func(req *f.Request, res *f.Response) {
+		WithRequestHandler("GET /expired", func(req *f.Request, res *f.Response) {
 			res.SendView(f.View{
 				Name:       "Expired",
 				RenderMode: f.RenderModeFull,
 				Data:       map[string]string{},
 			})
 		}).
-		WithRoute("GET /", func(req *f.Request, res *f.Response) {
+		WithRequestHandler("GET /", func(req *f.Request, res *f.Response) {
 			if !f.AllGuardsPass(req, res, NotExpired) {
 				return
 			}

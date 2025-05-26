@@ -3,7 +3,7 @@ package sessions
 import (
 	"encoding/json"
 	"github.com/razshare/frizzante"
-	"main/lib/notifier"
+	"main/lib/notifiers"
 	"time"
 )
 
@@ -16,14 +16,14 @@ func Adapter(session *frizzante.Session[Data]) {
 		data := Archive.Get(session.Id, Key)
 		unmarshalError := json.Unmarshal(data, &session.Data)
 		if nil != unmarshalError {
-			notifier.Console.SendError(unmarshalError)
+			notifiers.Console.SendError(unmarshalError)
 		}
 	})
 
 	session.WithSaveHandler(func() {
 		data, marshalError := json.Marshal(session.Data)
 		if nil != marshalError {
-			notifier.Console.SendError(marshalError)
+			notifiers.Console.SendError(marshalError)
 			return
 		}
 		Archive.Set(session.Id, Key, data)

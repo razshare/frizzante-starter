@@ -2,10 +2,10 @@ package lib
 
 import (
 	"github.com/razshare/frizzante"
-	"main/lib/notifier"
+	"main/lib/notifiers"
 )
 
 var Server = frizzante.
 	NewServer().
-	WithNotifier(notifier.Console).
+	WithNotifier(notifiers.Console).
 	WithAddress("127.0.0.1:8080")

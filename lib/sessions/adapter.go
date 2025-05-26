@@ -3,9 +3,10 @@ package sessions
 import (
 	"encoding/json"
 	"github.com/razshare/frizzante"
-	"main/lib"
 	"time"
 )
+
+var notifier = frizzante.NewNotifier()
 
 func Adapter(session *frizzante.Session[Data]) {
 	session.WithExistsHandler(func() bool {
@@ -16,14 +17,14 @@ func Adapter(session *frizzante.Session[Data]) {
 		data := Archive.Get(session.Id, Key)
 		unmarshalError := json.Unmarshal(data, &session.Data)
 		if nil != unmarshalError {
-			lib.Notifier.SendError(unmarshalError)
+			notifier.SendError(unmarshalError)
 		}
 	})
 
 	session.WithSaveHandler(func() {
 		data, marshalError := json.Marshal(session.Data)
 		if nil != marshalError {
-			lib.Notifier.SendError(marshalError)
+			notifier.SendError(marshalError)
 			return
 		}
 		Archive.Set(session.Id, Key, data)

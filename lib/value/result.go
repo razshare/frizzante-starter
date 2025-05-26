@@ -1,9 +1,11 @@
 package value
 
 import (
+	"github.com/razshare/frizzante"
 	"log"
-	"main/lib"
 )
+
+var notifier = frizzante.NewNotifier()
 
 type Result[T any] struct {
 	Value T
@@ -16,7 +18,7 @@ func (result *Result[T]) Ok() bool {
 
 func Wrap[T any](value T, err error) Result[T] {
 	if nil != err {
-		lib.Notifier.SendError(err)
+		notifier.SendError(err)
 		return Result[T]{value, err}
 	}
 
@@ -41,7 +43,7 @@ func WrapNothing(err error) Result[int] {
 	if nil == err {
 		return Result[int]{Value: 0}
 	}
-	lib.Notifier.SendError(err)
+	notifier.SendError(err)
 	return Result[int]{1, err}
 
 }

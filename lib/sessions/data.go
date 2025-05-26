@@ -1,8 +1,6 @@
 package sessions
 
-import (
-	"time"
-)
+import "time"
 
 type Data struct {
 	Todos        []Todo

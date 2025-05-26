@@ -15,5 +15,4 @@ func GetWelcome(req *frizzante.Request, res *frizzante.Response) {
 		RenderMode: frizzante.RenderModeFull,
 		Data:       map[string]string{},
 	})
-
 }

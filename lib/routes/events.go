@@ -20,5 +20,4 @@ func GetEvents(req *frizzante.Request, res *frizzante.Response) {
 		res.SendMessage(message)
 		time.Sleep(time.Second)
 	}
-
 }

@@ -1,12 +1,13 @@
-package lib
+package guards
 
 import (
-	f "github.com/razshare/frizzante"
+	"github.com/razshare/frizzante"
+	"main/lib/sessions"
 	"time"
 )
 
-func NotExpired(req *f.Request, res *f.Response) bool {
-	session := f.SessionStart(req, res, SessionAdapter)
+func NotExpired(req *frizzante.Request, res *frizzante.Response) bool {
+	session := frizzante.SessionStart(req, res, sessions.Adapter)
 
 	if time.Since(session.Data.LastActivity) > 30*time.Minute {
 		session.Destroy()

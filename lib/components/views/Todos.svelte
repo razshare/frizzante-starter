@@ -13,28 +13,29 @@
     import Layout from '$lib/components/Layout.svelte'
     import {getContext} from "svelte";
     import type {ServerContext} from "$frizzante/types.ts";
-    import Action from "$frizzante/components/Action.svelte";
     import {href} from "$frizzante/scripts/href.ts";
+    import Action from "$frizzante/components/Action.svelte";
 
     type Todo = {
-        description: string
-        checked: boolean
+        ID: string
+        Description: string
+        Checked: boolean
     }
 
-    const server = getContext("server") as ServerContext<{ todos: Todo[] }>
+    const server = getContext("server") as ServerContext<Todo[]>
 </script>
 
 <Layout title="Todos">
     <ol>
-        {#each server.data.todos as item, index}
+        {#each server.data as todo,index}
             <li>
-                {#if item.checked}
+                {#if todo.Checked}
                     <Action path="/todos" using={{uncheck:index}}>
-                        <span class="link">(x) {item.description}</span>
+                        <span class="link">(x) {todo.Description}</span>
                     </Action>
                 {:else}
                     <Action path="/todos" using={{check:index}}>
-                        <span class="link">(&nbsp;&nbsp;) {item.description}</span>
+                        <span class="link">(&nbsp;&nbsp;) {todo.Description}</span>
                     </Action>
                 {/if}
             </li>

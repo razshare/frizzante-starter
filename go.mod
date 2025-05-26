@@ -2,7 +2,7 @@ module main
 
 go 1.24
 
-require github.com/razshare/frizzante v0.83.2
+require github.com/razshare/frizzante v0.83.4
 
 require (
 	github.com/evanw/esbuild v0.24.2 // indirect

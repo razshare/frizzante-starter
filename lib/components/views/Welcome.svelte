@@ -3,7 +3,7 @@
     import {source} from "sveltekit-sse";
     import {href} from "$frizzante/scripts/href.ts";
 
-    const message = source("/api/events", {options: {method: "GET"}}).select("message")
+    const message = source("/events", {options: {method: "GET"}}).select("message")
 </script>
 
 <Layout title="Welcome">

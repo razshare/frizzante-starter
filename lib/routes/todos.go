@@ -2,11 +2,17 @@ package routes
 
 import (
 	"github.com/razshare/frizzante"
+	"main/lib"
 	"main/lib/guards"
 	"main/lib/sessions"
 	"main/lib/value"
 	"strconv"
 )
+
+func init() {
+	lib.Server.WithRequestHandler("GET /todos", GetTodos)
+	lib.Server.WithRequestHandler("POST /todos", PostTodos)
+}
 
 func GetTodos(req *frizzante.Request, res *frizzante.Response) {
 	if !frizzante.AllGuardsPass(req, res, guards.NotExpired) {

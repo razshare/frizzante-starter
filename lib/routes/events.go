@@ -3,9 +3,14 @@ package routes
 import (
 	"fmt"
 	"github.com/razshare/frizzante"
+	"main/lib"
 	"main/lib/guards"
 	"time"
 )
+
+func init() {
+	lib.Server.WithRequestHandler("GET /events", GetEvents)
+}
 
 func GetEvents(req *frizzante.Request, res *frizzante.Response) {
 	if !frizzante.AllGuardsPass(req, res, guards.NotExpired) {

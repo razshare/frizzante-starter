@@ -1,20 +1,14 @@
-package routes
+package handlers
 
 import (
 	"github.com/razshare/frizzante"
-	"main/lib/guards"
 	"main/lib/notifiers"
 	"main/lib/sessions"
 	"strconv"
 )
 
 func GetTodos(req *frizzante.Request, res *frizzante.Response) {
-	if !frizzante.AllGuardsPass(req, res, guards.NotExpired) {
-		return
-	}
-
 	session := frizzante.SessionStart(req, res, sessions.Adapter)
-
 	res.SendView(frizzante.View{Name: "Todos", Data: session.Data.Todos})
 }
 
@@ -40,8 +34,5 @@ func PostTodos(req *frizzante.Request, res *frizzante.Response) {
 		session.Data.Todos[id].Checked = false
 	}
 	session.Save()
-	res.SendView(frizzante.View{
-		Name: "Todos",
-		Data: session.Data.Todos,
-	})
+	res.SendView(frizzante.View{Name: "Todos", Data: session.Data.Todos})
 }

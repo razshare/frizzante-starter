@@ -6,15 +6,15 @@ import (
 	"time"
 )
 
-func SessionIsValid(req *frizzante.Request, res *frizzante.Response, pass func()) {
+func NotExpired(req *frizzante.Request, res *frizzante.Response) bool {
 	session := frizzante.SessionStart(req, res, sessions.Adapter)
 
 	if time.Since(session.Data.LastActivity) > 30*time.Minute {
 		session.Destroy()
 		res.SendNavigate("expired")
-		return
+		return false
 	}
 
 	session.Data.LastActivity = time.Now()
-	pass()
+	return true
 }

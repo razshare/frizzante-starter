@@ -8,13 +8,14 @@ import (
 
 //go:embed .dist/*/**
 var dist embed.FS
+var public []frz.Guard
 
 func main() {
 	frz.NewServer().
 		WithDist(dist).
-		WithRequestHandler("GET /", handlers.GetDefault).
-		WithRequestHandler("GET /welcome", handlers.GetWelcome).
-		WithRequestHandler("GET /todos", handlers.GetTodos).
-		WithRequestHandler("POST /todos", handlers.PostTodos).
+		Map(public, "GET /", handlers.GetDefault).
+		Map(public, "GET /welcome", handlers.GetWelcome).
+		Map(public, "GET /todos", handlers.GetTodos).
+		Map(public, "POST /todos", handlers.PostTodos).
 		Start()
 }

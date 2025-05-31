@@ -1,5 +1,5 @@
 package main
 
-import f "github.com/razshare/frizzante"
+import frz "github.com/razshare/frizzante"
 
-func main() { f.Prepare() }
+func main() { frz.Prepare() }

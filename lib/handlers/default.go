@@ -1,7 +1,7 @@
 package handlers
 
-import "github.com/razshare/frizzante"
+import frz "github.com/razshare/frizzante"
 
-func GetDefault(c *frizzante.Connection) {
+func GetDefault(c *frz.Connection) {
 	c.SendFileOrElse(func() { GetWelcome(c) })
 }

@@ -2,7 +2,7 @@ package main
 
 import (
 	"embed"
-	"github.com/razshare/frizzante"
+	frz "github.com/razshare/frizzante"
 	"main/lib/handlers"
 )
 
@@ -10,7 +10,7 @@ import (
 var dist embed.FS
 
 func main() {
-	frizzante.NewServer().
+	frz.NewServer().
 		WithDist(dist).
 		WithRequestHandler("GET /", handlers.GetDefault).
 		WithRequestHandler("GET /welcome", handlers.GetWelcome).

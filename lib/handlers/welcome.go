@@ -1,7 +1,7 @@
 package handlers
 
-import "github.com/razshare/frizzante"
+import frz "github.com/razshare/frizzante"
 
-func GetWelcome(c *frizzante.Connection) {
-	c.SendView(frizzante.View{Name: "Welcome"})
+func GetWelcome(c *frz.Connection) {
+	c.SendView(frz.View{Name: "Welcome"})
 }

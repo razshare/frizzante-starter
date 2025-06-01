@@ -13,9 +13,9 @@ dev: clean update
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "go build -o bin/app ." \
 	--build.bin "bin/app" \
-	--build.exclude_dir "out,bin,.sessions,.frizzante,node_modules" \
+	--build.exclude_dir "out,bin,.sessions,.archive,.frizzante,.git,.github,node_modules" \
 	--build.exclude_regex "_test.go" \
-	--build.include_ext "go,svelte,js,css,json" \
+	--build.include_ext "go" \
 	--build.log "go-build-errors.log" & \
 	make www-dev-server & \
 	make www-dev-client & \

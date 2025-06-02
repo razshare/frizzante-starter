@@ -57,7 +57,7 @@ go.work.sum
 
 # Frizzante
 /bin
-/.frizzante
+/.frz
 /.dist/client/assets
 /.dist/client/.frizzante/vite-project/index.html
 /.dist/server/render.server.js

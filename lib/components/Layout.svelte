@@ -38,17 +38,17 @@
 
 <script lang="ts">
     import {getContext, type Snippet} from "svelte";
-    import type {ServerContext} from "$frizzante/types.ts";
+    import type {View} from "$frizzante/types.ts";
 
     type Props = {
         title?: string
         children: Snippet
     }
 
-    const server = getContext("server") as ServerContext<any>
+    const view = getContext("view") as View<any>
 
     let {
-        title = server.id,
+        title = view.name,
         children,
     }: Props = $props()
 </script>

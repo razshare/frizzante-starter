@@ -20,14 +20,14 @@ func PostTodos(c *frz.Connection) {
 	if form.Has("check") {
 		id, intError := strconv.ParseInt(form.Get("check"), 10, 64)
 		if nil != intError {
-			c.SendView(frz.View{Name: "Todos", Error: intError})
+			c.SendView(frz.View{Name: "Todos", Error: intError.Error()})
 			return
 		}
 		state.Todos[id].Checked = true
 	} else if form.Has("uncheck") {
 		id, intError := strconv.ParseInt(form.Get("uncheck"), 10, 64)
 		if intError != nil {
-			c.SendView(frz.View{Name: "Todos", Error: intError})
+			c.SendView(frz.View{Name: "Todos", Error: intError.Error()})
 			return
 		}
 		state.Todos[id].Checked = false

@@ -1,9 +1,10 @@
 dev:
+	mkdir .dist/server -p && touch .dist/server/server.js
 	which bin/air || curl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "go build -o bin/app ." \
 	--build.bin "bin/app" \
-	--build.exclude_dir "out,bin,.sessions,.archive,.frizzante,.git,.github,node_modules" \
+	--build.exclude_dir "out,bin,.sessions,.archive,.frz,.dist,.git,.github,node_modules" \
 	--build.exclude_regex "_test.go" \
 	--build.include_ext "go" \
 	--build.log "go-build-errors.log" & \

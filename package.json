@@ -4,13 +4,18 @@
   "version": "0.0.0",
   "type": "module",
   "devDependencies": {
+    "@eslint/compat": "^1.2.9",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
     "@tsconfig/svelte": "^5.0.4",
     "@types/node": "^22.15.29",
     "eslint": "^9.28.0",
-    "svelte": "^5.33.13",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-svelte": "^3.9.1",
+    "rollup": "^4.41.1",
+    "svelte": "^5.33.14",
     "svelte-check": "^4.2.1",
     "typescript": "~5.8.3",
+    "typescript-eslint": "^8.33.1",
     "vite": "^6.3.5"
   }
 }

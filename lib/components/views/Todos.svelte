@@ -17,9 +17,8 @@
     import type {View} from "$frizzante/types.ts";
 
     type Todo = {
-        ID: string
-        Description: string
         Checked: boolean
+        Description: string
     }
 
     const view = getContext("view") as View<Todo[]>
@@ -27,7 +26,7 @@
 
 <Layout title="Todos">
     <ol>
-        {#each view.data as todo,index}
+        {#each view.data as todo, index(todo.Description+":"+index)}
             <li>
                 {#if todo.Checked}
                     <Action path="/todos" using={{uncheck:index}}>

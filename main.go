@@ -2,7 +2,7 @@ package main
 
 import (
 	"embed"
-	frz "github.com/razshare/frizzante"
+	"github.com/razshare/frizzante/frz"
 	"main/lib/handlers"
 )
 

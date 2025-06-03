@@ -26,7 +26,7 @@ export default defineConfig({
     sourcemap,
     rollupOptions: {
       input: {
-        index: "./.frz/router/index.html",
+        index: "./index.html",
       },
     },
   },

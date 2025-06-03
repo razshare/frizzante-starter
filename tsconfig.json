@@ -23,7 +23,6 @@
     "moduleDetection": "force"
   },
   "include": [
-    "./build.js",
     "./.frz/**/*.svelte.js",
     "./.frz/**/*.svelte.ts",
     "./.frz/**/*.svelte",

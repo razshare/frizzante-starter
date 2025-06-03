@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	frz "github.com/razshare/frizzante"
+	"github.com/razshare/frizzante/frz"
 	"main/lib"
 	"strconv"
 )

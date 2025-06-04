@@ -12,9 +12,9 @@
 <script lang="ts">
     import Layout from '$lib/components/Layout.svelte'
     import {getContext} from "svelte";
-    import {href} from "$frizzante/scripts/href.ts";
-    import Action from "$frizzante/components/Action.svelte";
-    import type {View} from "$frizzante/types.ts";
+    import {href} from "$frz/scripts/href.ts";
+    import Action from "$frz/components/Action.svelte";
+    import type {View} from "$frz/types.ts";
 
     type Todo = {
         Checked: boolean

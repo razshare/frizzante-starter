@@ -38,14 +38,14 @@
 
 <script lang="ts">
     import {getContext, type Snippet} from "svelte";
-    import type {View} from "$frizzante/types.ts";
+    import type {View} from "$frz/types.ts";
 
     type Props = {
         title?: string
         children: Snippet
     }
 
-    const view = getContext("view") as View<any>
+    const view = getContext("view") as View<unknown>
 
     let {
         title = view.name,

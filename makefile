@@ -7,7 +7,7 @@ dev:
 	--build.exclude_regex "_test.go" \
 	--build.include_ext "go" \
 	--build.log "go-build-errors.log" & \
-	DEV=1 bunx vite build --watch --ssr .generated/router/server.ts --outDir .dist/server & \
+	DEV=1 bunx vite build --watch --ssr .generated/render/server.ts --outDir .dist/server & \
 	DEV=1 bunx vite build --watch --outDir .dist/client & \
 	wait
 
@@ -18,9 +18,9 @@ test:
 	CGO_ENABLED=1 go test ./...
 
 generate:
-	go run cli/main.go -generate -router -views="lib/components/views" -out=".generated/router"
+	go run cli/main.go -generate -render -views="lib/components/views" -out=".generated/render"
 	go run cli/main.go -generate -utilities -out=".generated/utilities"
-	bunx vite build --ssr .generated/router/server.ts --outDir .dist/server --emptyOutDir
+	bunx vite build --ssr .generated/render/server.ts --outDir .dist/server --emptyOutDir
 	bunx vite build --outDir .dist/client --emptyOutDir
 
 update:

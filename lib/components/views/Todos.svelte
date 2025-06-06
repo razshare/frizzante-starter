@@ -13,8 +13,8 @@
     import Layout from '$lib/components/Layout.svelte'
     import {getContext} from "svelte";
     import {href} from "$frz/scripts/href.ts";
-    import Action from "$frz/components/Action.svelte";
     import type {View} from "$frz/types.ts";
+    import {action} from "$frz/scripts/action.ts";
 
     type Todo = {
         Checked: boolean
@@ -26,17 +26,18 @@
 
 <Layout title="Todos">
     <ol>
-        {#each view.data as todo, index(todo.Description+":"+index)}
+        {#each view.data as todo, index(todo.Description + ":" + index)}
             <li>
-                {#if todo.Checked}
-                    <Action path="/todos" using={{uncheck:index}}>
-                        <span class="link">(x) {todo.Description}</span>
-                    </Action>
-                {:else}
-                    <Action path="/todos" using={{check:index}}>
-                        <span class="link">(&nbsp;&nbsp;) {todo.Description}</span>
-                    </Action>
-                {/if}
+                <form {...action("/todos?")}>
+                    <input type="hidden" name="index" value="{index}"/>
+                    {#if todo.Checked}
+                        <input type="hidden" name="action" value="uncheck"/>
+                        <button class="link">(x) {todo.Description}</button>
+                    {:else}
+                        <input type="hidden" name="action" value="check"/>
+                        <button class="link">(&nbsp;&nbsp;) {todo.Description}</button>
+                    {/if}
+                </form>
             </li>
         {/each}
     </ol>

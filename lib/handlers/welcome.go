@@ -2,6 +2,6 @@ package handlers
 
 import "github.com/razshare/frizzante/frz"
 
-func GetWelcome(c *frz.Connection) {
+func Welcome(c *frz.Connection) {
 	c.SendView(frz.View{Name: "Welcome"})
 }

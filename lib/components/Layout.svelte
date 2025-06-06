@@ -23,6 +23,8 @@
     :global(.link) {
         color: cadetblue;
         text-decoration: none;
+        background: transparent;
+        border: 0;
     }
 
     :global(.link:hover) {

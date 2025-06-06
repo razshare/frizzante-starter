@@ -28,7 +28,7 @@
     <ol>
         {#each view.data as todo, index(todo.Description + ":" + index)}
             <li>
-                <form {...action("/todos?")}>
+                <form method="GET" {...action("/todos?")}>
                     <input type="hidden" name="index" value="{index}"/>
                     {#if todo.Checked}
                         <input type="hidden" name="action" value="uncheck"/>

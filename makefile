@@ -36,7 +36,9 @@ build:
 dev:
 	make update
 	make generate
-	mkdir dist -p
+	make package
+	DEV=1 bunx vite build --watch --ssr frz/scripts/server.ts --outDir dist/server & \
+	DEV=1 bunx vite build --watch --outDir dist/client & \
 	which bin/air || curl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "go build -o bin/app ." \
@@ -45,6 +47,4 @@ dev:
 	--build.exclude_regex "_test.go" \
 	--build.include_ext "go" \
 	--build.log "go-build-errors.log" & \
-	DEV=1 bunx vite build --watch --ssr frz/scripts/server.ts --outDir dist/server & \
-	DEV=1 bunx vite build --watch --outDir dist/client & \
 	wait

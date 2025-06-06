@@ -15,6 +15,8 @@
     "skipLibCheck": true,
     "checkJs": true,
     "paths": {
+      "$client": ["./lib/views/client.ts"],
+      "$server": ["./lib/views/server.ts"],
       "$frz/*": ["./frz/*"],
       "$lib/*": ["./lib/*"]
     },

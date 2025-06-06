@@ -18,8 +18,10 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      $frz: "./frz",
-      $lib: "./lib",
+      "$client": "./lib/views/client.ts",
+      "$server": "./lib/views/server.ts",
+      "$frz": "./frz",
+      "$lib": "./lib",
     },
   },
   build: {

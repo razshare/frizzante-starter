@@ -40,7 +40,7 @@
 
 <script lang="ts">
     import {getContext, type Snippet} from "svelte";
-    import type {View} from "$frz/types.ts";
+    import type {View} from "$lib/utilities/types.ts";
 
     type Props = {
         title?: string

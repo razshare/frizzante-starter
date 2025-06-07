@@ -58,5 +58,6 @@ go.work.sum
 # Frizzante
 /tmp
 /bin
-/dist
+/app/dist
+/app/utilities
 /sessions

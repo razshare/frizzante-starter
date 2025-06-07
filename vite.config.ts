@@ -1,5 +1,5 @@
-import { defineConfig } from "vite";
-import { svelte } from "@sveltejs/vite-plugin-svelte";
+import {defineConfig} from "vite";
+import {svelte} from "@sveltejs/vite-plugin-svelte";
 
 let sourcemap: false | "inline" = false;
 
@@ -18,10 +18,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "$client": "./lib/views/client.ts",
-      "$server": "./lib/views/server.ts",
-      "$frz": "./frz",
-      "$lib": "./lib",
+      "$lib": "./app/lib",
     },
   },
   build: {

@@ -1,32 +1,32 @@
-import {defineConfig} from "vite";
-import {svelte} from "@sveltejs/vite-plugin-svelte";
+import { defineConfig } from "vite"
+import { svelte } from "@sveltejs/vite-plugin-svelte"
 
-let sourcemap: false | "inline" = false;
+let sourcemap: false | "inline" = false
 
 if ("1" === (process.env.DEV ?? "")) {
-  sourcemap = "inline";
+    sourcemap = "inline"
 }
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    svelte({
-      compilerOptions: {
-        css: "injected",
-      },
-    }),
-  ],
-  resolve: {
-    alias: {
-      "$lib": "./app/lib",
+    plugins: [
+        svelte({
+            compilerOptions: {
+                css: "injected",
+            },
+        }),
+    ],
+    resolve: {
+        alias: {
+            $lib: "./app/lib",
+        },
     },
-  },
-  build: {
-    sourcemap,
-    rollupOptions: {
-      input: {
-        index: "./index.html",
-      },
+    build: {
+        sourcemap,
+        rollupOptions: {
+            input: {
+                index: "./index.html",
+            },
+        },
     },
-  },
-});
+})

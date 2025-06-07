@@ -59,5 +59,4 @@ go.work.sum
 /tmp
 /bin
 /app/dist
-/app/utilities
 /sessions

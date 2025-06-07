@@ -1,5 +1,5 @@
-import type {View} from "$lib/utilities/types.ts";
-import {uuid} from "$lib/utilities/scripts/uuid.ts"
+import type { View } from "$lib/utilities/types.ts"
+import { uuid } from "$lib/utilities/scripts/uuid.ts"
 
 type SwapAction = {
     method: () => string
@@ -54,7 +54,7 @@ function swap(view: View<unknown>): SwapAction {
         async play(update: boolean) {
             const payload = {
                 method: swapMethod,
-                headers: {Accept: "application/json"},
+                headers: { Accept: "application/json" },
             } as RequestInit
 
             let query = ""
@@ -65,26 +65,39 @@ function swap(view: View<unknown>): SwapAction {
                     swapBody.forEach(function each(value, key) {
                         params.append(key, `${value}`)
                     })
+
                     query = `${params.toString()}`
+
+                    if (swapPath.includes("?")) {
+                        query = "&" + query
+                    } else {
+                        query = "?" + query
+                    }
                 }
             } else {
                 payload.body = swapBody as BodyInit
             }
 
-            const response = await fetch(`${swapPath}${query}`, payload);
+            const response = await fetch(`${swapPath}${query}`, payload)
 
-            const json = await response.json();
+            const text = await response.text()
+
+            if ("" === text) {
+                return
+            }
+
+            const json = JSON.parse(text)
 
             view.data = json.data
-            view.name = json.name;
-            view.error = json.error;
+            view.name = json.name
+            view.error = json.error
 
             if (update) {
                 const id = uuid()
                 record[id] = this
-                window.history.pushState(id, "", response.url);
+                window.history.pushState(id, "", response.url)
             }
-        }
+        },
     }
 }
 

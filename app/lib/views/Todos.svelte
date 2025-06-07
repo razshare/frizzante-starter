@@ -7,6 +7,24 @@
         min-width: 400px;
         text-align: start;
     }
+
+    input {
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid cadetblue;
+        padding: 0.3rem;
+        border-radius: 0;
+        color: cadetblue;
+    }
+
+    input:focus {
+        background-color: rgba(0, 0, 0, 0.1);
+        outline: none;
+    }
+
+    form {
+        display: inline-block;
+    }
 </style>
 
 <script lang="ts">
@@ -28,6 +46,10 @@
     <ol>
         {#each view.data as todo, index (index)}
             <li>
+                <form {...action("/remove")}>
+                    <input type="hidden" name="index" value={index} />
+                    <button class="link">[Remove]</button>
+                </form>
                 {#if todo.Checked}
                     <form {...action("/uncheck")}>
                         <input type="hidden" name="index" value={index} />
@@ -50,6 +72,17 @@
             </li>
         {/each}
     </ol>
+    <form {...action("/add")}>
+        <span class="link">Description</span>
+        <input type="text" value="" name="description" />
+        <button class="link" type="submit">Add +</button>
+    </form>
+
+    {#if view.error}
+        <br />
+        <span class="error">{view.error}</span>
+    {/if}
+
     <br />
     <a class="link" {...href("/")}>&lt; Back</a>
 </Layout>

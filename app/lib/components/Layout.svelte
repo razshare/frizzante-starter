@@ -36,6 +36,10 @@
         text-align: center;
         width: 400px;
     }
+
+    :global(.error) {
+        color: orangered;
+    }
 </style>
 
 <script lang="ts">

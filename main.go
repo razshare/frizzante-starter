@@ -21,5 +21,7 @@ func main() {
 		AddRoute(frz.Route{Pattern: "GET /todos", Handler: handlers.Todos}).
 		AddRoute(frz.Route{Pattern: "GET /check", Handler: handlers.Check}).
 		AddRoute(frz.Route{Pattern: "GET /uncheck", Handler: handlers.Uncheck}).
+		AddRoute(frz.Route{Pattern: "GET /add", Handler: handlers.Add}).
+		AddRoute(frz.Route{Pattern: "GET /remove", Handler: handlers.Remove}).
 		Start()
 }

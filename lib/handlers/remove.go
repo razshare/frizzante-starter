@@ -8,6 +8,12 @@ import (
 
 func Remove(c *frz.Connection) {
 	state, operator := frz.Session(c, lib.NewState())
+
+	if 0 == len(state.Todos) {
+		c.SendView(frz.View{Name: "Todos", Data: state.Todos})
+		return
+	}
+
 	defer operator.Save(state)
 
 	index := c.ReceiveQuery("index")
@@ -18,6 +24,11 @@ func Remove(c *frz.Connection) {
 	id, intError := strconv.ParseInt(index, 10, 64)
 	if nil != intError {
 		c.SendView(frz.View{Name: "Todos", Error: intError.Error()})
+		return
+	}
+
+	if 0 == len(state.Todos) {
+		c.SendView(frz.View{Name: "Todos", Data: state.Todos})
 		return
 	}
 

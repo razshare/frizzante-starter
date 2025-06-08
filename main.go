@@ -2,9 +2,8 @@ package main
 
 import (
 	"embed"
-	"main/lib/handlers"
-
 	"github.com/razshare/frizzante/frz"
+	"main/lib/handlers"
 )
 
 //go:embed app/dist

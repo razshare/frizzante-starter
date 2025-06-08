@@ -59,4 +59,5 @@ go.work.sum
 /tmp
 /bin
 /app/dist
+/archvie
 /sessions

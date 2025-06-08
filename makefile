@@ -1,20 +1,23 @@
 test:
 	make update
-	make generate
 	make check
+	rm app/dist -fr
+	mkdir app/dist/client -p
+	touch app/dist/client/index.html
 	make package
 	CGO_ENABLED=1 go test ./...
 
 build:
 	make update
-	make generate
 	make check
+	rm app/dist -fr
+	mkdir app/dist/client -p
+	touch app/dist/client/index.html
 	make package
 	CGO_ENABLED=1 go build -o bin/app .
 
 dev:
 	make update
-	make generate
 	make check
 	mkdir app/dist/client -p
 	touch app/dist/client/index.html
@@ -35,7 +38,8 @@ clean:
 	go clean
 	rm bin/app -fr
 	rm app/dist -fr
-	rm app/lib/utilities -fr
+	mkdir app/dist/client -p
+	touch app/dist/client/index.html
 	rm node_modules -fr
 
 update:
@@ -47,6 +51,7 @@ check:
 	bunx svelte-check --tsconfig ./tsconfig.json
 
 generate:
+	rm app/lib/utilities -fr
 	go run cli/main.go -generate -utilities -out="app/lib/utilities"
 
 package:

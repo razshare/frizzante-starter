@@ -34,5 +34,5 @@ func Remove(c *frz.Connection) {
 
 	state.Todos = append(state.Todos[:id], state.Todos[id+1:]...)
 
-	c.SendView(frz.View{Name: "Todos", Data: state.Todos})
+	c.SendNavigate("/todos")
 }

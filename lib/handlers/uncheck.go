@@ -23,5 +23,5 @@ func Uncheck(c *frz.Connection) {
 
 	state.Todos[id].Checked = false
 
-	c.SendView(frz.View{Name: "Todos", Data: state.Todos})
+	c.SendNavigate("/todos")
 }

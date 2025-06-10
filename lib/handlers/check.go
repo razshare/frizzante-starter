@@ -23,5 +23,5 @@ func Check(c *frz.Connection) {
 
 	state.Todos[id].Checked = true
 
-	c.SendView(frz.View{Name: "Todos", Data: state.Todos})
+	c.SendNavigate("/todos")
 }

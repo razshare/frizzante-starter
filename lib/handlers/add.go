@@ -18,5 +18,5 @@ func Add(c *frz.Connection) {
 
 	state.Todos = append(state.Todos, lib.Todo{Checked: false, Description: description})
 
-	c.SendView(frz.View{Name: "Todos", Data: state.Todos})
+	c.SendNavigate("/todos")
 }

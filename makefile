@@ -32,6 +32,7 @@ dev:
 	wait
 
 format:
+	cd app && \
 	bunx prettier --write .
 
 clean:
@@ -40,14 +41,16 @@ clean:
 	rm app/dist -fr
 	mkdir app/dist/client -p
 	touch app/dist/client/index.html
-	rm node_modules -fr
+	rm app/node_modules -fr
 
 update:
 	go mod tidy
+	cd app && \
 	bun update
 
 check:
-	bunx eslint .
+	cd app && \
+	bunx eslint . && \
 	bunx svelte-check --tsconfig ./tsconfig.json
 
 generate:
@@ -55,8 +58,10 @@ generate:
 	go run cli/main.go -generate -utilities -out="app/lib/utilities"
 
 package:
-	bunx vite build --logLevel info --ssr app/lib/utilities/scripts/server.ts --outDir app/dist --emptyOutDir
-	bunx vite build --logLevel info --outDir app/dist/client --emptyOutDir
+	cd app && \
+	bunx vite build --logLevel info --ssr lib/utilities/scripts/server.ts --outDir dist --emptyOutDir && \
+	bunx vite build --logLevel info --outDir dist/client --emptyOutDir
+	app/node_modules/.bin/esbuild app/dist/server.js --bundle --outfile=app/dist/server.js --format=cjs --allow-overwrite
 
 hooks:
 	printf "#!/usr/bin/env bash\n" > .git/hooks/pre-commit

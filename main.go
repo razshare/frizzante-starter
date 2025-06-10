@@ -12,9 +12,6 @@ var efs embed.FS
 func main() {
 	frz.NewServer().
 		WithEfs(efs).
-		WithPublicRoot("app/dist/client").
-		WithViewServer("app/dist/server.js").
-		WithViewIndex("app/dist/client/index.html").
 		AddRoute(frz.Route{Pattern: "GET /", Handler: handlers.Default}).
 		AddRoute(frz.Route{Pattern: "GET /welcome", Handler: handlers.Welcome}).
 		AddRoute(frz.Route{Pattern: "GET /todos", Handler: handlers.Todos}).

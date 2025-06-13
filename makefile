@@ -59,11 +59,9 @@ package:
 
 configure:
 	mkdir bin -p
-	which bin/bun || ( \
-		curl -fsSL https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64.zip -o bin/bun.zip && \
-		unzip -j bin/bun.zip -d bin && \
-		rm bin/bun.zip -f \
-	)
+	which bin/bun || \
+	(curl -fsSL https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64.zip -o bin/bun.zip && \
+	unzip -j bin/bun.zip -d bin && rm bin/bun.zip -f)
 	which bin/air || curl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s
 	go run cli/main.go -generate -utilities -out="app/lib/utilities"
 

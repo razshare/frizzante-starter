@@ -61,7 +61,7 @@ configure-frizzante:
 	# Make bin...
 	mkdir bin -p
 	# Get frizzante...
-	which bin/frizzante || (curl -fsSL https://github.com/razshare/frizzante/releases/download/v1.2.1/frizzante-amd64.zip -o bin/frizzante.zip && \
+	which bin/frizzante || (curl -fsSL https://github.com/razshare/frizzante/releases/download/v1.2.2/frizzante-amd64.zip -o bin/frizzante.zip && \
 	unzip -j bin/frizzante.zip -d bin && rm bin/frizzante.zip -f)
 	chmod +x bin/frizzante
 

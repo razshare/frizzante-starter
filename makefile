@@ -6,6 +6,9 @@ build: update check package
 	CGO_ENABLED=1 go build -o bin/app .
 
 dev: configure-air update check
+	rm app/dist -fr
+	mkdir app/dist/client -p
+	touch app/dist/client/index.html
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "go build -o bin/app ." \
 	--build.bin "bin/app" \

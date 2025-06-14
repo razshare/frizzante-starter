@@ -4,14 +4,15 @@ test: configure-bun update check package
 build: configure-bun update check package
 	CGO_ENABLED=1 go build -o bin/app .
 
-dev: configure
+dev: configure update check
 	DEV=1 CGO_ENABLED=1 ./bin/air \
-	--build.cmd "make build" \
+	--build.cmd "go build -o bin/app ." \
 	--build.bin "bin/app" \
 	--build.exclude_dir "app/dist,app/node_modules,bin,archive,sessions,tmp,.git,.github" \
 	--build.exclude_regex "_test.go" \
-	--build.include_ext "go,svelte,js,ts,html,css,scss" \
+	--build.include_ext "go" \
 	--build.log "go-build-errors.log" & \
+	make package-watch & \
 	wait
 
 update:
@@ -24,6 +25,16 @@ check:
 	../bin/bun x eslint . && \
 	../bin/bun x svelte-check --tsconfig ./tsconfig.json
 
+package-watch:
+	rm app/dist -fr
+	mkdir app/dist/client -p
+	touch app/dist/client/index.html
+	cd app && \
+	../bin/bun x vite build --logLevel info --ssr lib/utilities/scripts/server.ts --outDir dist --emptyOutDir --watch & \
+	cd app && \
+	../bin/bun x vite build --logLevel info --outDir dist/client --emptyOutDir --watch & \
+	wait
+
 package:
 	rm app/dist -fr
 	mkdir app/dist/client -p
@@ -31,7 +42,6 @@ package:
 	cd app && \
 	../bin/bun x vite build --logLevel info --ssr lib/utilities/scripts/server.ts --outDir dist --emptyOutDir && \
 	../bin/bun x vite build --logLevel info --outDir dist/client --emptyOutDir
-	app/node_modules/.bin/esbuild app/dist/server.js --bundle --outfile=app/dist/server.js --format=cjs --allow-overwrite
 
 configure-bun:
 	# Check requirements...

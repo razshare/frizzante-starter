@@ -10,7 +10,7 @@ dev: configure update check
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "make package && go build -o bin/app ." \
 	--build.bin "bin/app" \
-	--build.exclude_dir "node_modules,app/dist,bin,app/node_modules,archive,sessions,tmp,.git,.github" \
+	--build.exclude_dir "app/dist,app/node_modules,bin,archive,sessions,tmp,.git,.github" \
 	--build.exclude_regex "_test.go" \
 	--build.include_ext "go,svelte,js,json,ts,html" \
 	--build.log "go-build-errors.log" & \

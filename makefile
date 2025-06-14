@@ -10,7 +10,7 @@ dev: configure
 	--build.bin "bin/app" \
 	--build.exclude_dir "app/dist,app/node_modules,bin,archive,sessions,tmp,.git,.github" \
 	--build.exclude_regex "_test.go" \
-	--build.include_ext "go,svelte,js,ts,html" \
+	--build.include_ext "go,svelte,js,ts,html,css,scss" \
 	--build.log "go-build-errors.log" & \
 	wait
 

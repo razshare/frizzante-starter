@@ -52,6 +52,8 @@ configure:
 	# Get air...
 	which bin/air || (curl -fsSL https://github.com/air-verse/air/releases/download/v1.62.0/air_1.62.0_linux_amd64 -o bin/air)
 	chmod +x bin/air
+
+generate: configure
 	# Generate frizzante utilities...
 	./bin/frizzante -generate -utilities -out="app/lib/utilities"
 

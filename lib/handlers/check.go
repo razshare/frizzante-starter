@@ -17,7 +17,9 @@ func Check(c *frz.Connection) {
 
 	id, intError := strconv.ParseInt(index, 10, 64)
 	if nil != intError {
-		c.SendView(frz.View{Name: "Todos", Error: intError.Error()})
+		c.SendView(frz.View{Name: "Todos", Data: map[string]any{
+			"error": intError.Error(),
+		}})
 		return
 	}
 

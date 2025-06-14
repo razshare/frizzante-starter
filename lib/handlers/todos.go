@@ -7,5 +7,7 @@ import (
 
 func Todos(c *frz.Connection) {
 	state, _ := frz.Session(c, lib.NewState())
-	c.SendView(frz.View{Name: "Todos", Data: state.Todos})
+	c.SendView(frz.View{Name: "Todos", Data: map[string]any{
+		"todos": state.Todos,
+	}})
 }

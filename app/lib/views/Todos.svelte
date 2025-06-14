@@ -29,8 +29,6 @@
 
 <script lang="ts">
     import Layout from "$lib/components/Layout.svelte"
-    import { getContext } from "svelte"
-    import type { View } from "$lib/utilities/types.ts"
     import { action } from "$lib/utilities/scripts/action.ts"
     import { href } from "$lib/utilities/scripts/href.ts"
 
@@ -39,12 +37,17 @@
         Description: string
     }
 
-    const view = getContext("view") as View<Todo[]>
+    type Props = {
+        todos: Todo[],
+        error: string,
+    }
+
+    let {todos, error}:Props = $props()
 </script>
 
 <Layout title="Todos">
     <ol>
-        {#each view.data as todo, index (index)}
+        {#each todos as todo, index (index)}
             <li>
                 <form {...action("/remove")}>
                     <input type="hidden" name="index" value={index} />
@@ -78,9 +81,9 @@
         <button class="link" type="submit">Add +</button>
     </form>
 
-    {#if view.error}
+    {#if error}
         <br />
-        <span class="error">{view.error}</span>
+        <span class="error">{error}</span>
     {/if}
 
     <br />

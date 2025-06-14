@@ -1,8 +1,7 @@
 import Welcome from "$lib/views/Welcome.svelte"
 import Todos from "$lib/views/Todos.svelte"
-import type { Component } from "svelte"
 
-export const views: Record<string, Component> = {
+export const views = {
     Welcome: Welcome,
     Todos: Todos,
 }

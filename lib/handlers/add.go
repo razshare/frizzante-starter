@@ -12,7 +12,10 @@ func Add(c *frz.Connection) {
 	description := c.ReceiveQuery("description")
 
 	if "" == description {
-		c.SendView(frz.View{Name: "Todos", Data: state.Todos, Error: "todo description cannot be empty"})
+		c.SendView(frz.View{Name: "Todos", Data: map[string]any{
+			"todos": state.Todos,
+			"error": "todo description cannot be empty",
+		}})
 		return
 	}
 

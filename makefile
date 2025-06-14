@@ -1,14 +1,12 @@
-test: configure update check package
+test: configure-bun update check package
 	CGO_ENABLED=1 go test ./...
 
-build: configure update check package
+build: configure-bun update check package
 	CGO_ENABLED=1 go build -o bin/app .
 
-dev: configure update check
-	mkdir app/dist/client -p
-	touch app/dist/client/index.html
+dev: configure
 	DEV=1 CGO_ENABLED=1 ./bin/air \
-	--build.cmd "make package && go build -o bin/app ." \
+	--build.cmd "make build" \
 	--build.bin "bin/app" \
 	--build.exclude_dir "app/dist,app/node_modules,bin,archive,sessions,tmp,.git,.github" \
 	--build.exclude_regex "_test.go" \
@@ -35,7 +33,7 @@ package:
 	../bin/bun x vite build --logLevel info --outDir dist/client --emptyOutDir
 	app/node_modules/.bin/esbuild app/dist/server.js --bundle --outfile=app/dist/server.js --format=cjs --allow-overwrite
 
-configure:
+configure-bun:
 	# Check requirements...
 	command -v unzip >/dev/null || error 'unzip is required to install and configure dependencies'
 	command -v curl >/dev/null || error 'curl is required to install and configure dependencies'
@@ -45,16 +43,33 @@ configure:
 	which bin/bun || (curl -fsSL https://github.com/oven-sh/bun/releases/download/bun-v1.2.16/bun-linux-x64.zip -o bin/bun.zip && \
 	unzip -j bin/bun.zip -d bin && rm bin/bun.zip -f)
 	chmod +x bin/bun
+
+configure-frizzante:
+	# Check requirements...
+	command -v unzip >/dev/null || error 'unzip is required to install and configure dependencies'
+	command -v curl >/dev/null || error 'curl is required to install and configure dependencies'
+	# Make bin...
+	mkdir bin -p
 	# Get frizzante...
-	which bin/frizzante || (curl -fsSL https://github.com/razshare/frizzante/releases/download/v1.0.5/frizzante-amd64.zip -o bin/frizzante.zip && \
+	which bin/frizzante || (curl -fsSL https://github.com/razshare/frizzante/releases/download/v1.1.1/frizzante-amd64.zip -o bin/frizzante.zip && \
 	unzip -j bin/frizzante.zip -d bin && rm bin/frizzante.zip -f)
 	chmod +x bin/frizzante
+
+configure-air:
+	# Check requirements...
+	command -v unzip >/dev/null || error 'unzip is required to install and configure dependencies'
+	command -v curl >/dev/null || error 'curl is required to install and configure dependencies'
+	# Make bin...
+	mkdir bin -p
 	# Get air...
 	which bin/air || (curl -fsSL https://github.com/air-verse/air/releases/download/v1.62.0/air_1.62.0_linux_amd64 -o bin/air)
 	chmod +x bin/air
 
+configure: configure-bun configure-air configure-frizzante
+
 generate: configure
 	# Generate frizzante utilities...
+	rm app/lib/utilities -fr
 	./bin/frizzante -generate -utilities -out="app/lib/utilities"
 
 format:
@@ -63,6 +78,8 @@ format:
 
 clean:
 	go clean
+	rm bin -fr
+	mkdir bin -p
 	rm app/dist -fr
 	mkdir app/dist/client -p
 	touch app/dist/client/index.html

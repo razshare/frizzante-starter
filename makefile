@@ -77,7 +77,7 @@ configure-air:
 
 configure: configure-bun configure-air configure-frizzante
 
-generate: configure
+generate: configure-frizzante
 	# Generate frizzante utilities...
 	rm app/lib/utilities/frz -fr
 	./bin/frizzante -generate -utilities -out="app/lib/utilities/frz"

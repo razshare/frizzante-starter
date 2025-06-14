@@ -1,10 +1,11 @@
-test: configure-bun update check package
+###### Composites ######
+test: update check package
 	CGO_ENABLED=1 go test ./...
 
-build: configure-bun update check package
+build: update check package
 	CGO_ENABLED=1 go build -o bin/app .
 
-dev: configure update check
+dev: configure-air update check
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "go build -o bin/app ." \
 	--build.bin "bin/app" \
@@ -15,17 +16,12 @@ dev: configure update check
 	make package-watch & \
 	wait
 
-update:
-	go mod tidy
-	cd app && \
-	../bin/bun update
-
-check:
+check: update
 	cd app && \
 	../bin/bun x eslint . && \
 	../bin/bun x svelte-check --tsconfig ./tsconfig.json
 
-package-watch:
+package-watch: update
 	rm app/dist -fr
 	mkdir app/dist/client -p
 	touch app/dist/client/index.html
@@ -35,7 +31,7 @@ package-watch:
 	../bin/bun x vite build --logLevel info --outDir dist/client --emptyOutDir --watch & \
 	wait
 
-package:
+package: update
 	rm app/dist -fr
 	mkdir app/dist/client -p
 	touch app/dist/client/index.html
@@ -43,6 +39,36 @@ package:
 	../bin/bun x vite build --logLevel info --ssr lib/utilities/frz/scripts/server.ts --outDir dist --emptyOutDir && \
 	../bin/bun x vite build --logLevel info --outDir dist/client --emptyOutDir && \
 	node_modules/.bin/esbuild dist/server.js --bundle --outfile=dist/server.js --format=cjs --allow-overwrite
+
+update: configure-bun
+	go mod tidy
+	cd app && \
+	../bin/bun update
+
+format: configure-bun
+	cd app && \
+	../bin/bun x prettier --write .
+
+generate: configure-frizzante
+	# Generate frizzante utilities...
+	rm app/lib/utilities/frz -fr
+	./bin/frizzante -generate -utilities -out="app/lib/utilities/frz"
+
+###### Primitives ######
+
+clean:
+	go clean
+	rm bin -fr
+	mkdir bin -p
+	rm app/dist -fr
+	mkdir app/dist/client -p
+	touch app/dist/client/index.html
+	rm app/node_modules -fr
+
+hooks:
+	printf "#!/usr/bin/env bash\n" > .git/hooks/pre-commit
+	printf "make test" >> .git/hooks/pre-commit
+	chmod +x .git/hooks/pre-commit
 
 configure-bun:
 	# Check requirements...
@@ -77,26 +103,3 @@ configure-air:
 	chmod +x bin/air
 
 configure: configure-bun configure-air configure-frizzante
-
-generate: configure-frizzante
-	# Generate frizzante utilities...
-	rm app/lib/utilities/frz -fr
-	./bin/frizzante -generate -utilities -out="app/lib/utilities/frz"
-
-format:
-	cd app && \
-	../bin/bun x prettier --write .
-
-clean:
-	go clean
-	rm bin -fr
-	mkdir bin -p
-	rm app/dist -fr
-	mkdir app/dist/client -p
-	touch app/dist/client/index.html
-	rm app/node_modules -fr
-
-hooks:
-	printf "#!/usr/bin/env bash\n" > .git/hooks/pre-commit
-	printf "make test" >> .git/hooks/pre-commit
-	chmod +x .git/hooks/pre-commit

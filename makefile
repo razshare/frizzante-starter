@@ -1,24 +1,10 @@
-test:
-	make update
-	make check
-	rm app/dist -fr
-	mkdir app/dist/client -p
-	touch app/dist/client/index.html
-	make package
+test: configure update check package
 	CGO_ENABLED=1 go test ./...
 
-build:
-	make update
-	make check
-	rm app/dist -fr
-	mkdir app/dist/client -p
-	touch app/dist/client/index.html
-	make package
+build: configure update check package
 	CGO_ENABLED=1 go build -o bin/app .
 
-dev:
-	make update
-	make check
+dev: configure update check
 	mkdir app/dist/client -p
 	touch app/dist/client/index.html
 	DEV=1 CGO_ENABLED=1 ./bin/air \
@@ -29,17 +15,6 @@ dev:
 	--build.include_ext "go,svelte,js,json,ts,html" \
 	--build.log "go-build-errors.log" & \
 	wait
-
-format:
-	cd app && \
-	../bin/bun x prettier --write .
-
-clean:
-	go clean
-	rm app/dist -fr
-	mkdir app/dist/client -p
-	touch app/dist/client/index.html
-	rm app/node_modules -fr
 
 update:
 	go mod tidy
@@ -52,18 +27,44 @@ check:
 	../bin/bun x svelte-check --tsconfig ./tsconfig.json
 
 package:
+	rm app/dist -fr
+	mkdir app/dist/client -p
+	touch app/dist/client/index.html
 	cd app && \
 	../bin/bun x vite build --logLevel info --ssr lib/utilities/scripts/server.ts --outDir dist --emptyOutDir && \
 	../bin/bun x vite build --logLevel info --outDir dist/client --emptyOutDir
 	app/node_modules/.bin/esbuild app/dist/server.js --bundle --outfile=app/dist/server.js --format=cjs --allow-overwrite
 
 configure:
+	# Check requirements...
+	command -v unzip >/dev/null || error 'unzip is required to install and configure dependencies'
+	command -v curl >/dev/null || error 'curl is required to install and configure dependencies'
+	# Make bin...
 	mkdir bin -p
-	which bin/bun || \
-	(curl -fsSL https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64.zip -o bin/bun.zip && \
+	# Get bun...
+	which bin/bun || (curl -fsSL https://github.com/oven-sh/bun/releases/download/bun-v1.2.16/bun-linux-x64.zip -o bin/bun.zip && \
 	unzip -j bin/bun.zip -d bin && rm bin/bun.zip -f)
-	which bin/air || curl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s
-	go run cli/main.go -generate -utilities -out="app/lib/utilities"
+	chmod +x bin/bun
+	# Get frizzante...
+	which bin/frizzante || (curl -fsSL https://github.com/razshare/frizzante/releases/download/v1.0.5/frizzante-amd64.zip -o bin/frizzante.zip && \
+	unzip -j bin/frizzante.zip -d bin && rm bin/frizzante.zip -f)
+	chmod +x bin/frizzante
+	# Get air...
+	which bin/air || (curl -fsSL https://github.com/air-verse/air/releases/download/v1.62.0/air_1.62.0_linux_amd64 -o bin/air)
+	chmod +x bin/air
+	# Generate frizzante utilities...
+	./bin/frizzante -generate -utilities -out="app/lib/utilities"
+
+format:
+	cd app && \
+	../bin/bun x prettier --write .
+
+clean:
+	go clean
+	rm app/dist -fr
+	mkdir app/dist/client -p
+	touch app/dist/client/index.html
+	rm app/node_modules -fr
 
 hooks:
 	printf "#!/usr/bin/env bash\n" > .git/hooks/pre-commit

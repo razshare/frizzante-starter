@@ -10,7 +10,7 @@ func Remove(c *frz.Connection) {
 	state, operator := frz.Session(c, lib.NewState())
 
 	if 0 == len(state.Todos) {
-		c.SendNavigate("/todos")
+		// No items found, ignore the request.
 		return
 	}
 
@@ -18,6 +18,7 @@ func Remove(c *frz.Connection) {
 
 	index := c.ReceiveQuery("index")
 	if "" == index {
+		// No index found, ignore the request.
 		return
 	}
 
@@ -29,6 +30,7 @@ func Remove(c *frz.Connection) {
 		return
 	}
 
+	// Removes item from session.
 	state.Todos = append(state.Todos[:id], state.Todos[id+1:]...)
 
 	c.SendNavigate("/todos")

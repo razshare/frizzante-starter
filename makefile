@@ -1,20 +1,20 @@
 ###### Composites ######
 test: update check package
 	rm app/dist -fr
-	mkdir app/dist/client -p
-	touch app/dist/client/index.html
+	mkdir app/dist
+	touch app/dist/.gitkeep
 	CGO_ENABLED=1 go test ./...
 
 build: update check package
 	rm app/dist -fr
-	mkdir app/dist/client -p
-	touch app/dist/client/index.html
+	mkdir app/dist
+	touch app/dist/.gitkeep
 	CGO_ENABLED=1 go build -o bin/app .
 
 dev: configure-air update check
 	rm app/dist -fr
-	mkdir app/dist/client -p
-	touch app/dist/client/index.html
+	mkdir app/dist
+	touch app/dist/.gitkeep
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "go build -o bin/app ." \
 	--build.bin "bin/app" \
@@ -64,8 +64,8 @@ clean:
 	rm bin -fr
 	mkdir bin -p
 	rm app/dist -fr
-	mkdir app/dist/client -p
-	touch app/dist/client/index.html
+	mkdir app/dist
+	touch app/dist/.gitkeep
 	rm app/node_modules -fr
 
 hooks:

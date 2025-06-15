@@ -1,8 +1,8 @@
 ###### Composites ######
-test: update check package retouch
+test: update check package
 	CGO_ENABLED=1 go test ./...
 
-build: update check package retouch
+build: update check package
 	CGO_ENABLED=1 go build -o bin/app .
 
 dev: configure-air update check retouch

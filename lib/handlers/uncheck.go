@@ -23,9 +23,7 @@ func Uncheck(c *frz.Connection) {
 		return
 	}
 
-	// Checks the item.
 	state.Todos[id].Checked = false
 
-	// This will update the client user interface.
 	c.SendNavigate("/todos")
 }

@@ -13,33 +13,6 @@
         font-family: "Noto Sans Gothic", serif;
         text-align: center;
     }
-
-    :global(h1) {
-        color: cadetblue;
-        text-align: center;
-        width: 400px;
-    }
-
-    :global(.link) {
-        color: cadetblue;
-        text-decoration: none;
-        background: transparent;
-        border: 0;
-    }
-
-    :global(.link:hover) {
-        cursor: pointer;
-        text-decoration: underline;
-    }
-
-    :global(.menu) {
-        text-align: center;
-        width: 400px;
-    }
-
-    :global(.error) {
-        color: orangered;
-    }
 </style>
 
 <script lang="ts">

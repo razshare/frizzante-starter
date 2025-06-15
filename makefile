@@ -1,20 +1,11 @@
 ###### Composites ######
-test: update check package
-	rm app/dist -fr
-	mkdir app/dist
-	touch app/dist/.gitkeep
+test: update check package retouch
 	CGO_ENABLED=1 go test ./...
 
-build: update check package
-	rm app/dist -fr
-	mkdir app/dist
-	touch app/dist/.gitkeep
+build: update check package retouch
 	CGO_ENABLED=1 go build -o bin/app .
 
-dev: configure-air update check
-	rm app/dist -fr
-	mkdir app/dist
-	touch app/dist/.gitkeep
+dev: configure-air update check retouch
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "go build -o bin/app ." \
 	--build.bin "bin/app" \
@@ -32,9 +23,9 @@ check: update
 
 package-watch: update
 	cd app && \
-	../bin/bun x vite build --logLevel info --ssr lib/utilities/frz/scripts/server.ts --outDir dist --emptyOutDir --watch & \
+	../bin/bun x vite build --logLevel info --ssr lib/utilities/frz/scripts/server.ts --outDir dist --watch & \
 	cd app && \
-	../bin/bun x vite build --logLevel info --outDir dist/client --emptyOutDir --watch & \
+	../bin/bun x vite build --logLevel info --outDir dist/client --watch & \
 	wait
 
 package: update
@@ -57,16 +48,19 @@ generate: configure-frizzante
 	rm app/lib/utilities/frz -fr
 	./bin/frizzante -generate -utilities -out="app/lib/utilities/frz"
 
-###### Primitives ######
-
-clean:
+clean: retouch
 	go clean
 	rm bin -fr
 	mkdir bin -p
-	rm app/dist -fr
-	mkdir app/dist
-	touch app/dist/.gitkeep
 	rm app/node_modules -fr
+
+###### Primitives ######
+
+retouch:
+	rm app/dist -fr
+	mkdir app/dist -p
+	touch app/dist/.gitkeep
+	touch app/dist/server.js
 
 hooks:
 	printf "#!/usr/bin/env bash\n" > .git/hooks/pre-commit

@@ -32,5 +32,6 @@ func Remove(c *frz.Connection) {
 	// Removes item from session.
 	state.Todos = append(state.Todos[:id], state.Todos[id+1:]...)
 
+	// This will update the client user interface.
 	c.SendNavigate("/todos")
 }

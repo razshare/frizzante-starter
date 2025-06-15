@@ -23,7 +23,9 @@ func Check(c *frz.Connection) {
 		return
 	}
 
+	// Checks the item.
 	state.Todos[id].Checked = true
 
+	// This will update the client user interface.
 	c.SendNavigate("/todos")
 }

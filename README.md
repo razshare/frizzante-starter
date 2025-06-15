@@ -4,7 +4,7 @@ This is a todo list application
 
 # Prerequisites
 
-Make sure you have `build-essentia`l, `curl` and `unzip` installed on your machine.
+Make sure you have `build-essential`, `curl` and `unzip` installed on your machine.
 
 ```sh
 sudo apt install build-essential unzip curl

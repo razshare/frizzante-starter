@@ -10,9 +10,7 @@ func Remove(c *frz.Connection) {
 	state, operator := frz.Session(c, lib.NewState())
 
 	if 0 == len(state.Todos) {
-		c.SendView(frz.View{Name: "Todos", Data: map[string]any{
-			"todos": state.Todos,
-		}})
+		c.SendNavigate("/todos")
 		return
 	}
 
@@ -27,13 +25,6 @@ func Remove(c *frz.Connection) {
 	if nil != intError {
 		c.SendView(frz.View{Name: "Todos", Data: map[string]any{
 			"error": intError.Error(),
-		}})
-		return
-	}
-
-	if 0 == len(state.Todos) {
-		c.SendView(frz.View{Name: "Todos", Data: map[string]any{
-			"todos": state.Todos,
 		}})
 		return
 	}

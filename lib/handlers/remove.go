@@ -8,13 +8,12 @@ import (
 
 func Remove(c *frz.Connection) {
 	state, operator := frz.Session(c, lib.NewState())
+	defer operator.Save(state)
 
 	if 0 == len(state.Todos) {
 		// No items found, ignore the request.
 		return
 	}
-
-	defer operator.Save(state)
 
 	index := c.ReceiveQuery("index")
 	if "" == index {

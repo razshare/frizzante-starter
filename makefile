@@ -1,11 +1,11 @@
 ###### Composites ######
-test: update check package
+test: configure-bun check package
 	CGO_ENABLED=1 go test ./...
 
-build: update check package
+build: configure-bun check package
 	CGO_ENABLED=1 go build -o bin/app .
 
-dev: configure-air update check retouch
+dev: configure-air configure-bun check retouch
 	DEV=1 CGO_ENABLED=1 ./bin/air \
 	--build.cmd "go build -o bin/app ." \
 	--build.bin "bin/app" \
@@ -16,19 +16,19 @@ dev: configure-air update check retouch
 	make package-watch & \
 	wait
 
-check: update
+check: configure-bun
 	cd app && \
 	../bin/bun x eslint . && \
 	../bin/bun x svelte-check --tsconfig ./tsconfig.json
 
-package-watch: update
+package-watch: configure-bun
 	cd app && \
 	../bin/bun x vite build --logLevel info --ssr lib/utilities/frz/scripts/server.ts --outDir dist --watch & \
 	cd app && \
 	../bin/bun x vite build --logLevel info --outDir dist/client --watch & \
 	wait
 
-package: update
+package: configure-bun
 	cd app && \
 	../bin/bun x vite build --logLevel info --ssr lib/utilities/frz/scripts/server.ts --outDir dist --emptyOutDir && \
 	../bin/bun x vite build --logLevel info --outDir dist/client --emptyOutDir && \

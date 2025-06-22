@@ -1,13 +1,13 @@
 ########################
 ###### Composites ######
 ########################
-test: configure-bun dependencies check package
+test: configure-bun install check package
 	CGO_ENABLED=1 go test ./...
 
-build: configure-bun dependencies check package
+build: configure-bun install check package
 	CGO_ENABLED=1 go build -o .gen/bin/app .
 
-dev: configure-air configure-bun dependencies check
+dev: configure-air configure-bun install check
 	DEV=1 CGO_ENABLED=1 ./.gen/bin/air & \
 	make package-watch & \
 	wait
@@ -30,7 +30,7 @@ package: configure-bun
 	../.gen/bin/bun x vite build --logLevel info --outDir dist/client --emptyOutDir && \
 	node_modules/.bin/esbuild dist/server.js --bundle --outfile=dist/server.js --format=cjs --allow-overwrite
 
-dependencies: configure-bun
+install: configure-bun
 	go mod tidy
 	cd app && \
 	../.gen/bin/bun install

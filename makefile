@@ -8,6 +8,7 @@ build: configure-bun install check package
 	CGO_ENABLED=1 go build -o .gen/bin/app .
 
 dev: configure-air configure-bun install check
+	mkdir .gen/tmp -p
 	DEV=1 CGO_ENABLED=1 ./.gen/bin/air & \
 	make package-watch & \
 	wait

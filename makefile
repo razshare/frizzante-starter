@@ -9,6 +9,9 @@ build: configure-bun install check package
 
 dev: configure-air configure-bun install check
 	mkdir .gen/tmp -p
+	mkdir app/dist -p
+	touch app/dist/.gitkeep
+	touch app/dist/server.js
 	DEV=1 CGO_ENABLED=1 ./.gen/bin/air & \
 	make package-watch & \
 	wait

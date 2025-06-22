@@ -56,7 +56,4 @@ go.work.sum
 *.db
 
 # Frizzante
-/tmp
-/bin
-/archvie
-/sessions
+/.gen

@@ -8,11 +8,9 @@ import (
 )
 
 func Todos(con *connections.Connection) {
-	state, operator := sessions.Start[lib.State](con)
-	if state.Todos == nil {
-		state.Todos = lib.InitialTodos()
-	}
+	state, operator := sessions.Start(con, lib.InitialState())
 	defer operator.Save(state)
+
 	con.SendView(views.View{Name: "Todos", Data: map[string]any{
 		"todos": state.Todos,
 	}})

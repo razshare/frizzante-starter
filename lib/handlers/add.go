@@ -8,10 +8,7 @@ import (
 )
 
 func Add(con *connections.Connection) {
-	state, operator := sessions.Start[lib.State](con)
-	if state.Todos == nil {
-		state.Todos = lib.InitialTodos()
-	}
+	state, operator := sessions.Start(con, lib.InitialState())
 	defer operator.Save(state)
 
 	description := con.ReceiveQuery("description")

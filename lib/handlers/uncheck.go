@@ -8,18 +8,18 @@ import (
 	"strconv"
 )
 
-func Uncheck(c *libcon.Connection) {
-	state, operator := libsession.Session(c, lib.NewState())
+func Uncheck(con *libcon.Connection) {
+	state, operator := libsession.Session(con, lib.NewState())
 	defer operator.Save(state)
 
-	index := c.ReceiveQuery("index")
+	index := con.ReceiveQuery("index")
 	if "" == index {
 		return
 	}
 
 	id, intError := strconv.ParseInt(index, 10, 64)
 	if nil != intError {
-		c.SendView(libview.View{Name: "Todos", Data: map[string]any{
+		con.SendView(libview.View{Name: "Todos", Data: map[string]any{
 			"error": intError.Error(),
 		}})
 		return
@@ -27,7 +27,7 @@ func Uncheck(c *libcon.Connection) {
 
 	state.Todos[id].Checked = false
 
-	c.SendView(libview.View{Name: "Todos", Data: map[string]any{
+	con.SendView(libview.View{Name: "Todos", Data: map[string]any{
 		"todos": state.Todos,
 	}})
 }

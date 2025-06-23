@@ -2,6 +2,6 @@ package handlers
 
 import "github.com/razshare/frizzante/libcon"
 
-func Default(c *libcon.Connection) {
-	c.SendFileOrElse(func() { Welcome(c) })
+func Default(con *libcon.Connection) {
+	con.SendFileOrElse(func() { Welcome(con) })
 }

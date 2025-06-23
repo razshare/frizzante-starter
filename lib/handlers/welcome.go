@@ -5,6 +5,6 @@ import (
 	"github.com/razshare/frizzante/libview"
 )
 
-func Welcome(c *libcon.Connection) {
-	c.SendView(libview.View{Name: "Welcome"})
+func Welcome(con *libcon.Connection) {
+	con.SendView(libview.View{Name: "Welcome"})
 }

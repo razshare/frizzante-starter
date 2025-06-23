@@ -7,9 +7,9 @@ import (
 	"main/lib"
 )
 
-func Todos(c *libcon.Connection) {
-	state, _ := libsession.Session(c, lib.NewState())
-	c.SendView(libview.View{Name: "Todos", Data: map[string]any{
+func Todos(con *libcon.Connection) {
+	state, _ := libsession.Session(con, lib.NewState())
+	con.SendView(libview.View{Name: "Todos", Data: map[string]any{
 		"todos": state.Todos,
 	}})
 }

@@ -1,33 +1,43 @@
 package handlers
 
 import (
-	"github.com/razshare/frizzante/libcon"
-	"github.com/razshare/frizzante/libsession"
-	"github.com/razshare/frizzante/libview"
+	"github.com/razshare/frizzante/connections"
+	"github.com/razshare/frizzante/sessions"
+	"github.com/razshare/frizzante/views"
 	"main/lib"
 	"strconv"
 )
 
-func Uncheck(con *libcon.Connection) {
-	state, operator := libsession.Session(con, lib.NewState())
+func Uncheck(con *connections.Connection) {
+	state, operator := sessions.Start[lib.State](con)
+	if state.Todos == nil {
+		state.Todos = lib.InitialTodos()
+	}
 	defer operator.Save(state)
 
-	index := con.ReceiveQuery("index")
-	if "" == index {
+	indexString := con.ReceiveQuery("index")
+	if "" == indexString {
+		// No index found, ignore the request.
+		con.SendNavigate("/todos")
 		return
 	}
 
-	id, intError := strconv.ParseInt(index, 10, 64)
-	if nil != intError {
-		con.SendView(libview.View{Name: "Todos", Data: map[string]any{
-			"error": intError.Error(),
+	index, indexError := strconv.ParseInt(indexString, 10, 64)
+	if nil != indexError {
+		con.SendView(views.View{Name: "Todos", Data: map[string]any{
+			"error": indexError.Error(),
 		}})
 		return
 	}
 
-	state.Todos[id].Checked = false
+	count := int64(len(state.Todos))
+	if index >= count {
+		// Index is out of bounds, ignore the request.
+		con.SendNavigate("/todos")
+		return
+	}
 
-	con.SendView(libview.View{Name: "Todos", Data: map[string]any{
-		"todos": state.Todos,
-	}})
+	state.Todos[index].Checked = false
+
+	con.SendNavigate("/todos")
 }

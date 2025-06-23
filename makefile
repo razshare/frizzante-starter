@@ -7,7 +7,7 @@ test: configure-bun install check package
 build: configure-bun install check package
 	CGO_ENABLED=1 go build -o .gen/bin/app .
 
-dev: configure-air configure-bun install check
+dev: configure-air configure-bun install check package
 	mkdir .gen/tmp -p
 	mkdir app/dist -p
 	touch app/dist/.gitkeep
@@ -32,12 +32,17 @@ package: configure-bun
 	cd app && \
 	../.gen/bin/bun x vite build --logLevel info --ssr lib/utilities/frz/scripts/server.ts --outDir dist --emptyOutDir && \
 	../.gen/bin/bun x vite build --logLevel info --outDir dist/client --emptyOutDir && \
-	node_modules/.bin/esbuild dist/server.js --bundle --outfile=dist/server.js --format=cjs --allow-overwrite
+	node_modules/.bin/esbuild dist/server.js --bundle --outfile=dist/server.js --format=cjs --allow-overwrite && \
+	touch dist/.gitkeep
 
 install: configure-bun
 	go mod tidy
 	cd app && \
 	../.gen/bin/bun install
+
+update: configure-bun
+	cd app && \
+	../.gen/bin/bun update
 
 format: configure-bun
 	cd app && \

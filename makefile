@@ -44,9 +44,6 @@ update: configure-bun
 	cd app && \
 	../.gen/bin/bun update
 
-restore-frizzante-utilities:
-	go run github.com/razshare/frizzante -restore-utilities -out="app/lib/utilities"
-
 format: configure-bun
 	cd app && \
 	../.gen/bin/bun x prettier --write .
@@ -63,6 +60,9 @@ clean:
 	mkdir app/dist -p
 	touch app/dist/.gitkeep
 	touch app/dist/server.js
+
+restore-frizzante-utilities:
+	go run github.com/razshare/frizzante -restore-utilities -out="app/lib/utilities"
 
 hooks:
 	printf "#!/usr/bin/env bash\n" > .git/hooks/pre-commit

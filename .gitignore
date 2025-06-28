@@ -52,6 +52,9 @@ go.work.sum
 *.crt
 *.key
 
+# Intellij
+*.iml
+
 # Sqlite
 *.db
 

@@ -5,7 +5,7 @@ tmp_dir = ".gen/tmp"
 [build]
   args_bin = []
   bin = "./.gen/tmp/main"
-  cmd = "go build -o ./.gen/tmp/main ."
+  cmd = "make check && go build -o ./.gen/tmp/main ."
   delay = 1000
   exclude_dir = ["app/dist","app/node_modules","bin","archive","sessions",".gen",".git",".github"]
   exclude_file = []
@@ -14,7 +14,7 @@ tmp_dir = ".gen/tmp"
   follow_symlink = false
   full_bin = ""
   include_dir = []
-  include_ext = ["go"]
+  include_ext = ["go","js","ts","svelte"]
   include_file = []
   kill_delay = "0s"
   log = "build-errors.log"

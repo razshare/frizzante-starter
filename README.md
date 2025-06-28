@@ -1,3 +1,16 @@
+> [!NOTE]
+> Template moved to https://github.com/razshare/frizzante/tree/main/templates/project \
+> The frizzante cli now embeds this template.\
+> \
+> Install the cli with 
+> ```sh
+> go install github.com/razshare/frizzante@latest
+> ```
+> Then create a new project with
+> ```sh
+> frizzante -c MyProject
+> ```
+
 # What is this?
 
 This is a todo list application

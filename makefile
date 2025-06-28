@@ -7,7 +7,7 @@ test: configure-bun install check package
 build: configure-bun install check package
 	CGO_ENABLED=1 go build -o .gen/bin/app .
 
-dev: configure-air configure-bun install check package
+dev: configure-air configure-bun install
 	mkdir .gen/tmp -p
 	mkdir app/dist -p
 	touch app/dist/.gitkeep

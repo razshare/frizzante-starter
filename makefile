@@ -16,35 +16,35 @@ dev: configure-air configure-bun install check package
 	make package-watch & \
 	wait
 
-check: configure-bun
+check: touch configure-bun
 	cd app && \
 	../.gen/bin/bun x eslint . && \
 	../.gen/bin/bun x svelte-check --tsconfig ./tsconfig.json
 
-package-watch: configure-bun
+package-watch: touch configure-bun
 	cd app && \
 	../.gen/bin/bun x vite build --logLevel info --ssr lib/utilities/frz/scripts/server.ts --outDir dist --watch & \
 	cd app && \
 	../.gen/bin/bun x vite build --logLevel info --outDir dist/client --watch & \
 	wait
 
-package: configure-bun
+package: touch configure-bun
 	cd app && \
 	../.gen/bin/bun x vite build --logLevel info --ssr lib/utilities/frz/scripts/server.ts --outDir dist --emptyOutDir && \
 	../.gen/bin/bun x vite build --logLevel info --outDir dist/client --emptyOutDir && \
 	node_modules/.bin/esbuild dist/server.js --bundle --outfile=dist/server.js --format=cjs --allow-overwrite && \
 	touch dist/.gitkeep
 
-install: configure-bun
+install: touch configure-bun
 	go mod tidy
 	cd app && \
 	../.gen/bin/bun install
 
-update: configure-bun
+update: touch configure-bun
 	cd app && \
 	../.gen/bin/bun update
 
-format: configure-bun
+format: touch configure-bun
 	cd app && \
 	../.gen/bin/bun x prettier --write .
 
@@ -56,6 +56,9 @@ clean:
 	go clean
 	rm app/dist -fr
 	rm app/node_modules -fr
+	make touch
+
+touch:
 ### Initialize...
 	mkdir app/dist -p
 	touch app/dist/.gitkeep

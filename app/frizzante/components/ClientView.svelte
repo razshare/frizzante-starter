@@ -1,7 +1,8 @@
 <script lang="ts">
-    import { setContext, type Component } from "svelte"
-    import type { View } from "$lib/utilities/frz/types.ts"
-    import { views } from "$lib/exports/server.ts"
+    import { setContext } from "svelte"
+    import { views } from "$exports/client.ts"
+    import ClientViewLoader from "$frizzante/components/ClientViewLoader.svelte"
+    import type { View } from "$frizzante/types.ts"
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     const components = views as Record<string, Component>
@@ -11,8 +12,7 @@
 </script>
 
 {#each Object.keys(components) as key (key)}
-    {@const Component = components[key]}
-    {#if key === name}
-        <Component {...view.data}/>
+    {#if key === view.name}
+        <ClientViewLoader from={components[key]} properties={view.data}/>
     {/if}
 {/each}

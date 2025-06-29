@@ -51,10 +51,6 @@ format: touch
 ########################
 ###### Primitives ######
 ########################
-publish:
-### Publish...
-	./publish.sh
-
 clean:
 ### Remove...
 	go clean

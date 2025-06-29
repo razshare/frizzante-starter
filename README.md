@@ -1,29 +1,24 @@
-> [!NOTE]
-> Template moved to https://github.com/razshare/frizzante/tree/main/templates/project \
-> The frizzante cli now embeds this template.\
-> \
-> Install the cli with 
-> ```sh
-> go install github.com/razshare/frizzante@latest
-> ```
-> Then create a new project with
-> ```sh
-> frizzante -c MyProject
-> ```
-
 # What is this?
 
 This is a todo list application
 
-# Prerequisites
-
-Make sure you have `build-essential`, `curl` and `unzip` installed on your machine.
-
-```sh
-sudo apt install build-essential unzip curl
-```
+> [!NOTE]
+> #### Prerequisites
+> Make sure you have `frizzante`, `air`, `bun` and `build-essential` installed on your machine.
+>
+> ```sh
+> sudo apt install build-essential
+> which frizzante || go install github.com/razshare/frizzante@latest
+> which air || go install github.com/air-verse/air@latest
+> which bun || curl -fsSL https://bun.sh/install | bash
+> ```
 
 # Get Started
+
+Install dependencies with
+```sh
+make install
+```
 
 Start development mode with 
 

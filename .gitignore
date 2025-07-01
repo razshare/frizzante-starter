@@ -58,5 +58,8 @@ go.work.sum
 # Sqlite
 *.db
 
+# Vite
+/.vite
+
 # Frizzante
 /.gen

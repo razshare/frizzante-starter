@@ -5,8 +5,8 @@ tmp_dir = ".gen/tmp"
 [build]
   args_bin = []
   bin = "./.gen/tmp/main"
-  cmd = "make check && go build -o ./.gen/tmp/main ."
-  delay = 1000
+  cmd = "go build -o ./.gen/tmp/main ."
+  delay = 50
   exclude_dir = ["app/dist","app/node_modules","bin","archive","sessions",".gen",".git",".github"]
   exclude_file = []
   exclude_regex = ["_test.go"]
@@ -23,7 +23,7 @@ tmp_dir = ".gen/tmp"
   post_cmd = []
   pre_cmd = []
   rerun = false
-  rerun_delay = 500
+  rerun_delay = 50
   send_interrupt = false
   stop_on_error = false
 

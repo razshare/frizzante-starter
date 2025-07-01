@@ -20,6 +20,7 @@ export default defineConfig({
         },
     },
     build: {
+        copyPublicDir: false,
         sourcemap: IS_DEV ? "inline": false,
         rollupOptions: {
             input: {

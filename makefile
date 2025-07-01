@@ -1,10 +1,10 @@
 ########################
 ###### Composites ######
 ########################
-test: install check package
+test: package
 	CGO_ENABLED=1 go test
 
-build: install check package
+build: package
 	CGO_ENABLED=1 go build -o .gen/bin/app .
 
 dev: install
@@ -16,53 +16,54 @@ dev: install
 	make package-watch & \
 	wait
 
-check: touch
+package-watch: clean install touch
 	cd app && \
-	bunx eslint . && \
-	bunx svelte-check --tsconfig ./tsconfig.json
-
-package-watch: touch
+	bunx vite build --logLevel info --ssr frizzante/scripts/server.ts --outDir dist --emptyOutDir false --watch & \
 	cd app && \
-	bunx vite build --logLevel info --ssr frizzante/scripts/server.ts --outDir dist --watch & \
+	bunx vite build --logLevel info --outDir dist/client --emptyOutDir false --watch & \
 	cd app && \
-	bunx vite build --logLevel info --outDir dist/client --watch & \
+	bunx svelte-check --tsconfig ./tsconfig.json --watch --preserveWatchOutput & \
 	wait
 
-package: touch
+package: clean check touch
 	cd app && \
-	bunx vite build --logLevel info --ssr frizzante/scripts/server.ts --outDir dist --emptyOutDir && \
-	bunx vite build --logLevel info --outDir dist/client --emptyOutDir && \
+	bunx vite build --logLevel info --ssr frizzante/scripts/server.ts --outDir dist && \
+	bunx vite build --logLevel info --outDir dist/client && \
 	node_modules/.bin/esbuild dist/server.js --bundle --outfile=dist/server.js --format=cjs --allow-overwrite && \
 	touch dist/.gitkeep
 
-install: touch
-	go mod tidy
+check: install touch
 	cd app && \
-	bun install
-
-update: touch
-	cd app && \
-	bun update
-
-format: touch
-	cd app && \
-	bunx prettier --write .
+	bunx eslint . && \
+	bunx svelte-check --tsconfig ./tsconfig.json
 
 ########################
 ###### Primitives ######
 ########################
 clean:
-### Remove...
 	go clean
 	rm app/dist -fr
-	rm app/node_modules -fr
-	make touch
 
 touch:
-### Initialize...
 	mkdir app/dist -p
 	touch app/dist/.gitkeep
 	touch app/dist/server.js
+
+format:
+	cd app && \
+	bunx prettier --write .
+
+install:
+	go mod tidy
+	cd app && \
+	bun install
+
+update:
+	go get -u ./...
+	go mod tidy
+	cd app && \
+	bun update
+
 
 hooks:
 	printf "#!/usr/bin/env bash\n" > .git/hooks/pre-commit

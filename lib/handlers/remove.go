@@ -9,10 +9,10 @@ import (
 )
 
 func Remove(con *connections.Connection) {
-	state, operator := sessions.Start(con, lib.InitialState())
-	defer operator.Save(state)
+	session := sessions.Start(con, lib.InitialState())
+	defer session.Save()
 
-	count := int64(len(state.Todos))
+	count := int64(len(session.State.Todos))
 
 	if 0 == count {
 		// No index found, ignore the request.
@@ -41,7 +41,7 @@ func Remove(con *connections.Connection) {
 		return
 	}
 
-	state.Todos = append(state.Todos[:index], state.Todos[index+1:]...)
+	session.State.Todos = append(session.State.Todos[:index], session.State.Todos[index+1:]...)
 
 	con.SendNavigate("/todos")
 }

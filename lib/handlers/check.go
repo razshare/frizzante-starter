@@ -9,8 +9,8 @@ import (
 )
 
 func Check(con *connections.Connection) {
-	state, operator := sessions.Start(con, lib.InitialState())
-	defer operator.Save(state)
+	session := sessions.Start(con, lib.InitialState())
+	defer session.Save()
 
 	indexString := con.ReceiveQuery("index")
 	if "" == indexString {
@@ -27,14 +27,14 @@ func Check(con *connections.Connection) {
 		return
 	}
 
-	count := int64(len(state.Todos))
+	count := int64(len(session.State.Todos))
 	if index >= count {
 		// Index is out of bounds, ignore the request.
 		con.SendNavigate("/todos")
 		return
 	}
 
-	state.Todos[index].Checked = true
+	session.State.Todos[index].Checked = true
 
 	con.SendNavigate("/todos")
 }

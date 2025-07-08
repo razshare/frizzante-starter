@@ -8,10 +8,10 @@ import (
 )
 
 func Todos(con *connections.Connection) {
-	state, operator := sessions.Start(con, lib.InitialState())
-	defer operator.Save(state)
+	session := sessions.Start(con, lib.InitialState())
+	defer session.Save()
 
 	con.SendView(views.View{Name: "Todos", Data: map[string]any{
-		"todos": state.Todos,
+		"todos": session.State.Todos,
 	}})
 }

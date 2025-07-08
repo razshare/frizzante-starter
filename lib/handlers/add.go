@@ -8,20 +8,20 @@ import (
 )
 
 func Add(con *connections.Connection) {
-	state, operator := sessions.Start(con, lib.InitialState())
-	defer operator.Save(state)
+	session := sessions.Start(con, lib.InitialState())
+	defer session.Save()
 
 	description := con.ReceiveQuery("description")
 
 	if "" == description {
 		con.SendView(views.View{Name: "Todos", Data: map[string]any{
-			"todos": state.Todos,
+			"todos": session.State.Todos,
 			"error": "todo description cannot be empty",
 		}})
 		return
 	}
 
-	state.Todos = append(state.Todos, lib.Todo{Checked: false, Description: description})
+	session.State.Todos = append(session.State.Todos, lib.Todo{Checked: false, Description: description})
 
 	con.SendNavigate("/todos")
 }

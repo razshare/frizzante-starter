@@ -43,6 +43,8 @@ check: install touch
 clean:
 	go clean
 	rm app/dist -fr
+	rm .gen/tmp -fr
+	rm .vite -fr
 
 touch:
 	mkdir app/dist -p

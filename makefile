@@ -7,16 +7,7 @@ test: package
 build: package
 	CGO_ENABLED=1 go build -o .gen/bin/app .
 
-dev: install
-	mkdir .gen/tmp -p
-	mkdir app/dist -p
-	touch app/dist/.gitkeep
-	touch app/dist/server.js
-	DEV=1 CGO_ENABLED=1 air & \
-	make package-watch & \
-	wait
-
-package-watch: clean install touch
+package-watch: touch
 	cd app && \
 	bunx vite build --logLevel info --ssr frizzante/scripts/server.ts --outDir dist --emptyOutDir false --watch & \
 	cd app && \
@@ -25,14 +16,14 @@ package-watch: clean install touch
 	bunx svelte-check --tsconfig ./tsconfig.json --watch --preserveWatchOutput & \
 	wait
 
-package: clean check touch
+package: check touch
 	cd app && \
 	bunx vite build --logLevel info --ssr frizzante/scripts/server.ts --outDir dist && \
 	bunx vite build --logLevel info --outDir dist/client && \
 	node_modules/.bin/esbuild dist/server.js --bundle --outfile=dist/server.js --format=cjs --allow-overwrite && \
 	touch dist/.gitkeep
 
-check: install touch
+check: touch
 	cd app && \
 	bunx eslint . && \
 	bunx svelte-check --tsconfig ./tsconfig.json
@@ -40,6 +31,15 @@ check: install touch
 ########################
 ###### Primitives ######
 ########################
+dev:
+	mkdir .gen/tmp -p
+	mkdir app/dist -p
+	touch app/dist/.gitkeep
+	touch app/dist/server.js
+	DEV=1 CGO_ENABLED=1 air & \
+	make package-watch & \
+	wait
+
 clean:
 	go clean
 	rm app/dist -fr

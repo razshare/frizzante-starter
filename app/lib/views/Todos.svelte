@@ -22,15 +22,15 @@
         outline: none;
     }
 
-    form {
+    .form {
         display: inline-block;
     }
 </style>
 
 <script lang="ts">
     import Layout from "$lib/components/Layout.svelte"
-    import { action } from "$frizzante/scripts/action.ts"
-    import { href } from "$frizzante/scripts/href.ts"
+    import { href } from "$frizzante/core/scripts/href.ts"
+    import Form from "$frizzante/form/Form.svelte"
 
     type Todo = {
         Checked: boolean
@@ -38,48 +38,48 @@
     }
 
     type Props = {
-        todos: Todo[],
-        error: string,
+        todos: Todo[]
+        error: string
     }
 
-    let {todos, error}:Props = $props()
+    let { todos, error }: Props = $props()
 </script>
 
 <Layout title="Todos">
     <ol>
         {#each todos as todo, index (index)}
             <li>
-                <form {...action("/remove")}>
+                <Form action="/remove">
                     <input type="hidden" name="index" value={index} />
                     <button class="link">[Remove]</button>
-                </form>
+                </Form>
                 {#if todo.Checked}
-                    <form {...action("/uncheck")}>
+                    <Form action="/uncheck">
                         <input type="hidden" name="index" value={index} />
                         <button class="link">
                             <!---->
                             (x) {todo.Description}
                             <!---->
                         </button>
-                    </form>
+                    </Form>
                 {:else}
-                    <form {...action("/check")}>
+                    <Form action="/check">
                         <input type="hidden" name="index" value={index} />
                         <button class="link">
                             <!---->
                             (&nbsp;&nbsp;) {todo.Description}
                             <!---->
                         </button>
-                    </form>
+                    </Form>
                 {/if}
             </li>
         {/each}
     </ol>
-    <form {...action("/add")}>
+    <Form action="/add">
         <span class="link">Description</span>
         <input type="text" value="" name="description" />
         <button class="link" type="submit">Add +</button>
-    </form>
+    </Form>
 
     {#if error}
         <br />

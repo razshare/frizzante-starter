@@ -9,7 +9,7 @@ build: package
 
 package-watch: touch
 	cd app && \
-	bunx vite build --logLevel info --ssr frizzante/scripts/server.ts --outDir dist --emptyOutDir false --watch & \
+	bunx vite build --logLevel info --ssr frizzante/core/scripts/server.ts --outDir dist --emptyOutDir false --watch & \
 	cd app && \
 	bunx vite build --logLevel info --outDir dist/client --emptyOutDir false --watch & \
 	cd app && \
@@ -18,7 +18,7 @@ package-watch: touch
 
 package: check touch
 	cd app && \
-	bunx vite build --logLevel info --ssr frizzante/scripts/server.ts --outDir dist && \
+	bunx vite build --logLevel info --ssr frizzante/core/scripts/server.ts --outDir dist && \
 	bunx vite build --logLevel info --outDir dist/client && \
 	node_modules/.bin/esbuild dist/server.js --bundle --outfile=dist/server.js --format=cjs --allow-overwrite && \
 	touch dist/.gitkeep
@@ -66,6 +66,11 @@ update:
 	cd app && \
 	bun update
 
+features:
+	go run github.com/razshare/frizzante --add :pick
+
+features?:
+	go run github.com/razshare/frizzante --add ?
 
 hooks:
 	printf "#!/usr/bin/env bash\n" > .git/hooks/pre-commit

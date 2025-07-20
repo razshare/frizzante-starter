@@ -6,6 +6,8 @@ github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d h1:VhgPp6v9qf9Agr/
 github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d/go.mod h1:YUTz3bUH2ZwIWBy3CJBeOBEugqcmXREj14T+iG/4k4U=
 github.com/razshare/frizzante v1.11.2 h1:3ph7SrdB5zYoP3SIo/Dc1VwgQOjPsS5JkUVmMrEr1CM=
 github.com/razshare/frizzante v1.11.2/go.mod h1:DxGAKsgSCUue2EH7waLv+7kMrggfWRm+yOzJo1AVHis=
+github.com/razshare/frizzante v1.11.4 h1:aP6meOMH7TqJdFmOs79Fr4VRP88ODsPrgLRemDQ4aQs=
+github.com/razshare/frizzante v1.11.4/go.mod h1:DxGAKsgSCUue2EH7waLv+7kMrggfWRm+yOzJo1AVHis=
 golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.34.0 h1:H5Y5sJ2L2JRdyv7ROF1he/lPdvFsd0mJHFw2ThKHxLA=
 golang.org/x/sys v0.34.0/go.mod h1:BJP2sWEmIv4KK5OTEluFJCKSidICx8ciO85XgH3Ak8k=

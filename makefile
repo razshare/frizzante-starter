@@ -7,13 +7,17 @@ test: package
 build: package
 	CGO_ENABLED=1 go build -o .gen/bin/app .
 
+dev: touch
+	mkdir -p .gen/tmp
+	DEV=1 CGO_ENABLED=1 air & \
+	make package-watch & \
+	wait
+
 package-watch: touch
 	cd app && \
 	bunx vite build --logLevel info --ssr frizzante/core/scripts/server.ts --outDir dist --emptyOutDir false --watch & \
 	cd app && \
 	bunx vite build --logLevel info --outDir dist/client --emptyOutDir false --watch & \
-	cd app && \
-	bunx svelte-check --tsconfig ./tsconfig.json --watch --preserveWatchOutput & \
 	wait
 
 package: check touch
@@ -31,15 +35,6 @@ check: touch
 ########################
 ###### Primitives ######
 ########################
-dev:
-	mkdir -p .gen/tmp
-	mkdir -p app/dist
-	touch app/dist/.gitkeep
-	touch app/dist/server.js
-	DEV=1 CGO_ENABLED=1 air & \
-	make package-watch & \
-	wait
-
 clean:
 	go clean
 	rm -fr app/dist
@@ -65,12 +60,6 @@ update:
 	go mod tidy
 	cd app && \
 	bun update
-
-features:
-	go run github.com/razshare/frizzante -a:pick
-
-features?:
-	go run github.com/razshare/frizzante -a?
 
 hooks:
 	printf "#!/usr/bin/env bash\n" > .git/hooks/pre-commit

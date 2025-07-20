@@ -6,11 +6,9 @@ import (
 	"github.com/razshare/frizzante/views"
 	"main/lib"
 	"strconv"
-	"time"
 )
 
 func Uncheck(con *connections.Connection) {
-	time.Sleep(1 * time.Second)
 	session := sessions.Start(con, lib.InitialState())
 	defer session.Save()
 

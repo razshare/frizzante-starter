@@ -21,16 +21,12 @@
         background-color: rgba(0, 0, 0, 0.1);
         outline: none;
     }
-
-    .form {
-        display: inline-block;
-    }
 </style>
 
 <script lang="ts">
     import Layout from "$lib/components/Layout.svelte"
     import { href } from "$frizzante/core/scripts/href.ts"
-    import Form from "$frizzante/form/components/Form.svelte"
+    import Form from "$frizzante/forms/components/Form.svelte"
 
     type Todo = {
         Checked: boolean
@@ -55,39 +51,29 @@
                 </Form>
                 {#if todo.Checked}
                     <Form action="/uncheck">
-                        {#snippet children({ pending })}
-                            <input
-                                disabled={pending}
-                                type="hidden"
-                                name="index"
-                                value={index}
-                            />
-                            <button disabled={pending} class="link">
-                                {#if pending}
-                                    (x) loading...
-                                {:else}
-                                    (x) {todo.Description}
-                                {/if}
-                            </button>
-                        {/snippet}
+                        <input
+                            type="hidden"
+                            name="index"
+                            value={index}
+                        />
+                        <button class="link">
+                            <!---->
+                            (x) {todo.Description}
+                            <!---->
+                        </button>
                     </Form>
                 {:else}
                     <Form action="/check">
-                        {#snippet children({ pending })}
-                            <input
-                                disabled={pending}
-                                type="hidden"
-                                name="index"
-                                value={index}
-                            />
-                            <button disabled={pending} class="link">
-                                {#if pending}
-                                    (&nbsp;&nbsp;) loading...
-                                {:else}
-                                    (&nbsp;&nbsp;) {todo.Description}
-                                {/if}
-                            </button>
-                        {/snippet}
+                        <input
+                            type="hidden"
+                            name="index"
+                            value={index}
+                        />
+                        <button class="link">
+                            <!---->
+                            (&nbsp;&nbsp;) {todo.Description}
+                            <!---->
+                        </button>
                     </Form>
                 {/if}
             </li>

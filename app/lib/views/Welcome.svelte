@@ -1,6 +1,6 @@
 <script lang="ts">
     import Layout from "$lib/components/Layout.svelte"
-    import Link from "$frizzante/link/Link.svelte"
+    import Link from "$frizzante/link/components/Link.svelte"
 </script>
 
 <Layout title="Welcome">

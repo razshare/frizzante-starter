@@ -32,8 +32,8 @@ check: touch
 ###### Primitives ######
 ########################
 dev:
-	mkdir .gen/tmp -p
-	mkdir app/dist -p
+	mkdir -p .gen/tmp
+	mkdir -p app/dist
 	touch app/dist/.gitkeep
 	touch app/dist/server.js
 	DEV=1 CGO_ENABLED=1 air & \
@@ -42,12 +42,12 @@ dev:
 
 clean:
 	go clean
-	rm app/dist -fr
-	rm .gen/tmp -fr
-	rm .vite -fr
+	rm -fr app/dist
+	rm -fr .gen/tmp
+	rm -fr .vite
 
 touch:
-	mkdir app/dist -p
+	mkdir -p app/dist
 	touch app/dist/.gitkeep
 	touch app/dist/server.js
 
@@ -67,10 +67,10 @@ update:
 	bun update
 
 features:
-	go run github.com/razshare/frizzante --add :pick
+	go run github.com/razshare/frizzante -a:pick
 
 features?:
-	go run github.com/razshare/frizzante --add ?
+	go run github.com/razshare/frizzante -a?
 
 hooks:
 	printf "#!/usr/bin/env bash\n" > .git/hooks/pre-commit

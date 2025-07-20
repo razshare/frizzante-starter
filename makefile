@@ -1,32 +1,32 @@
 test:
-	go run github.com/razshare/frizzante --test
+	frizzante --test
 
 build:
-	go run github.com/razshare/frizzante --build
+	frizzante --build
 
 dev:
-	go run github.com/razshare/frizzante --dev
+	frizzante --dev
 
 package-watch:
-	go run github.com/razshare/frizzante --package-watch
+	frizzante --package-watch
 
 package:
-	go run github.com/razshare/frizzante --package
+	frizzante --package
 
 check:
-	go run github.com/razshare/frizzante --check
+	frizzante --check
 
 clean:
-	go run github.com/razshare/frizzante --clean
+	frizzante --clean
 
 format:
-	go run github.com/razshare/frizzante --format
+	frizzante --format
 
 install:
-	go run github.com/razshare/frizzante --install
+	frizzante --install
 
 update:
-	go run github.com/razshare/frizzante --update
+	frizzante --update
 
 hooks:
-	go run github.com/razshare/frizzante --hooks
+	frizzante --hooks

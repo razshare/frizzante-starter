@@ -2,12 +2,12 @@ package main
 
 import (
 	"embed"
+	"main/lib/handlers"
+
 	"github.com/razshare/frizzante/routes"
 	"github.com/razshare/frizzante/servers"
-	"main/lib/handlers"
 )
 
-//go:generate frizzante --touch
 //go:embed app/dist
 var efs embed.FS
 var server = servers.New()

@@ -54,6 +54,3 @@ go.work.sum
 
 # Sqlite
 *.db
-
-# Frizzante
-/dist

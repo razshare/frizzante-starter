@@ -7,12 +7,14 @@ import (
 	"main/lib/handlers"
 )
 
+//go:generate frizzante --touch
 //go:embed app/dist
 var efs embed.FS
 var server = servers.New()
 
 func main() {
 	server.Efs = efs
+	server.Address = "127.0.0.1:9898"
 	server.AddRoute(routes.Route{Pattern: "GET /", Handler: handlers.Default})
 	server.AddRoute(routes.Route{Pattern: "GET /welcome", Handler: handlers.Welcome})
 	server.AddRoute(routes.Route{Pattern: "GET /todos", Handler: handlers.Todos})

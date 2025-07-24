@@ -9,7 +9,7 @@ import (
 )
 
 func Uncheck(con *connections.Connection) {
-	session := sessions.StartWith(con, lib.InitialState())
+	session := sessions.StartWithState(con, lib.InitialState())
 	defer session.Save()
 
 	indexString := con.ReceiveQuery("index")

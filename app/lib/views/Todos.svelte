@@ -51,11 +51,7 @@
                 </Form>
                 {#if todo.Checked}
                     <Form action="/uncheck">
-                        <input
-                            type="hidden"
-                            name="index"
-                            value={index}
-                        />
+                        <input type="hidden" name="index" value={index} />
                         <button class="link">
                             <!---->
                             (x) {todo.Description}
@@ -64,11 +60,7 @@
                     </Form>
                 {:else}
                     <Form action="/check">
-                        <input
-                            type="hidden"
-                            name="index"
-                            value={index}
-                        />
+                        <input type="hidden" name="index" value={index} />
                         <button class="link">
                             <!---->
                             (&nbsp;&nbsp;) {todo.Description}

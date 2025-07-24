@@ -8,7 +8,7 @@ import (
 )
 
 func Add(con *connections.Connection) {
-	session := sessions.Start(con, lib.InitialState())
+	session := sessions.StartWith(con, lib.InitialState())
 	defer session.Save()
 
 	description := con.ReceiveQuery("description")

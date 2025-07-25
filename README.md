@@ -33,4 +33,4 @@ Build for production with
 make build
 ```
 
-This will create a standalone `bin/app` binary file.
+This will create a standalone `.gen/bin/app` binary file.

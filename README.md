@@ -4,20 +4,18 @@ This is a todo list application
 
 > [!NOTE]
 > #### Prerequisites
-> Make sure you have `frizzante`, `air`, `bun` and `build-essential` installed on your machine.
+> Install `build-essential` and `frizzante`.
 >
 > ```sh
 > sudo apt install build-essential
-> which frizzante || go install github.com/razshare/frizzante@latest
-> which air || go install github.com/air-verse/air@latest
-> which bun || curl -fsSL https://bun.sh/install | bash
+> go install github.com/razshare/frizzante@latest
 > ```
 
 # Get Started
 
-Install dependencies with
+Configure project
 ```sh
-make install
+make configure
 ```
 
 Start development mode with 

@@ -1,5 +1,5 @@
 configure:
-	go run main.go --configure
+	frizzante --configure
 
 test:
 	frizzante --test

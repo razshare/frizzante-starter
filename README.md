@@ -14,6 +14,7 @@ This is a todo list application
 # Get Started
 
 Configure project
+
 ```sh
 make configure
 ```

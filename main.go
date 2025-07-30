@@ -22,10 +22,10 @@ func main() {
 		server.SecureAddress = os.Getenv("server.secure_address")
 		server.Key = os.Getenv("server.key")
 		server.Certificate = os.Getenv("server.certificate")
-		server.ViewRoot = os.Getenv("server.view_root")
 		server.PublicRoot = os.Getenv("server.public_root")
-		server.ViewServer = os.Getenv("server.view_server")
-		server.ViewIndex = os.Getenv("server.view_index")
+		server.AppRoot = os.Getenv("server.app_root")
+		server.ServerJs = os.Getenv("server.server_js")
+		server.IndexHtml = os.Getenv("server.index_html")
 	}
 
 	server.Efs = efs

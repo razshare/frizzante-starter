@@ -37,5 +37,5 @@ func main() {
 	server.Routes = append(server.Routes, routes.Route{Pattern: "GET /add", Handler: handlers.Add})
 	server.Routes = append(server.Routes, routes.Route{Pattern: "GET /remove", Handler: handlers.Remove})
 
-	servers.Start(server)
+	server.Start()
 }

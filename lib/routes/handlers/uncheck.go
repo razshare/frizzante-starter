@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"github.com/razshare/frizzante/actions"
 	"github.com/razshare/frizzante/connections"
 	"github.com/razshare/frizzante/sessions"
 	"github.com/razshare/frizzante/views"
@@ -10,35 +9,32 @@ import (
 )
 
 func Uncheck(connection *connections.Connection) {
-	session := sessions.Start(connection, state.New())
-	defer sessions.Save(session)
+	session := sessions.New(connection, state.New()).Start()
+	defer session.Save()
 
-	indexString := actions.ReceiveQuery(connection, "index")
+	indexString := connection.ReceiveQuery("index")
 	if "" == indexString {
 		// No index found, ignore the request.
-		actions.SendNavigate(connection, "/todos")
+		connection.SendNavigate("/todos")
 		return
 	}
 
 	index, indexError := strconv.ParseInt(indexString, 10, 64)
 	if nil != indexError {
-		actions.SendView(connection, views.View{
-			Name: "Todos",
-			Data: map[string]any{
-				"error": indexError.Error(),
-			},
-		})
+		connection.SendView(views.View{Name: "Todos", Data: map[string]any{
+			"error": indexError.Error(),
+		}})
 		return
 	}
 
 	count := int64(len(session.State.Todos))
 	if index >= count {
 		// Index is out of bounds, ignore the request.
-		actions.SendNavigate(connection, "/todos")
+		connection.SendNavigate("/todos")
 		return
 	}
 
 	session.State.Todos[index].Checked = false
 
-	actions.SendNavigate(connection, "/todos")
+	connection.SendNavigate("/todos")
 }

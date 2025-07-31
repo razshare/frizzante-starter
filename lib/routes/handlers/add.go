@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"github.com/razshare/frizzante/actions"
 	"github.com/razshare/frizzante/connections"
 	"github.com/razshare/frizzante/sessions"
 	"github.com/razshare/frizzante/views"
@@ -9,19 +8,16 @@ import (
 )
 
 func Add(connection *connections.Connection) {
-	session := sessions.Start(connection, state.New())
-	defer sessions.Save(session)
+	session := sessions.New(connection, state.New()).Start()
+	defer session.Save()
 
-	description := actions.ReceiveQuery(connection, "description")
+	description := connection.ReceiveQuery("description")
 
 	if "" == description {
-		actions.SendView(connection, views.View{
-			Name: "Todos",
-			Data: map[string]any{
-				"todos": session.State.Todos,
-				"error": "todo description cannot be empty",
-			},
-		})
+		connection.SendView(views.View{Name: "Todos", Data: map[string]any{
+			"todos": session.State.Todos,
+			"error": "todo description cannot be empty",
+		}})
 		return
 	}
 
@@ -30,5 +26,5 @@ func Add(connection *connections.Connection) {
 		Description: description,
 	})
 
-	actions.SendNavigate(connection, "/todos")
+	connection.SendNavigate("/todos")
 }

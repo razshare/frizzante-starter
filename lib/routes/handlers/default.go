@@ -2,6 +2,6 @@ package handlers
 
 import "github.com/razshare/frizzante/connections"
 
-func Default(con *connections.Connection) {
-	con.SendFileOrElse(func() { Welcome(con) })
+func Default(connection *connections.Connection) {
+	connection.SendFileOrElse(func() { Welcome(connection) })
 }

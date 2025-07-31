@@ -8,20 +8,20 @@ import (
 	"strconv"
 )
 
-func Check(con *connections.Connection) {
-	session := sessions.Start(con, state.Default())
+func Check(connection *connections.Connection) {
+	session := sessions.Start(connection, state.Default())
 	defer session.Save()
 
-	indexString := con.ReceiveQuery("index")
+	indexString := connection.ReceiveQuery("index")
 	if "" == indexString {
 		// No index found, ignore the request.
-		con.SendNavigate("/todos")
+		connection.SendNavigate("/todos")
 		return
 	}
 
 	index, indexError := strconv.ParseInt(indexString, 10, 64)
 	if nil != indexError {
-		con.SendView(views.View{Name: "Todos", Data: map[string]any{
+		connection.SendView(views.View{Name: "Todos", Data: map[string]any{
 			"error": indexError.Error(),
 		}})
 		return
@@ -30,11 +30,11 @@ func Check(con *connections.Connection) {
 	count := int64(len(session.State.Todos))
 	if index >= count {
 		// Index is out of bounds, ignore the request.
-		con.SendNavigate("/todos")
+		connection.SendNavigate("/todos")
 		return
 	}
 
 	session.State.Todos[index].Checked = true
 
-	con.SendNavigate("/todos")
+	connection.SendNavigate("/todos")
 }

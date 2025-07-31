@@ -7,14 +7,14 @@ import (
 	"main/lib/state"
 )
 
-func Add(con *connections.Connection) {
-	session := sessions.Start(con, state.Default())
+func Add(connection *connections.Connection) {
+	session := sessions.Start(connection, state.Default())
 	defer session.Save()
 
-	description := con.ReceiveQuery("description")
+	description := connection.ReceiveQuery("description")
 
 	if "" == description {
-		con.SendView(views.View{Name: "Todos", Data: map[string]any{
+		connection.SendView(views.View{Name: "Todos", Data: map[string]any{
 			"todos": session.State.Todos,
 			"error": "todo description cannot be empty",
 		}})
@@ -26,5 +26,5 @@ func Add(con *connections.Connection) {
 		Description: description,
 	})
 
-	con.SendNavigate("/todos")
+	connection.SendNavigate("/todos")
 }

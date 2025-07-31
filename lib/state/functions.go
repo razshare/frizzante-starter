@@ -1,15 +1,6 @@
-package lib
+package state
 
-type State struct {
-	Todos []Todo
-}
-
-type Todo struct {
-	Checked     bool
-	Description string
-}
-
-func InitialState() State {
+func New() State {
 	return State{
 		Todos: []Todo{
 			{Checked: false, Description: "Pet the cat."},

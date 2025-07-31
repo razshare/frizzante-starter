@@ -6,7 +6,7 @@ import (
 	"github.com/razshare/frizzante/routes"
 	"github.com/razshare/frizzante/servers"
 	"github.com/razshare/frizzante/traces"
-	"main/lib/handlers"
+	"main/lib/routes/handlers"
 	"os"
 )
 

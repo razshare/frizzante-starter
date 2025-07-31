@@ -9,7 +9,7 @@ import (
 )
 
 func Add(connection *connections.Connection) {
-	session := sessions.Start(sessions.New(connection, state.New()))
+	session := sessions.Start(connection, state.New())
 	defer sessions.Save(session)
 
 	description := actions.ReceiveQuery(connection, "description")

@@ -9,7 +9,7 @@ import (
 )
 
 func Todos(connection *connections.Connection) {
-	session := sessions.Start(sessions.New(connection, state.New()))
+	session := sessions.Start(connection, state.New())
 	defer sessions.Save(session)
 
 	actions.SendView(connection, views.View{

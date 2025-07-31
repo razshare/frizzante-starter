@@ -2,7 +2,7 @@ package main
 
 import (
 	"embed"
-	"github.com/joho/godotenv"
+	"github.com/razshare/frizzante/environments"
 	"github.com/razshare/frizzante/routes"
 	"github.com/razshare/frizzante/servers"
 	"github.com/razshare/frizzante/traces"
@@ -15,7 +15,11 @@ var efs embed.FS
 var server = servers.New()
 
 func main() {
-	if err := godotenv.Load(".env"); err != nil {
+	// Adds efs (required for standalone binary).
+	server.Efs = efs
+
+	// Loads dotenv (optional).
+	if err := environments.LoadDotenv(".env"); err != nil {
 		traces.Trace(server.Http.ErrorLog, err)
 	} else {
 		server.Address = os.Getenv("server.address")
@@ -28,14 +32,17 @@ func main() {
 		server.IndexHtml = os.Getenv("server.index_html")
 	}
 
-	server.Efs = efs
-	server.Routes = append(server.Routes, routes.Route{Pattern: "GET /", Handler: handlers.Default})
-	server.Routes = append(server.Routes, routes.Route{Pattern: "GET /welcome", Handler: handlers.Welcome})
-	server.Routes = append(server.Routes, routes.Route{Pattern: "GET /todos", Handler: handlers.Todos})
-	server.Routes = append(server.Routes, routes.Route{Pattern: "GET /check", Handler: handlers.Check})
-	server.Routes = append(server.Routes, routes.Route{Pattern: "GET /uncheck", Handler: handlers.Uncheck})
-	server.Routes = append(server.Routes, routes.Route{Pattern: "GET /add", Handler: handlers.Add})
-	server.Routes = append(server.Routes, routes.Route{Pattern: "GET /remove", Handler: handlers.Remove})
+	// Adds routes.
+	server.Routes = []routes.Route{
+		{Pattern: "GET /", Handler: handlers.Default},
+		{Pattern: "GET /welcome", Handler: handlers.Welcome},
+		{Pattern: "GET /todos", Handler: handlers.Todos},
+		{Pattern: "GET /check", Handler: handlers.Check},
+		{Pattern: "GET /uncheck", Handler: handlers.Uncheck},
+		{Pattern: "GET /add", Handler: handlers.Add},
+		{Pattern: "GET /remove", Handler: handlers.Remove},
+	}
 
+	// Start.
 	server.Start()
 }

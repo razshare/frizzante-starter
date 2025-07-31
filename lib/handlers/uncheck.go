@@ -1,15 +1,16 @@
 package handlers
 
 import (
-	"github.com/razshare/frizzante/connections"
+	"github.com/razshare/frizzante/servers"
 	"github.com/razshare/frizzante/sessions"
 	"github.com/razshare/frizzante/views"
 	"main/lib"
 	"strconv"
 )
 
-func Uncheck(con *connections.Connection) {
-	session := sessions.New(con, lib.InitialState()).Start()
+func Uncheck(con *servers.Connection) {
+	session := sessions.New(con, lib.InitialState())
+	session.Start()
 	defer session.Save()
 
 	indexString := con.ReceiveQuery("index")

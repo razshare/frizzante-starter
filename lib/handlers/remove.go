@@ -1,15 +1,16 @@
 package handlers
 
 import (
-	"github.com/razshare/frizzante/connections"
+	"github.com/razshare/frizzante/servers"
 	"github.com/razshare/frizzante/sessions"
 	"github.com/razshare/frizzante/views"
 	"main/lib"
 	"strconv"
 )
 
-func Remove(con *connections.Connection) {
-	session := sessions.New(con, lib.InitialState()).Start()
+func Remove(con *servers.Connection) {
+	session := sessions.New(con, lib.InitialState())
+	session.Start()
 	defer session.Save()
 
 	count := int64(len(session.State.Todos))

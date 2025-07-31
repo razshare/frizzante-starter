@@ -1,14 +1,15 @@
 package handlers
 
 import (
-	"github.com/razshare/frizzante/connections"
+	"github.com/razshare/frizzante/servers"
 	"github.com/razshare/frizzante/sessions"
 	"github.com/razshare/frizzante/views"
 	"main/lib"
 )
 
-func Add(con *connections.Connection) {
-	session := sessions.New(con, lib.InitialState()).Start()
+func Add(con *servers.Connection) {
+	session := sessions.New(con, lib.InitialState())
+	session.Start()
 	defer session.Save()
 
 	description := con.ReceiveQuery("description")

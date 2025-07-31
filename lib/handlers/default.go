@@ -1,7 +1,7 @@
 package handlers
 
-import "github.com/razshare/frizzante/connections"
+import "github.com/razshare/frizzante/servers"
 
-func Default(con *connections.Connection) {
+func Default(con *servers.Connection) {
 	con.SendFileOrElse(func() { Welcome(con) })
 }

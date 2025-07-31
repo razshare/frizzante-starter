@@ -2,6 +2,8 @@ module main
 
 go 1.24
 
+replace github.com/razshare/frizzante => /home/raz/Github/razshare/frizzante
+
 require (
 	github.com/joho/godotenv v1.5.1
 	github.com/razshare/frizzante v1.14.43

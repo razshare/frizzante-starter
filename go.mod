@@ -4,7 +4,7 @@ go 1.24
 
 require (
 	github.com/joho/godotenv v1.5.1
-	github.com/razshare/frizzante v1.14.41
+	github.com/razshare/frizzante v1.14.43
 )
 
 require (

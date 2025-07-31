@@ -7,11 +7,11 @@ import (
 	"main/lib/state"
 )
 
-func Todos(connection *connections.Connection) {
-	session := sessions.Start(connection, state.New())
+func Todos(con *connections.Connection) {
+	session := sessions.Start(con, state.Default())
 	defer session.Save()
 
-	connection.SendView(views.View{Name: "Todos", Data: map[string]any{
+	con.SendView(views.View{Name: "Todos", Data: map[string]any{
 		"todos": session.State.Todos,
 	}})
 }

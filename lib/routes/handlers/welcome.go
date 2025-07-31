@@ -5,6 +5,6 @@ import (
 	"github.com/razshare/frizzante/views"
 )
 
-func Welcome(connection *connections.Connection) {
-	connection.SendView(views.View{Name: "Welcome"})
+func Welcome(con *connections.Connection) {
+	con.SendView(views.View{Name: "Welcome"})
 }

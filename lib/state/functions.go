@@ -1,6 +1,6 @@
 package state
 
-func New() State {
+func Default() State {
 	return State{
 		Todos: []Todo{
 			{Checked: false, Description: "Pet the cat."},

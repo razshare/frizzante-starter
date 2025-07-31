@@ -8,28 +8,28 @@ import (
 	"strconv"
 )
 
-func Remove(connection *connections.Connection) {
-	session := sessions.Start(connection, state.New())
+func Remove(con *connections.Connection) {
+	session := sessions.Start(con, state.Default())
 	defer session.Save()
 
 	count := int64(len(session.State.Todos))
 
 	if 0 == count {
 		// No index found, ignore the request.
-		connection.SendNavigate("/todos")
+		con.SendNavigate("/todos")
 		return
 	}
 
-	indexString := connection.ReceiveQuery("index")
+	indexString := con.ReceiveQuery("index")
 	if "" == indexString {
 		// No index found, ignore the request.
-		connection.SendNavigate("/todos")
+		con.SendNavigate("/todos")
 		return
 	}
 
 	index, indexError := strconv.ParseInt(indexString, 10, 64)
 	if nil != indexError {
-		connection.SendView(views.View{Name: "Todos", Data: map[string]any{
+		con.SendView(views.View{Name: "Todos", Data: map[string]any{
 			"error": indexError.Error(),
 		}})
 		return
@@ -37,7 +37,7 @@ func Remove(connection *connections.Connection) {
 
 	if index >= count {
 		// Index is out of bounds, ignore the request.
-		connection.SendNavigate("/todos")
+		con.SendNavigate("/todos")
 		return
 	}
 
@@ -46,5 +46,5 @@ func Remove(connection *connections.Connection) {
 		session.State.Todos[index+1:]...,
 	)
 
-	connection.SendNavigate("/todos")
+	con.SendNavigate("/todos")
 }

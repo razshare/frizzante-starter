@@ -15,10 +15,8 @@ var efs embed.FS
 var server = servers.New()
 
 func main() {
-	// Adds efs (required for standalone binary).
 	server.Efs = efs
 
-	// Loads dotenv (optional).
 	if err := environments.LoadDotenv(".env"); err != nil {
 		traces.Trace(server.ErrorLog, err)
 	} else {
@@ -32,7 +30,6 @@ func main() {
 		server.IndexHtml = os.Getenv("server.index_html")
 	}
 
-	// Adds routes.
 	server.Routes = []routes.Route{
 		{Pattern: "GET /", Handler: handlers.Default},
 		{Pattern: "GET /welcome", Handler: handlers.Welcome},
@@ -43,6 +40,5 @@ func main() {
 		{Pattern: "GET /remove", Handler: handlers.Remove},
 	}
 
-	// Start.
 	server.Start()
 }

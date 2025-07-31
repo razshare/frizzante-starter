@@ -1,18 +1,18 @@
 package handlers
 
 import (
-	"github.com/razshare/frizzante/servers"
+	"github.com/razshare/frizzante/actions"
+	"github.com/razshare/frizzante/connections"
 	"github.com/razshare/frizzante/sessions"
 	"github.com/razshare/frizzante/views"
 	"main/lib"
 )
 
-func Todos(con *servers.Connection) {
-	session := sessions.New(con, lib.InitialState())
-	session.Start()
-	defer session.Save()
+func Todos(c *connections.Connection) {
+	s := sessions.Start(sessions.New(c, lib.InitialState()))
+	defer sessions.Save(s)
 
-	con.SendView(views.View{Name: "Todos", Data: map[string]any{
-		"todos": session.State.Todos,
+	actions.SendView(c, views.View{Name: "Todos", Data: map[string]any{
+		"todos": s.State.Todos,
 	}})
 }

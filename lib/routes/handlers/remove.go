@@ -9,7 +9,7 @@ import (
 )
 
 func Remove(connection *connections.Connection) {
-	session := sessions.New(connection, state.New()).Start()
+	session := sessions.Start(connection, state.New())
 	defer session.Save()
 
 	count := int64(len(session.State.Todos))

@@ -8,7 +8,7 @@ import (
 )
 
 func Todos(connection *connections.Connection) {
-	session := sessions.New(connection, state.New()).Start()
+	session := sessions.Start(connection, state.New())
 	defer session.Save()
 
 	connection.SendView(views.View{Name: "Todos", Data: map[string]any{

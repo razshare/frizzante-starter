@@ -20,7 +20,7 @@ func main() {
 
 	// Loads dotenv (optional).
 	if err := environments.LoadDotenv(".env"); err != nil {
-		traces.Trace(server.Http.ErrorLog, err)
+		traces.Trace(server.ErrorLog, err)
 	} else {
 		server.Address = os.Getenv("server.address")
 		server.SecureAddress = os.Getenv("server.secure_address")

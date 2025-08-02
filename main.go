@@ -13,6 +13,7 @@ var server = servers.New()
 
 func main() {
 	server.Efs = efs
+	server.Addr = "127.0.0.1:7777"
 
 	server.Routes = []routes.Route{
 		{Pattern: "GET /", Handler: handlers.Default},

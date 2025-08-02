@@ -29,6 +29,8 @@ github.com/razshare/frizzante v1.16.12 h1:0nYilpm6jfbnp95iJODOMc0MVmQMAg185hFWH2
 github.com/razshare/frizzante v1.16.12/go.mod h1:OuW1PY/z0CmBEsbqHM4jYcRVL0pLnqZQu7HRmPsuTJ8=
 github.com/razshare/frizzante v1.16.13 h1:3lWE89smoDx2XQ+7icLWm5a2c+u4q1eZtU41bKIMoLU=
 github.com/razshare/frizzante v1.16.13/go.mod h1:OuW1PY/z0CmBEsbqHM4jYcRVL0pLnqZQu7HRmPsuTJ8=
+github.com/razshare/frizzante v1.16.15 h1:k+Y+vZ35NwZkz4fNHUgOO0fVddqvhTLVvamfinQktlw=
+github.com/razshare/frizzante v1.16.15/go.mod h1:OuW1PY/z0CmBEsbqHM4jYcRVL0pLnqZQu7HRmPsuTJ8=
 golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.34.0 h1:H5Y5sJ2L2JRdyv7ROF1he/lPdvFsd0mJHFw2ThKHxLA=
 golang.org/x/sys v0.34.0/go.mod h1:BJP2sWEmIv4KK5OTEluFJCKSidICx8ciO85XgH3Ak8k=

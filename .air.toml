@@ -4,8 +4,8 @@ tmp_dir = ".gen/tmp"
 
 [build]
   args_bin = []
-  bin = "./.gen/tmp/main"
-  cmd = "go build -o ./.gen/tmp/main ."
+  bin = "./.gen/tmp/main.exe"
+  cmd = "go build -o ./.gen/tmp/main.exe ."
   delay = 50
   exclude_dir = ["app",".gen",".git",".github"]
   exclude_file = []

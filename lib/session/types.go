@@ -1,6 +1,6 @@
-package state
+package session
 
-type State struct {
+type Session struct {
 	Todos []Todo
 }
 

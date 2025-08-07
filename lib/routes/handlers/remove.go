@@ -1,50 +1,49 @@
 package handlers
 
 import (
-	"github.com/razshare/frizzante/connections"
-	"github.com/razshare/frizzante/sessions"
-	"github.com/razshare/frizzante/views"
-	"main/lib/state"
+	"github.com/razshare/frizzante/act"
+	"github.com/razshare/frizzante/server"
+	"github.com/razshare/frizzante/view"
+	"main/lib/session"
 	"strconv"
 )
 
-func Remove(connection *connections.Connection) {
-	session := sessions.New(connection, state.Default()).Start()
-	defer session.Save()
+func Remove(c *server.Connection) {
+	s := session.Start(act.ReceiveSessionId(c))
 
-	count := int64(len(session.State.Todos))
+	l := int64(len(s.Todos))
 
-	if 0 == count {
+	if 0 == l {
 		// No index found, ignore the request.
-		connection.SendNavigate("/todos")
+		act.SendNavigate(c, "/todos")
 		return
 	}
 
-	indexString := connection.ReceiveQuery("index")
-	if "" == indexString {
+	is := act.ReceiveQuery(c, "index")
+	if "" == is {
 		// No index found, ignore the request.
-		connection.SendNavigate("/todos")
+		act.SendNavigate(c, "/todos")
 		return
 	}
 
-	index, indexError := strconv.ParseInt(indexString, 10, 64)
-	if nil != indexError {
-		connection.SendView(views.View{Name: "Todos", Data: map[string]any{
-			"error": indexError.Error(),
+	i, e := strconv.ParseInt(is, 10, 64)
+	if nil != e {
+		act.SendView(c, view.View{Name: "Todos", Data: map[string]any{
+			"error": e.Error(),
 		}})
 		return
 	}
 
-	if index >= count {
+	if i >= l {
 		// Index is out of bounds, ignore the request.
-		connection.SendNavigate("/todos")
+		act.SendNavigate(c, "/todos")
 		return
 	}
 
-	session.State.Todos = append(
-		session.State.Todos[:index],
-		session.State.Todos[index+1:]...,
+	s.Todos = append(
+		s.Todos[:i],
+		s.Todos[i+1:]...,
 	)
 
-	connection.SendNavigate("/todos")
+	act.SendNavigate(c, "/todos")
 }

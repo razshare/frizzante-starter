@@ -1,4 +1,4 @@
-package session
+package sessions
 
 var Sessions = map[string]*Session{}
 

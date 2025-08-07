@@ -1,15 +1,15 @@
-package handlers
+package handler
 
 import (
 	"github.com/razshare/frizzante/act"
-	"github.com/razshare/frizzante/server"
-	"github.com/razshare/frizzante/view"
-	"main/lib/session"
+	"github.com/razshare/frizzante/connections"
+	"github.com/razshare/frizzante/views"
+	"main/lib/sessions"
 	"strconv"
 )
 
-func Remove(c *server.Connection) {
-	s := session.Start(act.ReceiveSessionId(c))
+func Remove(c *connections.Connection) {
+	s := sessions.Start(act.ReceiveSessionId(c))
 
 	l := int64(len(s.Todos))
 
@@ -28,7 +28,7 @@ func Remove(c *server.Connection) {
 
 	i, e := strconv.ParseInt(is, 10, 64)
 	if nil != e {
-		act.SendView(c, view.View{Name: "Todos", Data: map[string]any{
+		act.SendView(c, views.View{Name: "Todos", Data: map[string]any{
 			"error": e.Error(),
 		}})
 		return

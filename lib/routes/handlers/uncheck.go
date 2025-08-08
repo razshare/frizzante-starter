@@ -1,4 +1,4 @@
-package handler
+package handlers
 
 import (
 	"github.com/razshare/frizzante/client"
@@ -9,19 +9,11 @@ import (
 	"strconv"
 )
 
-func Remove(c *client.Client) {
+func Uncheck(c *client.Client) {
 	s := session.Start(receive.SessionId(c))
 
-	l := int64(len(s.Todos))
-
-	if 0 == l {
-		// No index found, ignore the request.
-		send.Navigate(c, "/todos")
-		return
-	}
-
 	is := receive.Query(c, "index")
-	if "" == is {
+	if is == "" {
 		// No index found, ignore the request.
 		send.Navigate(c, "/todos")
 		return
@@ -35,16 +27,15 @@ func Remove(c *client.Client) {
 		return
 	}
 
+	l := int64(len(s.Todos))
+
 	if i >= l {
 		// Index is out of bounds, ignore the request.
 		send.Navigate(c, "/todos")
 		return
 	}
 
-	s.Todos = append(
-		s.Todos[:i],
-		s.Todos[i+1:]...,
-	)
+	s.Todos[i].Checked = false
 
 	send.Navigate(c, "/todos")
 }

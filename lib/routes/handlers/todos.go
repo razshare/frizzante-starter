@@ -1,4 +1,4 @@
-package handler
+package handlers
 
 import (
 	"github.com/razshare/frizzante/client"
@@ -10,8 +10,10 @@ import (
 
 func Todos(c *client.Client) {
 	s := session.Start(receive.SessionId(c))
-
-	send.View(c, view.View{Name: "Todos", Data: map[string]any{
-		"todos": s.Todos,
-	}})
+	send.View(c, view.View{
+		Name: "Todos",
+		Data: map[string]any{
+			"todos": s.Todos,
+		},
+	})
 }

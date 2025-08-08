@@ -1,4 +1,4 @@
-package handler
+package handlers
 
 import (
 	"github.com/razshare/frizzante/client"
@@ -11,12 +11,14 @@ import (
 func Add(c *client.Client) {
 	s := session.Start(receive.SessionId(c))
 	d := receive.Query(c, "description")
-
 	if d == "" {
-		send.View(c, view.View{Name: "Todos", Data: map[string]any{
-			"todos": s.Todos,
-			"error": "todo description cannot be empty",
-		}})
+		send.View(c, view.View{
+			Name: "Todos",
+			Data: map[string]any{
+				"todos": s.Todos,
+				"error": "todo description cannot be empty",
+			},
+		})
 		return
 	}
 

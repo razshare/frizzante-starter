@@ -1,4 +1,4 @@
-package handler
+package handlers
 
 import (
 	"github.com/razshare/frizzante/client"

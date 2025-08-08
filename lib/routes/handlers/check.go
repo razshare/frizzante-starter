@@ -1,4 +1,4 @@
-package handler
+package handlers
 
 import (
 	"github.com/razshare/frizzante/client"
@@ -13,7 +13,7 @@ func Check(c *client.Client) {
 	s := session.Start(receive.SessionId(c))
 
 	is := receive.Query(c, "index")
-	if "" == is {
+	if is == "" {
 		// No index found, ignore the request.
 		send.Navigate(c, "/todos")
 		return
@@ -21,9 +21,12 @@ func Check(c *client.Client) {
 
 	i, e := strconv.ParseInt(is, 10, 64)
 	if nil != e {
-		send.View(c, view.View{Name: "Todos", Data: map[string]any{
-			"error": e.Error(),
-		}})
+		send.View(c, view.View{
+			Name: "Todos",
+			Data: map[string]any{
+				"error": e.Error(),
+			},
+		})
 		return
 	}
 

@@ -1,4 +1,4 @@
-package sessions
+package session
 
 type Session struct {
 	Todos []Todo

@@ -2,19 +2,18 @@ package main
 
 import (
 	"embed"
-	"github.com/razshare/frizzante/routes"
-	"github.com/razshare/frizzante/servers"
+	"github.com/razshare/frizzante/route"
+	"github.com/razshare/frizzante/server"
 	"main/lib/route/handler"
 )
 
 //go:embed app/dist
-var fs embed.FS
-var s = servers.New()
+var efs embed.FS
+var conf = server.Default()
 
 func main() {
-	s.Efs = fs
-
-	s.Routes = []routes.Route{
+	conf.Container.Efs = efs
+	conf.Routes = []route.Route{
 		{Pattern: "GET /", Handler: handler.Default},
 		{Pattern: "GET /welcome", Handler: handler.Welcome},
 		{Pattern: "GET /todos", Handler: handler.Todos},
@@ -23,6 +22,5 @@ func main() {
 		{Pattern: "GET /add", Handler: handler.Add},
 		{Pattern: "GET /remove", Handler: handler.Remove},
 	}
-
-	servers.Start(s)
+	server.Start(conf)
 }

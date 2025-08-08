@@ -1,28 +1,29 @@
 package handler
 
 import (
-	"github.com/razshare/frizzante/act"
-	"github.com/razshare/frizzante/connections"
-	"github.com/razshare/frizzante/views"
-	"main/lib/sessions"
+	"github.com/razshare/frizzante/conn"
+	"github.com/razshare/frizzante/receive"
+	"github.com/razshare/frizzante/send"
+	"github.com/razshare/frizzante/view"
+	"main/lib/session"
 )
 
-func Add(c *connections.Connection) {
-	s := sessions.Start(act.ReceiveSessionId(c))
-	d := act.ReceiveQuery(c, "description")
+func Add(c *conn.Conn) {
+	s := session.Start(receive.SessionId(c))
+	d := receive.Query(c, "description")
 
-	if "" == d {
-		act.SendView(c, views.View{Name: "Todos", Data: map[string]any{
+	if d == "" {
+		send.View(c, view.View{Name: "Todos", Data: map[string]any{
 			"todos": s.Todos,
 			"error": "todo description cannot be empty",
 		}})
 		return
 	}
 
-	s.Todos = append(s.Todos, sessions.Todo{
+	s.Todos = append(s.Todos, session.Todo{
 		Checked:     false,
 		Description: d,
 	})
 
-	act.SendNavigate(c, "/todos")
+	send.Navigate(c, "/todos")
 }

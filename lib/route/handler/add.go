@@ -1,14 +1,14 @@
 package handler
 
 import (
-	"github.com/razshare/frizzante/conn"
+	"github.com/razshare/frizzante/client"
 	"github.com/razshare/frizzante/receive"
 	"github.com/razshare/frizzante/send"
 	"github.com/razshare/frizzante/view"
 	"main/lib/session"
 )
 
-func Add(c *conn.Conn) {
+func Add(c *client.Client) {
 	s := session.Start(receive.SessionId(c))
 	d := receive.Query(c, "description")
 

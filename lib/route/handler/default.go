@@ -1,10 +1,10 @@
 package handler
 
 import (
-	"github.com/razshare/frizzante/conn"
+	"github.com/razshare/frizzante/client"
 	"github.com/razshare/frizzante/send"
 )
 
-func Default(c *conn.Conn) {
+func Default(c *client.Client) {
 	send.FileOrElse(c, func() { Welcome(c) })
 }

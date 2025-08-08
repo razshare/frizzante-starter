@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/razshare/frizzante/conn"
+	"github.com/razshare/frizzante/client"
 	"github.com/razshare/frizzante/receive"
 	"github.com/razshare/frizzante/send"
 	"github.com/razshare/frizzante/view"
@@ -9,7 +9,7 @@ import (
 	"strconv"
 )
 
-func Remove(c *conn.Conn) {
+func Remove(c *client.Client) {
 	s := session.Start(receive.SessionId(c))
 
 	l := int64(len(s.Todos))

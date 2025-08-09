@@ -5,6 +5,6 @@ import (
 	"github.com/razshare/frizzante/send"
 )
 
-func Default(c *client.Client) {
+func Fallback(c *client.Client) {
 	send.FileOrElse(c, func() { Welcome(c) })
 }

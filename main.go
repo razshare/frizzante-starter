@@ -15,7 +15,7 @@ func main() {
 	defer server.Start(conf)
 	conf.Container.Efs = efs
 	conf.Routes = []route.Route{
-		{Pattern: "GET /", Handler: handlers.Default},
+		{Pattern: "GET /", Handler: handlers.Fallback},
 		{Pattern: "GET /welcome", Handler: handlers.Welcome},
 		{Pattern: "GET /todos", Handler: handlers.Todos},
 		{Pattern: "GET /check", Handler: handlers.Check},

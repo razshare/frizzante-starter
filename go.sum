@@ -123,6 +123,8 @@ github.com/razshare/frizzante v1.16.24 h1:rrVIpfZC9B//pH+BjDkVVGxMjt/nT/9i150DBq
 github.com/razshare/frizzante v1.16.24/go.mod h1:OuW1PY/z0CmBEsbqHM4jYcRVL0pLnqZQu7HRmPsuTJ8=
 github.com/razshare/frizzante v1.16.25 h1:MGvVXp/riGRRdi0N2tDLEh2GT4fyvd0Oa8GQQFmVh+A=
 github.com/razshare/frizzante v1.16.25/go.mod h1:OuW1PY/z0CmBEsbqHM4jYcRVL0pLnqZQu7HRmPsuTJ8=
+github.com/razshare/frizzante v1.17.2 h1:YwQj1bAcr09vHLcd6FtIwyIHHVEclK06XDWcIxA67e4=
+github.com/razshare/frizzante v1.17.2/go.mod h1:cJHFscHv+/UF6z79iL+v2OdROG/AZ5qnLlq3MBlDFVk=
 github.com/rivo/uniseg v0.2.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rivo/uniseg v0.4.7 h1:WUdvkW8uEhrYfLC4ZzdpI2ztxP1I582+49Oc5Mq64VQ=
 github.com/rivo/uniseg v0.4.7/go.mod h1:FN3SvrM+Zdj16jyLfmOkMNblXMcoc8DfTHruCPUcx88=

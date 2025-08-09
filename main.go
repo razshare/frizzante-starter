@@ -13,7 +13,6 @@ var conf = server.Default()
 
 func main() {
 	defer server.Start(conf)
-
 	conf.Container.Efs = efs
 	conf.Routes = []route.Route{
 		{Pattern: "GET /", Handler: handlers.Default},

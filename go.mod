@@ -2,7 +2,7 @@ module main
 
 go 1.24
 
-require github.com/razshare/frizzante v1.17.2
+require github.com/razshare/frizzante v1.17.3
 
 require (
 	github.com/dlclark/regexp2 v1.11.5 // indirect

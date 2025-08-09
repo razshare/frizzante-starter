@@ -1,4 +1,4 @@
-package handlers
+package todos
 
 import (
 	"github.com/razshare/frizzante/client"
@@ -8,7 +8,7 @@ import (
 	"main/lib/session"
 )
 
-func Todos(c *client.Client) {
+func View(c *client.Client) {
 	s := session.Start(receive.SessionId(c))
 	send.View(c, view.View{
 		Name: "Todos",

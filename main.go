@@ -4,7 +4,9 @@ import (
 	"embed"
 	"github.com/razshare/frizzante/route"
 	"github.com/razshare/frizzante/server"
-	"main/lib/routes/handlers"
+	"main/lib/routes/handlers/fallback"
+	"main/lib/routes/handlers/todos"
+	"main/lib/routes/handlers/welcome"
 )
 
 //go:embed app/dist
@@ -15,12 +17,12 @@ func main() {
 	defer server.Start(conf)
 	conf.Container.Efs = efs
 	conf.Routes = []route.Route{
-		{Pattern: "GET /", Handler: handlers.Fallback},
-		{Pattern: "GET /welcome", Handler: handlers.Welcome},
-		{Pattern: "GET /todos", Handler: handlers.Todos},
-		{Pattern: "GET /check", Handler: handlers.Check},
-		{Pattern: "GET /uncheck", Handler: handlers.Uncheck},
-		{Pattern: "GET /add", Handler: handlers.Add},
-		{Pattern: "GET /remove", Handler: handlers.Remove},
+		{Pattern: "GET /", Handler: fallback.View},
+		{Pattern: "GET /welcome", Handler: welcome.View},
+		{Pattern: "GET /todos", Handler: todos.View},
+		{Pattern: "GET /check", Handler: todos.Check},
+		{Pattern: "GET /uncheck", Handler: todos.Uncheck},
+		{Pattern: "GET /add", Handler: todos.Add},
+		{Pattern: "GET /remove", Handler: todos.Remove},
 	}
 }

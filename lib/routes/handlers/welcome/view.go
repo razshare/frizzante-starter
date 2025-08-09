@@ -1,4 +1,4 @@
-package handlers
+package welcome
 
 import (
 	"github.com/razshare/frizzante/client"
@@ -6,6 +6,6 @@ import (
 	"github.com/razshare/frizzante/view"
 )
 
-func Welcome(c *client.Client) {
+func View(c *client.Client) {
 	send.View(c, view.View{Name: "Welcome"})
 }

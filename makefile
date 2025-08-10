@@ -1,3 +1,6 @@
+frizzante:
+	frizzante
+
 configure:
 	frizzante --configure
 

@@ -27,5 +27,10 @@ func Add(c *client.Client) {
 		Description: d,
 	})
 
-	send.Navigate(c, "/todos")
+	send.View(c, view.View{
+		Name: "Todos",
+		Data: map[string]any{
+			"todos": s.Todos,
+		},
+	})
 }

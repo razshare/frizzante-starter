@@ -3,11 +3,10 @@ import { svelte } from "@sveltejs/vite-plugin-svelte"
 
 const IS_DEV = "1" === (process.env.DEV ?? "1")
 
-let sourcemap:"inline"|boolean = false
-if(IS_DEV){
+let sourcemap: "inline" | boolean = false
+if (IS_DEV) {
     sourcemap = "inline"
 }
-
 
 // https://vite.dev/config/
 export default defineConfig({

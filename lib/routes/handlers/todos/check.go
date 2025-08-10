@@ -15,7 +15,12 @@ func Check(c *client.Client) {
 	is := receive.Query(c, "index")
 	if is == "" {
 		// No index found, ignore the request.
-		send.Navigate(c, "/todos")
+		send.View(c, view.View{
+			Name: "Todos",
+			Data: map[string]any{
+				"todos": s.Todos,
+			},
+		})
 		return
 	}
 
@@ -24,6 +29,7 @@ func Check(c *client.Client) {
 		send.View(c, view.View{
 			Name: "Todos",
 			Data: map[string]any{
+				"todos": s.Todos,
 				"error": e.Error(),
 			},
 		})
@@ -33,11 +39,21 @@ func Check(c *client.Client) {
 	l := int64(len(s.Todos))
 	if i >= l {
 		// Index is out of bounds, ignore the request.
-		send.Navigate(c, "/todos")
+		send.View(c, view.View{
+			Name: "Todos",
+			Data: map[string]any{
+				"todos": s.Todos,
+			},
+		})
 		return
 	}
 
 	s.Todos[i].Checked = true
 
-	send.Navigate(c, "/todos")
+	send.View(c, view.View{
+		Name: "Todos",
+		Data: map[string]any{
+			"todos": s.Todos,
+		},
+	})
 }

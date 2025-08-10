@@ -1,6 +1,6 @@
 import type { HistoryEntry, View } from "$frizzante/core/types.ts"
 
-let lastUrl = ""
+let lastUrl: false | string = false
 
 export async function swap(
     target: HTMLAnchorElement | HTMLFormElement,
@@ -70,11 +70,15 @@ export async function swap(
     view.name = json.name
     view.renderMode = json.renderMode
 
+    if (lastUrl === false) {
+        lastUrl = location.toString()
+    }
+
     const sameUrl = lastUrl === res.url
     lastUrl = res.url
 
     return function push() {
-        if(sameUrl){
+        if (sameUrl) {
             return
         }
 
@@ -82,7 +86,7 @@ export async function swap(
             nodeName: target.nodeName,
             method,
             url: res.url,
-            body
+            body,
         }
 
         window.history.pushState(JSON.stringify(entry), "", res.url)

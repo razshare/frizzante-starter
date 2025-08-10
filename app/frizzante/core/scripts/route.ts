@@ -8,16 +8,19 @@ export function route(view: View<never>): void {
     if (!IS_BROWSER || started) {
         return
     }
-    
+
     const listener = async function pop(e: PopStateEvent) {
         e.preventDefault()
 
-        const entry = (e.state ?? false) as false|HistoryEntry
+        const entry = (e.state ?? false) as false | HistoryEntry
 
         if (entry) {
             let config = find(entry.id)
             if (!config) {
-                console.info("swap configuration not found, reconstructing it", { id: entry.id })
+                console.info(
+                    "swap configuration not found, reconstructing it",
+                    { id: entry.id },
+                )
                 config = {
                     method: entry.method,
                     path: entry.path,

@@ -12,7 +12,7 @@ export type SwapConfig = {
 }
 
 export type HistoryEntry = {
-    id: number,
+    id: number
     method: string
     path: string
 }

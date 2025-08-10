@@ -62,7 +62,7 @@ export async function swap(config: SwapConfig): Promise<() => void> {
             return
         }
 
-        const friendly:HistoryEntry = {
+        const friendly: HistoryEntry = {
             id,
             method: config.method,
             path: config.path,

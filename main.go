@@ -3,7 +3,7 @@ package main
 import (
 	"embed"
 	"github.com/razshare/frizzante/route"
-	"github.com/razshare/frizzante/server"
+	"github.com/razshare/frizzante/svelte/container/server"
 	"main/lib/routes/handlers/fallback"
 	"main/lib/routes/handlers/todos"
 	"main/lib/routes/handlers/welcome"
@@ -11,12 +11,11 @@ import (
 
 //go:embed app/dist
 var efs embed.FS
-var conf = server.Default()
+var srv = server.Default(efs)
 
 func main() {
-	defer server.Start(conf)
-	conf.Container.Efs = efs
-	conf.Routes = []route.Route{
+	defer server.Start(srv)
+	srv.Routes = []route.Route{
 		{Pattern: "GET /", Handler: fallback.View},
 		{Pattern: "GET /welcome", Handler: welcome.View},
 		{Pattern: "GET /todos", Handler: todos.View},

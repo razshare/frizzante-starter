@@ -6,6 +6,8 @@ github.com/dop251/goja v0.0.0-20250630131328-58d95d85e994 h1:aQYWswi+hRL2zJqGacd
 github.com/dop251/goja v0.0.0-20250630131328-58d95d85e994/go.mod h1:MxLav0peU43GgvwVgNbLAj1s/bSGboKkhuULvq/7hx4=
 github.com/evanw/esbuild v0.25.8 h1:nSMdIN7nu2UH6APeDSpaQnz90JOPJxcVZe9DfI0ezjc=
 github.com/evanw/esbuild v0.25.8/go.mod h1:D2vIQZqV/vIf/VRHtViaUtViZmG7o+kKmlBfVQuRi48=
+github.com/evanw/esbuild v0.25.9 h1:aU7GVC4lxJGC1AyaPwySWjSIaNLAdVEEuq3chD0Khxs=
+github.com/evanw/esbuild v0.25.9/go.mod h1:D2vIQZqV/vIf/VRHtViaUtViZmG7o+kKmlBfVQuRi48=
 github.com/go-sourcemap/sourcemap v2.1.4+incompatible h1:a+iTbH5auLKxaNwQFg0B+TCYl6lbukKPc7b5x0n1s6Q=
 github.com/go-sourcemap/sourcemap v2.1.4+incompatible/go.mod h1:F8jJfvm2KbVjc5NqelyYJmf/v5J0dwNLS2mL4sNA1Jg=
 github.com/google/pprof v0.0.0-20250630185457-6e76a2b096b5 h1:xhMrHhTJ6zxu3gA4enFM9MLn9AY7613teCdFnlUVbSQ=
@@ -17,6 +19,8 @@ github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d/go.mod h1:YUTz3bUH
 github.com/razshare/frizzante v1.17.29/go.mod h1:4YAKNb99HQsCNZlpp/03Sa37vs7nlFlS8Jn4Bc3lmzU=
 github.com/razshare/frizzante v1.17.38 h1:E9yqF+4lKYHLiVX6HRuLov7cE1tFIRTPIdAVOt+28WA=
 github.com/razshare/frizzante v1.17.38/go.mod h1:6MiowOvN2k1ucCKb87EfWaOIdVedLxb/GIQb2zCUHw8=
+github.com/razshare/frizzante v1.18.0 h1:7e5HQt3rxLHHjE2avHDvPsgPBXAa6a34VxzZvFAU3sY=
+github.com/razshare/frizzante v1.18.0/go.mod h1:6MiowOvN2k1ucCKb87EfWaOIdVedLxb/GIQb2zCUHw8=
 golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.35.0 h1:vz1N37gP5bs89s7He8XuIYXpyY0+QlsKmzipCbUtyxI=
 golang.org/x/sys v0.35.0/go.mod h1:BJP2sWEmIv4KK5OTEluFJCKSidICx8ciO85XgH3Ak8k=

@@ -43,3 +43,4 @@ export function route(view: View<never>): void {
     window.addEventListener("popstate", listener)
     started = true
 }
+

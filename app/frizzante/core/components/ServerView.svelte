@@ -16,3 +16,4 @@
         <Component {...view.data} />
     {/if}
 {/each}
+

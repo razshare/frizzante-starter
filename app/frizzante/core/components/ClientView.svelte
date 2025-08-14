@@ -16,3 +16,4 @@
         <ClientViewLoader from={components[key]} properties={view.data} />
     {/if}
 {/each}
+

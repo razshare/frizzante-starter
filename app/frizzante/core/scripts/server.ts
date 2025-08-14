@@ -5,3 +5,4 @@ export async function render(props: unknown) {
     // @ts-expect-error
     return _render(ServerView, { props })
 }
+

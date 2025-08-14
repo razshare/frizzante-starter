@@ -1,7 +1,7 @@
 import { defineConfig } from "vite"
 import { svelte } from "@sveltejs/vite-plugin-svelte"
 
-const IS_DEV = "1" === (process.env.DEV ?? "1")
+const IS_DEV = (process.env.DEV ?? "0") === "1"
 
 let sourcemap: "inline" | boolean = false
 if (IS_DEV) {

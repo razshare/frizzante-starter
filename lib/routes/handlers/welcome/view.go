@@ -7,5 +7,7 @@ import (
 )
 
 func View(c *client.Client) {
-	send.View(c, view.View{Name: "Welcome"})
+	send.View(c, view.View{Name: "Welcome", Props: map[string]any{
+		"error": "",
+	}})
 }

@@ -14,7 +14,7 @@ func Add(c *client.Client) {
 	if d == "" {
 		send.View(c, view.View{
 			Name: "Todos",
-			Data: map[string]any{
+			Props: map[string]any{
 				"todos": s.Todos,
 				"error": "todo description cannot be empty",
 			},

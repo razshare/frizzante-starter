@@ -12,7 +12,7 @@ func View(c *client.Client) {
 	s := session.Start(receive.SessionId(c))
 	send.View(c, view.View{
 		Name: "Todos",
-		Data: map[string]any{
+		Props: map[string]any{
 			"todos": s.Todos,
 		},
 	})

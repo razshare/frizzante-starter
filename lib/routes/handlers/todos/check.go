@@ -23,7 +23,7 @@ func Check(c *client.Client) {
 	if nil != e {
 		send.View(c, view.View{
 			Name: "Todos",
-			Data: map[string]any{
+			Props: map[string]any{
 				"todos": s.Todos,
 				"error": e.Error(),
 			},

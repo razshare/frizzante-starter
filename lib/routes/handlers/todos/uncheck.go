@@ -21,10 +21,13 @@ func Uncheck(c *client.Client) {
 
 	i, e := strconv.ParseInt(is, 10, 64)
 	if nil != e {
-		send.View(c, view.View{Name: "Todos", Data: map[string]any{
-			"todos": s.Todos,
-			"error": e.Error(),
-		}})
+		send.View(c, view.View{
+			Name: "Todos",
+			Props: map[string]any{
+				"todos": s.Todos,
+				"error": e.Error(),
+			},
+		})
 		return
 	}
 

@@ -1,15 +1,9 @@
+> [!NOTE]
+> Moved to https://github.com/razshare/frizzante/tree/main/template/project.
+
 # What is this?
 
 This is a todo list application
-
-> [!NOTE]
-> #### Prerequisites
-> Install `build-essential` and `frizzante`.
->
-> ```sh
-> sudo apt install build-essential
-> go install github.com/razshare/frizzante@latest
-> ```
 
 # Get Started
 
